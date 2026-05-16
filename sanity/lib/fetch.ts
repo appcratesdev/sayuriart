@@ -33,6 +33,8 @@ import type {
 // Revalidate every hour
 const revalidate = 3600
 
+import { draftMode } from 'next/headers'
+
 const isSanityConfigured = Boolean(process.env.NEXT_PUBLIC_SANITY_PROJECT_ID)
 
 async function safeFetch<T>(
@@ -44,7 +46,25 @@ async function safeFetch<T>(
     return fallback
   }
 
+  let isDraftMode = false
   try {
+    const draft = await draftMode()
+    isDraftMode = draft.isEnabled
+  } catch (error) {
+    // Ignore errors when draftMode is called outside of request context
+  }
+
+  try {
+    if (isDraftMode) {
+      const draftClient = client.withConfig({
+        perspective: 'previewDrafts',
+        useCdn: false,
+        stega: true,
+      })
+      return await draftClient.fetch<T>(query, params, {
+        next: { revalidate: 0 },
+      })
+    }
     return await client.fetch<T>(query, params, { next: { revalidate } })
   } catch (error) {
     console.error('Sanity fetch failed:', error)
