@@ -7,7 +7,7 @@ export const client = createClient({
   useCdn: false, // Set to false to bypass CDN for real-time updates when drafting
   perspective: 'published',
   stega: {
-    enabled: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ? true : false,
+    enabled: false,
     studioUrl: '/studio',
   },
 })
