@@ -7,7 +7,7 @@ export default defineConfig({
   name: 'default',
   title: 'Sayuri Portfolio',
 
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'placeholder',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '9u4sqgld',
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
 
   basePath: '/studio',
