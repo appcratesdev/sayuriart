@@ -1,9 +1,9 @@
 import { createClient } from 'next-sanity'
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '9u4sqgld'
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
-const apiVersion = '2025-05-01'
-const studioUrl = process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || 'https://grafikicommerce.sanity.studio'
+export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '9u4sqgld'
+export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
+export const apiVersion = '2025-05-01'
+export const studioUrl = process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || 'https://grafikicommerce.sanity.studio'
 
 export const client = createClient({
   projectId,

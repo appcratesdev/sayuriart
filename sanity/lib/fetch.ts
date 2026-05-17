@@ -1,4 +1,5 @@
-import { client, getDraftClient } from './client'
+import { dataset, projectId } from './client'
+import { sanityFetch } from './live'
 import {
   siteSettingsQuery,
   heroQuery,
@@ -29,13 +30,10 @@ import type {
   About,
 } from './types'
 
-// Revalidate every hour
-const revalidate = 3600
-
 import { draftMode } from 'next/headers'
 import { defaultLocale, type Locale } from '@/lib/i18n'
 
-const isSanityConfigured = Boolean(process.env.NEXT_PUBLIC_SANITY_PROJECT_ID)
+const isSanityConfigured = Boolean(projectId && dataset)
 
 async function safeFetch<T>(
   query: string,
@@ -55,13 +53,15 @@ async function safeFetch<T>(
   }
 
   try {
-    if (isDraftMode) {
-      const draftClient = getDraftClient()
-      return await draftClient.fetch<T>(query, params, {
-        next: { revalidate: 0 },
-      })
-    }
-    return await client.fetch<T>(query, params, { next: { revalidate } })
+    const { data } = await sanityFetch({
+      query,
+      params,
+      perspective: isDraftMode ? undefined : 'published',
+      stega: isDraftMode ? undefined : false,
+      tags: ['sanity'],
+    })
+
+    return data as T
   } catch (error) {
     console.error('Sanity fetch failed:', error)
     return fallback

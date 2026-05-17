@@ -4,6 +4,7 @@ import { VisualEditing } from "next-sanity/visual-editing";
 import { draftMode, headers } from "next/headers";
 import { assertLocale } from "@/lib/i18n";
 import { siteUrl } from "@/lib/seo";
+import { SanityLive } from "../../sanity/lib/live";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -35,6 +36,7 @@ export default async function RootLayout({
       <body className={`${inter.variable} ${playfair.variable} font-sans`}>
         {children}
         {(isEnabled || isPresentationFrame) && <VisualEditing zIndex={1000} />}
+        <SanityLive />
       </body>
     </html>
   );
