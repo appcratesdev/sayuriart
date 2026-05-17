@@ -1,49 +1,35 @@
-import { defineType, defineField } from 'sanity'
+import { defineField, defineType } from "sanity";
 
 export default defineType({
-  name: 'service',
-  title: 'Usługi',
-  type: 'document',
+  name: "service",
+  title: "Uslugi",
+  type: "document",
   fields: [
     defineField({
-      name: 'title',
-      title: 'Tytuł',
-      type: 'string',
+      name: "title",
+      title: "Tytul",
+      type: "localizedString",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({ name: "description", title: "Opis", type: "localizedText" }),
+    defineField({ name: "features", title: "Cechy", type: "localizedStringArray" }),
+    defineField({
+      name: "image",
+      title: "Zdjecie",
+      type: "image",
+      options: { hotspot: true },
+      fields: [{ name: "alt", title: "Alt text", type: "localizedString" }],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'description',
-      title: 'Opis',
-      type: 'text',
-      rows: 3,
-    }),
-    defineField({
-      name: 'features',
-      title: 'Cechy',
-      type: 'array',
-      of: [{ type: 'string' }],
-    }),
-    defineField({
-      name: 'image',
-      title: 'Zdjęcie',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'order',
-      title: 'Kolejność',
-      type: 'number',
+      name: "order",
+      title: "Kolejnosc",
+      type: "number",
       validation: (Rule) => Rule.required().min(0),
     }),
   ],
-  orderings: [
-    {
-      title: 'Kolejność',
-      name: 'orderAsc',
-      by: [{ field: 'order', direction: 'asc' }],
-    },
-  ],
-})
+  orderings: [{ title: "Kolejnosc", name: "orderAsc", by: [{ field: "order", direction: "asc" }] }],
+  preview: {
+    select: { title: "title.pl", subtitle: "title.en", media: "image" },
+  },
+});

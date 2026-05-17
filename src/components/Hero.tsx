@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { getDictionary, localizedHref, type Locale } from "@/lib/i18n";
 
 export interface HeroContent {
   title?: string;
@@ -21,8 +22,9 @@ const fallbackHero: Required<HeroContent> = {
   image: "/images/placeholder.jpg",
 };
 
-export const Hero = ({ content }: { content?: HeroContent }) => {
+export const Hero = ({ content, locale = "pl" }: { content?: HeroContent; locale?: Locale }) => {
   const hero = { ...fallbackHero, ...content };
+  const dict = getDictionary(locale);
 
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-[var(--background)]">
@@ -69,11 +71,11 @@ export const Hero = ({ content }: { content?: HeroContent }) => {
             transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col sm:flex-row flex-wrap gap-4 items-start sm:items-center"
           >
-            <Link href={hero.ctaLink} className="btn btn-primary btn-primary-lg">
+            <Link href={localizedHref(locale, hero.ctaLink)} className="btn btn-primary btn-primary-lg">
               {hero.ctaText}
             </Link>
             <Link href="#portfolio" className="btn btn-ghost group">
-              Zobacz prace
+              {dict.home.heroSecondaryCta}
               <span className="transform group-hover:translate-x-2 transition-transform duration-300">-&gt;</span>
             </Link>
           </motion.div>

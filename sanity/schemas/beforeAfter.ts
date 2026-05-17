@@ -1,52 +1,42 @@
-import { defineType, defineField } from 'sanity'
+import { defineField, defineType } from "sanity";
 
 export default defineType({
-  name: 'beforeAfter',
-  title: 'Przed/Po',
-  type: 'document',
+  name: "beforeAfter",
+  title: "Przed/Po",
+  type: "document",
   fields: [
     defineField({
-      name: 'title',
-      title: 'Tytuł',
-      type: 'string',
+      name: "title",
+      title: "Tytul",
+      type: "localizedString",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({ name: "description", title: "Opis", type: "localizedText" }),
+    defineField({
+      name: "beforeImage",
+      title: "Zdjecie przed",
+      type: "image",
+      options: { hotspot: true },
+      fields: [{ name: "alt", title: "Alt text", type: "localizedString" }],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'description',
-      title: 'Opis',
-      type: 'text',
-      rows: 2,
-    }),
-    defineField({
-      name: 'beforeImage',
-      title: 'Zdjęcie Przed',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
+      name: "afterImage",
+      title: "Zdjecie po",
+      type: "image",
+      options: { hotspot: true },
+      fields: [{ name: "alt", title: "Alt text", type: "localizedString" }],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'afterImage',
-      title: 'Zdjęcie Po',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'order',
-      title: 'Kolejność',
-      type: 'number',
+      name: "order",
+      title: "Kolejnosc",
+      type: "number",
       validation: (Rule) => Rule.required().min(0),
     }),
   ],
-  orderings: [
-    {
-      title: 'Kolejność',
-      name: 'orderAsc',
-      by: [{ field: 'order', direction: 'asc' }],
-    },
-  ],
-})
+  orderings: [{ title: "Kolejnosc", name: "orderAsc", by: [{ field: "order", direction: "asc" }] }],
+  preview: {
+    select: { title: "title.pl", subtitle: "title.en", media: "afterImage" },
+  },
+});

@@ -10,8 +10,22 @@ import process from './process'
 import faq from './faq'
 import siteSettings from './siteSettings'
 import about from './about'
+import {
+  localizedBlocks,
+  localizedSlug,
+  localizedString,
+  localizedStringArray,
+  localizedText,
+  seoFields,
+} from './localized'
 
 export const schemaTypes = [
+  localizedString,
+  localizedText,
+  localizedBlocks,
+  localizedStringArray,
+  localizedSlug,
+  seoFields,
   siteSettings,
   hero,
   manifesto,

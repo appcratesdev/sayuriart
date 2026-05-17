@@ -2,30 +2,28 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { getDictionary, localeLabels, locales, localizedHref, type Locale } from "@/lib/i18n";
 
-export const Header = ({ title }: { title?: string }) => {
+export const Header = ({ title, locale = "pl" }: { title?: string; locale?: Locale }) => {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const dict = getDictionary(locale);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() || 0;
-    if (latest > previous && latest > 150) {
-      setHidden(true);
-    } else {
-      setHidden(false);
-    }
+    setHidden(latest > previous && latest > 150);
     setScrolled(latest > 20);
   });
 
   const navLinks = [
-    { href: "/#services", label: "Usługi" },
-    { href: "/#portfolio", label: "Portfolio" },
-    { href: "/#pricing", label: "Cennik" },
-    { href: "/#process", label: "Proces" },
-    { href: "/o-mnie", label: "O mnie" },
+    { href: "/#services", label: dict.nav.services },
+    { href: "/#portfolio", label: dict.nav.portfolio },
+    { href: "/#pricing", label: dict.nav.pricing },
+    { href: "/#process", label: dict.nav.process },
+    { href: "/o-mnie", label: dict.nav.about },
   ];
 
   return (
@@ -43,16 +41,18 @@ export const Header = ({ title }: { title?: string }) => {
       }`}
     >
       <div className="container-main flex justify-between items-center relative z-50">
-        <Link href="/" className="text-lg font-bold tracking-tight text-[var(--foreground)] relative z-50">
+        <Link
+          href={localizedHref(locale, "/")}
+          className="text-lg font-bold tracking-tight text-[var(--foreground)] relative z-50"
+        >
           {title || "LIFESTYLE IMAGES"}
         </Link>
 
-        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.href}
-              href={link.href}
+              href={localizedHref(locale, link.href)}
               className="text-sm font-medium text-[var(--foreground)] hover:text-[var(--primary)] transition-colors"
             >
               {link.label}
@@ -60,15 +60,32 @@ export const Header = ({ title }: { title?: string }) => {
           ))}
         </nav>
 
-        <Link href="/#contact" className="hidden md:inline-flex btn btn-primary text-sm py-2.5 px-6">
-          Rozpocznij projekt
-        </Link>
+        <div className="hidden md:flex items-center gap-3">
+          <div className="flex items-center gap-1 text-xs font-bold uppercase">
+            {locales.map((candidate) => (
+              <Link
+                key={candidate}
+                href={localizedHref(candidate, "/")}
+                className={`px-2 py-1 transition-colors ${
+                  candidate === locale
+                    ? "text-[var(--foreground)]"
+                    : "text-[var(--muted-foreground)] hover:text-[var(--primary)]"
+                }`}
+                aria-current={candidate === locale ? "page" : undefined}
+              >
+                {localeLabels[candidate]}
+              </Link>
+            ))}
+          </div>
+          <Link href={localizedHref(locale, "/#contact")} className="btn btn-primary text-sm py-2.5 px-6">
+            {dict.nav.cta}
+          </Link>
+        </div>
 
-        {/* Mobile Menu Button */}
         <button
           className="md:hidden relative z-50 p-2 -mr-2 text-[var(--foreground)]"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle mobile menu"
+          aria-label={mobileMenuOpen ? dict.nav.close : dict.nav.menu}
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             {mobileMenuOpen ? (
@@ -80,7 +97,6 @@ export const Header = ({ title }: { title?: string }) => {
         </button>
       </div>
 
-      {/* Mobile Menu Overlay */}
       <div
         className={`md:hidden fixed top-0 left-0 w-full h-[100dvh] bg-[var(--background)] z-40 transition-transform duration-500 ease-[var(--ease-out-expo)] ${
           mobileMenuOpen ? "translate-y-0" : "-translate-y-full"
@@ -91,7 +107,7 @@ export const Header = ({ title }: { title?: string }) => {
           {navLinks.map((link) => (
             <Link
               key={link.href}
-              href={link.href}
+              href={localizedHref(locale, link.href)}
               onClick={() => setMobileMenuOpen(false)}
               className="text-2xl font-serif text-[var(--foreground)] hover:text-[var(--primary)] transition-colors"
             >
@@ -99,12 +115,24 @@ export const Header = ({ title }: { title?: string }) => {
             </Link>
           ))}
           <Link
-            href="/#contact"
+            href={localizedHref(locale, "/#contact")}
             onClick={() => setMobileMenuOpen(false)}
             className="btn btn-primary w-full text-center mt-4 py-4 text-lg"
           >
-            Rozpocznij projekt
+            {dict.nav.cta}
           </Link>
+          <div className="flex items-center gap-5 text-sm font-bold uppercase">
+            {locales.map((candidate) => (
+              <Link
+                key={candidate}
+                href={localizedHref(candidate, "/")}
+                onClick={() => setMobileMenuOpen(false)}
+                className={candidate === locale ? "text-[var(--foreground)]" : "text-[var(--muted-foreground)]"}
+              >
+                {localeLabels[candidate]}
+              </Link>
+            ))}
+          </div>
         </nav>
       </div>
     </motion.header>

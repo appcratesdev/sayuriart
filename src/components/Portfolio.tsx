@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { SectionHeader } from "./ui/SectionHeader";
+import { getDictionary, localizedHref, type Locale } from "@/lib/i18n";
 
 const works = [
   { title: "Kosmetyki naturalne", slug: "kosmetyki-naturalne", category: "Lifestyle", img: "/images/placeholder.jpg", aspect: "aspect-[4/5]", span: "col-span-1 md:col-span-2 md:row-span-2" },
@@ -28,12 +29,13 @@ export interface PortfolioContent {
   }>;
 }
 
-export const Portfolio = ({ content }: { content?: PortfolioContent }) => {
+export const Portfolio = ({ content, locale = "pl" }: { content?: PortfolioContent; locale?: Locale }) => {
   const workItems = content?.works?.length ? content.works : works;
-  const filterItems = ["Wszystko", ...Array.from(new Set(workItems.map((work) => work.category)))];
-  const [activeFilter, setActiveFilter] = useState("Wszystko");
+  const dict = getDictionary(locale);
+  const filterItems = [dict.home.portfolioAll, ...Array.from(new Set(workItems.map((work) => work.category)))];
+  const [activeFilter, setActiveFilter] = useState<string>(dict.home.portfolioAll);
   const filtered =
-    activeFilter === "Wszystko"
+    activeFilter === dict.home.portfolioAll
       ? workItems
       : workItems.filter((work) => work.category === activeFilter);
 
@@ -42,10 +44,10 @@ export const Portfolio = ({ content }: { content?: PortfolioContent }) => {
       <div className="container-main">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
           <SectionHeader
-            title={content?.title || "Wybrane prace"}
+            title={content?.title || dict.home.portfolioTitle}
             description={
               content?.description ||
-              "Kazdy projekt traktujemy jak inwestycje w Twoja marke - nie tylko piekno, ale przede wszystkim wyzsza konwersje."
+              dict.home.portfolioDescription
             }
           />
         </div>
@@ -73,7 +75,7 @@ export const Portfolio = ({ content }: { content?: PortfolioContent }) => {
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className={`group cursor-pointer ${work.span || "col-span-1"}`}
             >
-              <Link href={`/projekt/${work.slug}`} className="block w-full h-full">
+              <Link href={localizedHref(locale, `/projekt/${work.slug}`)} className="block w-full h-full">
                 <div className={`img-wrapper w-full ${work.aspect || "aspect-square"}`}>
                   <Image
                     src={work.img || "/images/placeholder.jpg"}
@@ -84,7 +86,7 @@ export const Portfolio = ({ content }: { content?: PortfolioContent }) => {
                   <div className="img-overlay" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     <span className="px-5 py-2.5 bg-white/90 backdrop-blur-sm text-[var(--foreground)] text-xs font-bold tracking-widest uppercase rounded-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                      Zobacz projekt
+                      {dict.home.portfolioOpen}
                     </span>
                   </div>
                 </div>

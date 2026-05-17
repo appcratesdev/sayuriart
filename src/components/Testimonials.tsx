@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeader } from "./ui/SectionHeader";
+import { getDictionary, type Locale } from "@/lib/i18n";
 
 const testimonials = [
   {
@@ -40,9 +41,10 @@ const initialsFromName = (name: string) =>
     .slice(0, 2)
     .toUpperCase();
 
-export const Testimonials = ({ items }: { items?: TestimonialContent[] }) => {
+export const Testimonials = ({ items, locale = "pl" }: { items?: TestimonialContent[]; locale?: Locale }) => {
   const testimonialItems = items?.length ? items : testimonials;
   const [currentIndex, setCurrentIndex] = useState(0);
+  const dict = getDictionary(locale);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -60,8 +62,8 @@ export const Testimonials = ({ items }: { items?: TestimonialContent[] }) => {
           {/* Left */}
           <div className="w-full md:w-1/3 md:sticky md:top-32">
             <SectionHeader
-              title="Słowa, które mówią więcej."
-              description="Zaufali mi liderzy e-commerce, którzy nie godzą się na kompromisy wizualne."
+              title={dict.home.testimonialsTitle}
+              description={dict.home.testimonialsDescription}
             />
 
             <div className="flex items-center gap-4 mt-8">

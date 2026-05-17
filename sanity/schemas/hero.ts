@@ -1,39 +1,56 @@
-import { defineType, defineField } from 'sanity'
+import { defineField, defineType } from "sanity";
 
 export default defineType({
-  name: 'hero',
-  title: 'Sekcja Hero',
-  type: 'document',
+  name: "hero",
+  title: "Sekcja Hero",
+  type: "document",
   fields: [
     defineField({
-      name: 'title',
-      title: 'Tytuł',
-      type: 'string',
+      name: "title",
+      title: "Tytul",
+      type: "localizedString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'subtitle',
-      title: 'Podtytuł',
-      type: 'text',
-      rows: 3,
+      name: "subtitle",
+      title: "Podtytul",
+      type: "localizedText",
     }),
     defineField({
-      name: 'ctaText',
-      title: 'Tekst Przycisku CTA',
-      type: 'string',
+      name: "ctaText",
+      title: "Tekst przycisku CTA",
+      type: "localizedString",
     }),
     defineField({
-      name: 'ctaLink',
-      title: 'Link Przycisku CTA',
-      type: 'string',
+      name: "ctaLink",
+      title: "Link przycisku CTA",
+      type: "string",
+      description: "Np. #contact, /o-mnie albo pelny URL. Jezyk zostanie dodany automatycznie dla linkow lokalnych.",
     }),
     defineField({
-      name: 'heroImage',
-      title: 'Zdjęcie Hero',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
+      name: "heroImage",
+      title: "Zdjecie Hero",
+      type: "image",
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt text",
+          type: "localizedString",
+        }),
+      ],
+    }),
+    defineField({
+      name: "seo",
+      title: "SEO",
+      type: "seoFields",
     }),
   ],
-})
+  preview: {
+    select: {
+      title: "title.pl",
+      subtitle: "title.en",
+      media: "heroImage",
+    },
+  },
+});

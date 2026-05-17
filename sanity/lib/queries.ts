@@ -1,128 +1,146 @@
 import { groq } from "next-sanity";
 
-// Site Settings
-export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]`;
-
-// Hero
-export const heroQuery = groq`*[_type == "hero"][0]{
-  title,
-  subtitle,
-  ctaText,
-  ctaLink,
-  heroImage
+const l = (field: string) => `coalesce(${field}[$lang], ${field}.pl, ${field}.en, ${field})`;
+const seo = (field = "seo") => `"seo": {
+  "title": ${l(`${field}.title`)},
+  "description": ${l(`${field}.description`)},
+  "image": ${field}.image
 }`;
 
-// Manifesto
+export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]{
+  "title": ${l("title")},
+  "description": ${l("description")},
+  logo,
+  email,
+  phone,
+  socialLinks,
+  ${seo()}
+}`;
+
+export const heroQuery = groq`*[_type == "hero"][0]{
+  "title": ${l("title")},
+  "subtitle": ${l("subtitle")},
+  "ctaText": ${l("ctaText")},
+  ctaLink,
+  heroImage,
+  ${seo()}
+}`;
+
 export const manifestoQuery = groq`*[_type == "manifesto"][0]{
-  overline,
-  title,
-  description,
+  "overline": ${l("overline")},
+  "title": ${l("title")},
+  "description": ${l("description")},
   image
 }`;
 
-// Services
 export const servicesQuery = groq`*[_type == "service"] | order(order asc){
   _id,
-  title,
-  description,
-  features,
+  "title": ${l("title")},
+  "description": ${l("description")},
+  "features": ${l("features")},
   image,
   order
 }`;
 
-// Before/After
 export const beforeAfterQuery = groq`*[_type == "beforeAfter"] | order(order asc){
   _id,
-  title,
-  description,
+  "title": ${l("title")},
+  "description": ${l("description")},
   beforeImage,
   afterImage,
   order
 }`;
 
-// Portfolio Section
 export const portfolioSectionQuery = groq`*[_type == "portfolio"][0]{
-  sectionTitle,
-  sectionDescription
+  "sectionTitle": ${l("sectionTitle")},
+  "sectionDescription": ${l("sectionDescription")},
+  ${seo()}
 }`;
 
-// Projects
 export const projectsQuery = groq`*[_type == "project"] | order(order asc){
   _id,
-  title,
-  slug,
+  "title": ${l("title")},
+  "slug": {"current": coalesce(slug[$lang].current, slug.current)},
   category,
-  excerpt,
+  "excerpt": ${l("excerpt")},
   coverImage,
   featured,
-  order
+  order,
+  ${seo()}
 }`;
 
-// Single Project
-export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $slug][0]{
+export const projectBySlugQuery = groq`*[_type == "project" && coalesce(slug[$lang].current, slug.current) == $slug][0]{
   _id,
-  title,
-  slug,
+  "title": ${l("title")},
+  "slug": {"current": coalesce(slug[$lang].current, slug.current)},
   category,
-  excerpt,
+  "excerpt": ${l("excerpt")},
   coverImage,
   client,
   year,
-  services,
-  challenge,
-  solution,
-  results,
-  description,
-  gallery
+  "services": ${l("services")},
+  "challenge": ${l("challenge")},
+  "solution": ${l("solution")},
+  "results": ${l("results")},
+  "description": ${l("description")},
+  gallery,
+  ${seo()}
 }`;
 
-// Pricing
 export const pricingQuery = groq`*[_type == "pricing"] | order(order asc){
   _id,
   categoryId,
-  categoryLabel,
-  packages,
+  "categoryLabel": ${l("categoryLabel")},
+  packages[]{
+    "name": ${l("name")},
+    price,
+    "unit": ${l("unit")},
+    featured,
+    savings,
+    originalValue,
+    "features": ${l("features")}
+  },
   order
 }`;
 
-// Testimonials
 export const testimonialsQuery = groq`*[_type == "testimonial"] | order(order asc){
   _id,
   name,
-  role,
-  content,
+  "role": ${l("role")},
+  "content": ${l("content")},
   avatar,
   rating,
   order
 }`;
 
-// Process
 export const processQuery = groq`*[_type == "process"] | order(order asc){
   _id,
   number,
-  title,
-  description,
+  "title": ${l("title")},
+  "description": ${l("description")},
   iconName,
   order
 }`;
 
-// FAQ
 export const faqQuery = groq`*[_type == "faq"] | order(order asc){
   _id,
-  question,
-  answer,
+  "question": ${l("question")},
+  "answer": ${l("answer")},
   order
 }`;
 
-// About
 export const aboutQuery = groq`*[_type == "about"][0]{
-  seoTitle,
-  seoDescription,
+  "seoTitle": ${l("seoTitle")},
+  "seoDescription": ${l("seoDescription")},
   profileImage,
-  role,
-  title,
-  bio,
-  hobbies,
-  contactTitle,
-  contactEmail
+  "role": ${l("role")},
+  "title": ${l("title")},
+  "bio": ${l("bio")},
+  hobbies[]{
+    icon,
+    "name": ${l("name")}
+  },
+  "contactTitle": ${l("contactTitle")},
+  contactEmail,
+  ${seo()}
 }`;

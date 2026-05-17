@@ -1,34 +1,31 @@
-import { defineType, defineField } from 'sanity'
+import { defineField, defineType } from "sanity";
 
 export default defineType({
-  name: 'manifesto',
-  title: 'Sekcja Manifesto',
-  type: 'document',
+  name: "manifesto",
+  title: "Sekcja Manifesto",
+  type: "document",
   fields: [
+    defineField({ name: "overline", title: "Nadtytul", type: "localizedString" }),
     defineField({
-      name: 'overline',
-      title: 'Nadtytuł',
-      type: 'string',
-    }),
-    defineField({
-      name: 'title',
-      title: 'Tytuł',
-      type: 'string',
+      name: "title",
+      title: "Tytul",
+      type: "localizedString",
       validation: (Rule) => Rule.required(),
     }),
+    defineField({ name: "description", title: "Opis", type: "localizedBlocks" }),
     defineField({
-      name: 'description',
-      title: 'Opis',
-      type: 'array',
-      of: [{ type: 'block' }],
-    }),
-    defineField({
-      name: 'image',
-      title: 'Zdjęcie',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
+      name: "image",
+      title: "Zdjecie",
+      type: "image",
+      options: { hotspot: true },
+      fields: [{ name: "alt", title: "Alt text", type: "localizedString" }],
     }),
   ],
-})
+  preview: {
+    select: {
+      title: "title.pl",
+      subtitle: "title.en",
+      media: "image",
+    },
+  },
+});

@@ -2,6 +2,417 @@
   {
     "fields": [
       {
+        "name": "pl",
+        "type": "string",
+        "title": "Polski"
+      },
+      {
+        "name": "en",
+        "type": "string",
+        "title": "English"
+      }
+    ],
+    "name": "localizedString",
+    "type": "object",
+    "title": "Tekst PL/EN"
+  },
+  {
+    "fields": [
+      {
+        "rows": 4,
+        "name": "pl",
+        "type": "text",
+        "title": "Polski"
+      },
+      {
+        "rows": 4,
+        "name": "en",
+        "type": "text",
+        "title": "English"
+      }
+    ],
+    "name": "localizedText",
+    "type": "object",
+    "title": "Dluzszy tekst PL/EN"
+  },
+  {
+    "fields": [
+      {
+        "of": [
+          {
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "level": "error",
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "of": [],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "type": "block"
+          }
+        ],
+        "name": "pl",
+        "type": "array",
+        "title": "Polski"
+      },
+      {
+        "of": [
+          {
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "level": "error",
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "of": [],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "type": "block"
+          }
+        ],
+        "name": "en",
+        "type": "array",
+        "title": "English"
+      }
+    ],
+    "name": "localizedBlocks",
+    "type": "object",
+    "title": "Rich text PL/EN"
+  },
+  {
+    "fields": [
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "pl",
+        "type": "array",
+        "title": "Polski"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "en",
+        "type": "array",
+        "title": "English"
+      }
+    ],
+    "name": "localizedStringArray",
+    "type": "object",
+    "title": "Lista tekstow PL/EN"
+  },
+  {
+    "fields": [
+      {
+        "options": {
+          "source": "title.pl",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
+        "name": "pl",
+        "type": "slug",
+        "title": "Polski"
+      },
+      {
+        "options": {
+          "source": "title.en",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
+        "name": "en",
+        "type": "slug",
+        "title": "English"
+      }
+    ],
+    "name": "localizedSlug",
+    "type": "object",
+    "title": "Slug PL/EN"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "localizedString",
+        "title": "Meta title"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
+        "name": "description",
+        "type": "localizedText",
+        "title": "Meta description"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "fields": [
+          {
+            "name": "alt",
+            "type": "localizedString",
+            "title": "Alt text"
+          }
+        ],
+        "name": "image",
+        "type": "image",
+        "title": "Obraz Open Graph"
+      }
+    ],
+    "name": "seoFields",
+    "type": "object",
+    "title": "SEO PL/EN"
+  },
+  {
+    "fields": [
+      {
         "validation": [
           {
             "level": "error",
@@ -14,26 +425,32 @@
           }
         ],
         "name": "title",
-        "type": "string",
-        "title": "Tytuł Strony"
+        "type": "localizedString",
+        "title": "Tytul strony"
       },
       {
-        "rows": 3,
         "name": "description",
-        "type": "text",
-        "title": "Opis Meta"
+        "type": "localizedText",
+        "title": "Opis meta"
       },
       {
         "options": {
           "hotspot": true
         },
+        "fields": [
+          {
+            "name": "alt",
+            "type": "localizedString",
+            "title": "Alt text"
+          }
+        ],
         "name": "logo",
         "type": "image"
       },
       {
         "name": "email",
         "type": "string",
-        "title": "Email Kontaktowy"
+        "title": "Email kontaktowy"
       },
       {
         "name": "phone",
@@ -121,12 +538,17 @@
         ],
         "name": "socialLinks",
         "type": "object",
-        "title": "Social Media"
+        "title": "Social media"
+      },
+      {
+        "name": "seo",
+        "type": "seoFields",
+        "title": "SEO globalne"
       }
     ],
     "name": "siteSettings",
     "type": "document",
-    "title": "Ustawienia Strony"
+    "title": "Ustawienia strony"
   },
   {
     "fields": [
@@ -143,32 +565,44 @@
           }
         ],
         "name": "title",
-        "type": "string",
-        "title": "Tytuł"
+        "type": "localizedString",
+        "title": "Tytul"
       },
       {
-        "rows": 3,
         "name": "subtitle",
-        "type": "text",
-        "title": "Podtytuł"
+        "type": "localizedText",
+        "title": "Podtytul"
       },
       {
         "name": "ctaText",
-        "type": "string",
-        "title": "Tekst Przycisku CTA"
+        "type": "localizedString",
+        "title": "Tekst przycisku CTA"
       },
       {
+        "description": "Np. #contact, /o-mnie albo pelny URL. Jezyk zostanie dodany automatycznie dla linkow lokalnych.",
         "name": "ctaLink",
         "type": "string",
-        "title": "Link Przycisku CTA"
+        "title": "Link przycisku CTA"
       },
       {
         "options": {
           "hotspot": true
         },
+        "fields": [
+          {
+            "name": "alt",
+            "type": "localizedString",
+            "title": "Alt text"
+          }
+        ],
         "name": "heroImage",
         "type": "image",
-        "title": "Zdjęcie Hero"
+        "title": "Zdjecie Hero"
+      },
+      {
+        "name": "seo",
+        "type": "seoFields",
+        "title": "SEO"
       }
     ],
     "name": "hero",
@@ -179,8 +613,8 @@
     "fields": [
       {
         "name": "overline",
-        "type": "string",
-        "title": "Nadtytuł"
+        "type": "localizedString",
+        "title": "Nadtytul"
       },
       {
         "validation": [
@@ -195,138 +629,28 @@
           }
         ],
         "name": "title",
-        "type": "string",
-        "title": "Tytuł"
+        "type": "localizedString",
+        "title": "Tytul"
       },
       {
-        "of": [
-          {
-            "lists": [
-              {
-                "value": "bullet",
-                "title": "Bulleted list"
-              },
-              {
-                "value": "number",
-                "title": "Numbered list"
-              }
-            ],
-            "marks": {
-              "annotations": [
-                {
-                  "i18nTitleKey": "inputs.portable-text.annotation.link",
-                  "options": {
-                    "modal": {
-                      "type": "popover"
-                    }
-                  },
-                  "fields": [
-                    {
-                      "validation": [
-                        {
-                          "level": "error",
-                          "rules": [
-                            {
-                              "flag": "uri",
-                              "constraint": {
-                                "options": {
-                                  "scheme": [
-                                    "/^http$/",
-                                    "/^https$/",
-                                    "/^tel$/",
-                                    "/^mailto$/"
-                                  ],
-                                  "allowRelative": true,
-                                  "relativeOnly": false,
-                                  "allowCredentials": false
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      ],
-                      "description": "A valid web, email, phone, or relative link.",
-                      "name": "href",
-                      "type": "url",
-                      "title": "Link"
-                    }
-                  ],
-                  "name": "link",
-                  "type": "object"
-                }
-              ],
-              "decorators": [
-                {
-                  "value": "strong",
-                  "title": "Strong"
-                },
-                {
-                  "value": "em",
-                  "title": "Italic"
-                },
-                {
-                  "value": "code",
-                  "title": "Code"
-                },
-                {
-                  "value": "underline",
-                  "title": "Underline"
-                },
-                {
-                  "value": "strike-through",
-                  "title": "Strike"
-                }
-              ]
-            },
-            "of": [],
-            "styles": [
-              {
-                "value": "normal",
-                "title": "Normal"
-              },
-              {
-                "value": "h1",
-                "title": "Heading 1"
-              },
-              {
-                "value": "h2",
-                "title": "Heading 2"
-              },
-              {
-                "value": "h3",
-                "title": "Heading 3"
-              },
-              {
-                "value": "h4",
-                "title": "Heading 4"
-              },
-              {
-                "value": "h5",
-                "title": "Heading 5"
-              },
-              {
-                "value": "h6",
-                "title": "Heading 6"
-              },
-              {
-                "value": "blockquote",
-                "title": "Quote"
-              }
-            ],
-            "type": "block"
-          }
-        ],
         "name": "description",
-        "type": "array",
+        "type": "localizedBlocks",
         "title": "Opis"
       },
       {
         "options": {
           "hotspot": true
         },
+        "fields": [
+          {
+            "name": "alt",
+            "type": "localizedString",
+            "title": "Alt text"
+          }
+        ],
         "name": "image",
         "type": "image",
-        "title": "Zdjęcie"
+        "title": "Zdjecie"
       }
     ],
     "name": "manifesto",
@@ -348,23 +672,17 @@
           }
         ],
         "name": "title",
-        "type": "string",
-        "title": "Tytuł"
+        "type": "localizedString",
+        "title": "Tytul"
       },
       {
-        "rows": 3,
         "name": "description",
-        "type": "text",
+        "type": "localizedText",
         "title": "Opis"
       },
       {
-        "of": [
-          {
-            "type": "string"
-          }
-        ],
         "name": "features",
-        "type": "array",
+        "type": "localizedStringArray",
         "title": "Cechy"
       },
       {
@@ -382,9 +700,16 @@
             ]
           }
         ],
+        "fields": [
+          {
+            "name": "alt",
+            "type": "localizedString",
+            "title": "Alt text"
+          }
+        ],
         "name": "image",
         "type": "image",
-        "title": "Zdjęcie"
+        "title": "Zdjecie"
       },
       {
         "validation": [
@@ -404,12 +729,12 @@
         ],
         "name": "order",
         "type": "number",
-        "title": "Kolejność"
+        "title": "Kolejnosc"
       }
     ],
     "name": "service",
     "type": "document",
-    "title": "Usługi"
+    "title": "Uslugi"
   },
   {
     "fields": [
@@ -426,13 +751,12 @@
           }
         ],
         "name": "title",
-        "type": "string",
-        "title": "Tytuł"
+        "type": "localizedString",
+        "title": "Tytul"
       },
       {
-        "rows": 2,
         "name": "description",
-        "type": "text",
+        "type": "localizedText",
         "title": "Opis"
       },
       {
@@ -450,9 +774,16 @@
             ]
           }
         ],
+        "fields": [
+          {
+            "name": "alt",
+            "type": "localizedString",
+            "title": "Alt text"
+          }
+        ],
         "name": "beforeImage",
         "type": "image",
-        "title": "Zdjęcie Przed"
+        "title": "Zdjecie przed"
       },
       {
         "options": {
@@ -469,9 +800,16 @@
             ]
           }
         ],
+        "fields": [
+          {
+            "name": "alt",
+            "type": "localizedString",
+            "title": "Alt text"
+          }
+        ],
         "name": "afterImage",
         "type": "image",
-        "title": "Zdjęcie Po"
+        "title": "Zdjecie po"
       },
       {
         "validation": [
@@ -491,7 +829,7 @@
         ],
         "name": "order",
         "type": "number",
-        "title": "Kolejność"
+        "title": "Kolejnosc"
       }
     ],
     "name": "beforeAfter",
@@ -513,19 +851,23 @@
           }
         ],
         "name": "sectionTitle",
-        "type": "string",
-        "title": "Tytuł Sekcji"
+        "type": "localizedString",
+        "title": "Tytul sekcji"
       },
       {
-        "rows": 2,
         "name": "sectionDescription",
-        "type": "text",
-        "title": "Opis Sekcji"
+        "type": "localizedText",
+        "title": "Opis sekcji"
+      },
+      {
+        "name": "seo",
+        "type": "seoFields",
+        "title": "SEO"
       }
     ],
     "name": "portfolio",
     "type": "document",
-    "title": "Portfolio - Sekcja"
+    "title": "Portfolio - sekcja"
   },
   {
     "fields": [
@@ -542,21 +884,14 @@
           }
         ],
         "name": "title",
-        "type": "string",
-        "title": "Tytuł Projektu"
+        "type": "localizedString",
+        "title": "Tytul projektu"
       },
       {
-        "options": {
-          "source": "title",
-          "maxLength": 96
-        },
         "validation": [
           {
             "level": "error",
             "rules": [
-              {
-                "flag": "custom"
-              },
               {
                 "flag": "presence",
                 "constraint": "required"
@@ -565,8 +900,8 @@
           }
         ],
         "name": "slug",
-        "type": "slug",
-        "title": "Slug (URL)"
+        "type": "localizedSlug",
+        "title": "Slug URL"
       },
       {
         "options": {
@@ -614,10 +949,9 @@
         "title": "Kategoria"
       },
       {
-        "rows": 3,
         "name": "excerpt",
-        "type": "text",
-        "title": "Krótki Opis"
+        "type": "localizedText",
+        "title": "Krotki opis"
       },
       {
         "options": {
@@ -634,9 +968,16 @@
             ]
           }
         ],
+        "fields": [
+          {
+            "name": "alt",
+            "type": "localizedString",
+            "title": "Alt text"
+          }
+        ],
         "name": "coverImage",
         "type": "image",
-        "title": "Zdjęcie Główne"
+        "title": "Zdjecie glowne"
       },
       {
         "name": "client",
@@ -649,158 +990,29 @@
         "title": "Rok"
       },
       {
-        "of": [
-          {
-            "type": "string"
-          }
-        ],
         "name": "services",
-        "type": "array",
-        "title": "Usługi"
+        "type": "localizedStringArray",
+        "title": "Uslugi"
       },
       {
-        "rows": 4,
         "name": "challenge",
-        "type": "text",
+        "type": "localizedText",
         "title": "Wyzwanie"
       },
       {
-        "rows": 4,
         "name": "solution",
-        "type": "text",
-        "title": "RozwiÄ…zanie"
+        "type": "localizedText",
+        "title": "Rozwiazanie"
       },
       {
-        "of": [
-          {
-            "type": "string"
-          }
-        ],
         "name": "results",
-        "type": "array",
+        "type": "localizedStringArray",
         "title": "Rezultaty"
       },
       {
-        "of": [
-          {
-            "lists": [
-              {
-                "value": "bullet",
-                "title": "Bulleted list"
-              },
-              {
-                "value": "number",
-                "title": "Numbered list"
-              }
-            ],
-            "marks": {
-              "annotations": [
-                {
-                  "i18nTitleKey": "inputs.portable-text.annotation.link",
-                  "options": {
-                    "modal": {
-                      "type": "popover"
-                    }
-                  },
-                  "fields": [
-                    {
-                      "validation": [
-                        {
-                          "level": "error",
-                          "rules": [
-                            {
-                              "flag": "uri",
-                              "constraint": {
-                                "options": {
-                                  "scheme": [
-                                    "/^http$/",
-                                    "/^https$/",
-                                    "/^tel$/",
-                                    "/^mailto$/"
-                                  ],
-                                  "allowRelative": true,
-                                  "relativeOnly": false,
-                                  "allowCredentials": false
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      ],
-                      "description": "A valid web, email, phone, or relative link.",
-                      "name": "href",
-                      "type": "url",
-                      "title": "Link"
-                    }
-                  ],
-                  "name": "link",
-                  "type": "object"
-                }
-              ],
-              "decorators": [
-                {
-                  "value": "strong",
-                  "title": "Strong"
-                },
-                {
-                  "value": "em",
-                  "title": "Italic"
-                },
-                {
-                  "value": "code",
-                  "title": "Code"
-                },
-                {
-                  "value": "underline",
-                  "title": "Underline"
-                },
-                {
-                  "value": "strike-through",
-                  "title": "Strike"
-                }
-              ]
-            },
-            "of": [],
-            "styles": [
-              {
-                "value": "normal",
-                "title": "Normal"
-              },
-              {
-                "value": "h1",
-                "title": "Heading 1"
-              },
-              {
-                "value": "h2",
-                "title": "Heading 2"
-              },
-              {
-                "value": "h3",
-                "title": "Heading 3"
-              },
-              {
-                "value": "h4",
-                "title": "Heading 4"
-              },
-              {
-                "value": "h5",
-                "title": "Heading 5"
-              },
-              {
-                "value": "h6",
-                "title": "Heading 6"
-              },
-              {
-                "value": "blockquote",
-                "title": "Quote"
-              }
-            ],
-            "type": "block"
-          }
-        ],
         "name": "description",
-        "type": "array",
-        "title": "Pełny Opis"
+        "type": "localizedBlocks",
+        "title": "Pelny opis"
       },
       {
         "of": [
@@ -811,8 +1023,13 @@
             "fields": [
               {
                 "name": "caption",
-                "type": "string",
+                "type": "localizedString",
                 "title": "Podpis"
+              },
+              {
+                "name": "alt",
+                "type": "localizedString",
+                "title": "Alt text"
               }
             ],
             "type": "image"
@@ -820,13 +1037,13 @@
         ],
         "name": "gallery",
         "type": "array",
-        "title": "Galeria Zdjęć"
+        "title": "Galeria zdjec"
       },
       {
         "initialValue": false,
         "name": "featured",
         "type": "boolean",
-        "title": "Wyróżniony"
+        "title": "Wyrozniony"
       },
       {
         "validation": [
@@ -846,7 +1063,12 @@
         ],
         "name": "order",
         "type": "number",
-        "title": "Kolejność"
+        "title": "Kolejnosc"
+      },
+      {
+        "name": "seo",
+        "type": "seoFields",
+        "title": "SEO"
       }
     ],
     "name": "project",
@@ -898,7 +1120,7 @@
         ],
         "name": "categoryId",
         "type": "string",
-        "title": "ID Kategorii"
+        "title": "ID kategorii"
       },
       {
         "validation": [
@@ -913,8 +1135,8 @@
           }
         ],
         "name": "categoryLabel",
-        "type": "string",
-        "title": "Nazwa Kategorii"
+        "type": "localizedString",
+        "title": "Nazwa kategorii"
       },
       {
         "of": [
@@ -933,8 +1155,8 @@
                   }
                 ],
                 "name": "name",
-                "type": "string",
-                "title": "Nazwa Pakietu"
+                "type": "localizedString",
+                "title": "Nazwa pakietu"
               },
               {
                 "validation": [
@@ -954,24 +1176,24 @@
               },
               {
                 "name": "unit",
-                "type": "string",
-                "title": "Jednostka (np. / miesiąc)"
+                "type": "localizedString",
+                "title": "Jednostka"
               },
               {
                 "initialValue": false,
                 "name": "featured",
                 "type": "boolean",
-                "title": "Wyróżniony"
+                "title": "Wyrozniony"
               },
               {
                 "name": "savings",
                 "type": "string",
-                "title": "Oszczędności (zł)"
+                "title": "Oszczednosci"
               },
               {
                 "name": "originalValue",
                 "type": "string",
-                "title": "Oryginalna Wartość (zł)"
+                "title": "Oryginalna wartosc"
               },
               {
                 "validation": [
@@ -985,13 +1207,8 @@
                     ]
                   }
                 ],
-                "of": [
-                  {
-                    "type": "string"
-                  }
-                ],
                 "name": "features",
-                "type": "array",
+                "type": "localizedStringArray",
                 "title": "Cechy"
               }
             ],
@@ -1020,7 +1237,7 @@
         ],
         "name": "order",
         "type": "number",
-        "title": "Kolejność"
+        "title": "Kolejnosc"
       }
     ],
     "name": "pricing",
@@ -1043,15 +1260,14 @@
         ],
         "name": "name",
         "type": "string",
-        "title": "Imię i Nazwisko"
+        "title": "Imie i nazwisko"
       },
       {
         "name": "role",
-        "type": "string",
+        "type": "localizedString",
         "title": "Stanowisko/Firma"
       },
       {
-        "rows": 4,
         "validation": [
           {
             "level": "error",
@@ -1064,16 +1280,23 @@
           }
         ],
         "name": "content",
-        "type": "text",
-        "title": "Treść Opinii"
+        "type": "localizedText",
+        "title": "Tresc opinii"
       },
       {
         "options": {
           "hotspot": true
         },
+        "fields": [
+          {
+            "name": "alt",
+            "type": "localizedString",
+            "title": "Alt text"
+          }
+        ],
         "name": "avatar",
         "type": "image",
-        "title": "Zdjęcie"
+        "title": "Zdjecie"
       },
       {
         "validation": [
@@ -1117,7 +1340,7 @@
         ],
         "name": "order",
         "type": "number",
-        "title": "Kolejność"
+        "title": "Kolejnosc"
       }
     ],
     "name": "testimonial",
@@ -1155,11 +1378,10 @@
           }
         ],
         "name": "title",
-        "type": "string",
-        "title": "Tytuł"
+        "type": "localizedString",
+        "title": "Tytul"
       },
       {
-        "rows": 3,
         "validation": [
           {
             "level": "error",
@@ -1172,26 +1394,26 @@
           }
         ],
         "name": "description",
-        "type": "text",
+        "type": "localizedText",
         "title": "Opis"
       },
       {
         "options": {
           "list": [
             {
-              "title": "Brief (dokument)",
+              "title": "Brief",
               "value": "brief"
             },
             {
-              "title": "Koncepcja (sześcian)",
+              "title": "Koncepcja",
               "value": "concept"
             },
             {
-              "title": "Kreacja (paleta)",
+              "title": "Kreacja",
               "value": "creation"
             },
             {
-              "title": "Finalne pliki (pobieranie)",
+              "title": "Finalne pliki",
               "value": "files"
             }
           ]
@@ -1216,10 +1438,9 @@
             ]
           }
         ],
-        "description": "brief, concept, creation, files",
         "name": "iconName",
         "type": "string",
-        "title": "Nazwa Ikony"
+        "title": "Nazwa ikony"
       },
       {
         "validation": [
@@ -1239,7 +1460,7 @@
         ],
         "name": "order",
         "type": "number",
-        "title": "Kolejność"
+        "title": "Kolejnosc"
       }
     ],
     "name": "process",
@@ -1261,11 +1482,10 @@
           }
         ],
         "name": "question",
-        "type": "string",
+        "type": "localizedString",
         "title": "Pytanie"
       },
       {
-        "rows": 4,
         "validation": [
           {
             "level": "error",
@@ -1278,8 +1498,8 @@
           }
         ],
         "name": "answer",
-        "type": "text",
-        "title": "Odpowiedź"
+        "type": "localizedText",
+        "title": "Odpowiedz"
       },
       {
         "validation": [
@@ -1299,7 +1519,7 @@
         ],
         "name": "order",
         "type": "number",
-        "title": "Kolejność"
+        "title": "Kolejnosc"
       }
     ],
     "name": "faq",
@@ -1309,18 +1529,14 @@
   {
     "fields": [
       {
-        "initialValue": "O mnie | Sayuri",
-        "description": "Title tag for SEO (e.g., O mnie | Sayuri)",
         "name": "seoTitle",
-        "type": "string",
-        "title": "SEO Title"
+        "type": "localizedString",
+        "title": "SEO title"
       },
       {
-        "initialValue": "Poznajmy się bliżej. Zobaczmy, co możemy razem stworzyć.",
-        "description": "Meta description for SEO",
         "name": "seoDescription",
-        "type": "text",
-        "title": "SEO Description"
+        "type": "localizedText",
+        "title": "SEO description"
       },
       {
         "options": {
@@ -1328,151 +1544,29 @@
         },
         "fields": [
           {
-            "initialValue": "Ania - Art Director",
-            "description": "Ważne dla SEO i dostępności.",
             "name": "alt",
-            "type": "string",
-            "title": "Alternative text"
+            "type": "localizedString",
+            "title": "Alt text"
           }
         ],
         "name": "profileImage",
         "type": "image",
-        "title": "Zdjęcie profilowe (Profile Image)"
+        "title": "Zdjecie profilowe"
       },
       {
-        "initialValue": "Art Director / Content & Community",
         "name": "role",
-        "type": "string",
-        "title": "Rola / Stanowisko (Role)"
+        "type": "localizedString",
+        "title": "Rola / stanowisko"
       },
       {
-        "initialValue": "Ania",
         "name": "title",
-        "type": "string",
-        "title": "Imię / Tytuł (Title)"
+        "type": "localizedString",
+        "title": "Imie / tytul"
       },
       {
-        "description": "Treść sekcji O mnie",
-        "of": [
-          {
-            "lists": [
-              {
-                "value": "bullet",
-                "title": "Bulleted list"
-              },
-              {
-                "value": "number",
-                "title": "Numbered list"
-              }
-            ],
-            "marks": {
-              "annotations": [
-                {
-                  "i18nTitleKey": "inputs.portable-text.annotation.link",
-                  "options": {
-                    "modal": {
-                      "type": "popover"
-                    }
-                  },
-                  "fields": [
-                    {
-                      "validation": [
-                        {
-                          "level": "error",
-                          "rules": [
-                            {
-                              "flag": "uri",
-                              "constraint": {
-                                "options": {
-                                  "scheme": [
-                                    "/^http$/",
-                                    "/^https$/",
-                                    "/^tel$/",
-                                    "/^mailto$/"
-                                  ],
-                                  "allowRelative": true,
-                                  "relativeOnly": false,
-                                  "allowCredentials": false
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      ],
-                      "description": "A valid web, email, phone, or relative link.",
-                      "name": "href",
-                      "type": "url",
-                      "title": "Link"
-                    }
-                  ],
-                  "name": "link",
-                  "type": "object"
-                }
-              ],
-              "decorators": [
-                {
-                  "value": "strong",
-                  "title": "Strong"
-                },
-                {
-                  "value": "em",
-                  "title": "Italic"
-                },
-                {
-                  "value": "code",
-                  "title": "Code"
-                },
-                {
-                  "value": "underline",
-                  "title": "Underline"
-                },
-                {
-                  "value": "strike-through",
-                  "title": "Strike"
-                }
-              ]
-            },
-            "of": [],
-            "styles": [
-              {
-                "value": "normal",
-                "title": "Normal"
-              },
-              {
-                "value": "h1",
-                "title": "Heading 1"
-              },
-              {
-                "value": "h2",
-                "title": "Heading 2"
-              },
-              {
-                "value": "h3",
-                "title": "Heading 3"
-              },
-              {
-                "value": "h4",
-                "title": "Heading 4"
-              },
-              {
-                "value": "h5",
-                "title": "Heading 5"
-              },
-              {
-                "value": "h6",
-                "title": "Heading 6"
-              },
-              {
-                "value": "blockquote",
-                "title": "Quote"
-              }
-            ],
-            "type": "block"
-          }
-        ],
         "name": "bio",
-        "type": "array",
-        "title": "Biografia (Bio)"
+        "type": "localizedBlocks",
+        "title": "Biografia"
       },
       {
         "of": [
@@ -1480,8 +1574,8 @@
             "fields": [
               {
                 "name": "name",
-                "type": "string",
-                "title": "Nazwa (np. Malarstwo)"
+                "type": "localizedString",
+                "title": "Nazwa"
               },
               {
                 "options": {
@@ -1515,19 +1609,22 @@
         ],
         "name": "hobbies",
         "type": "array",
-        "title": "Po godzinach (Hobbies)"
+        "title": "Po godzinach"
       },
       {
-        "initialValue": "Zróbmy razem coś wyjątkowego.",
         "name": "contactTitle",
-        "type": "string",
-        "title": "Tytuł sekcji kontaktowej"
+        "type": "localizedString",
+        "title": "Tytul sekcji kontaktowej"
       },
       {
-        "initialValue": "annsayuriart@gmail.com",
         "name": "contactEmail",
         "type": "string",
         "title": "Email kontaktowy"
+      },
+      {
+        "name": "seo",
+        "type": "seoFields",
+        "title": "SEO"
       }
     ],
     "name": "about",

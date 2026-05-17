@@ -5,66 +5,28 @@ export default defineType({
   title: "O mnie (About Page)",
   type: "document",
   fields: [
-    defineField({
-      name: "seoTitle",
-      title: "SEO Title",
-      type: "string",
-      description: "Title tag for SEO (e.g., O mnie | Sayuri)",
-      initialValue: "O mnie | Sayuri",
-    }),
-    defineField({
-      name: "seoDescription",
-      title: "SEO Description",
-      type: "text",
-      description: "Meta description for SEO",
-      initialValue: "Poznajmy się bliżej. Zobaczmy, co możemy razem stworzyć.",
-    }),
+    defineField({ name: "seoTitle", title: "SEO title", type: "localizedString" }),
+    defineField({ name: "seoDescription", title: "SEO description", type: "localizedText" }),
     defineField({
       name: "profileImage",
-      title: "Zdjęcie profilowe (Profile Image)",
+      title: "Zdjecie profilowe",
       type: "image",
-      options: {
-        hotspot: true,
-      },
-      fields: [
-        {
-          name: "alt",
-          type: "string",
-          title: "Alternative text",
-          description: "Ważne dla SEO i dostępności.",
-          initialValue: "Ania - Art Director",
-        },
-      ],
+      options: { hotspot: true },
+      fields: [{ name: "alt", title: "Alt text", type: "localizedString" }],
     }),
-    defineField({
-      name: "role",
-      title: "Rola / Stanowisko (Role)",
-      type: "string",
-      initialValue: "Art Director / Content & Community",
-    }),
-    defineField({
-      name: "title",
-      title: "Imię / Tytuł (Title)",
-      type: "string",
-      initialValue: "Ania",
-    }),
-    defineField({
-      name: "bio",
-      title: "Biografia (Bio)",
-      type: "array",
-      of: [{ type: "block" }],
-      description: "Treść sekcji O mnie",
-    }),
+    defineField({ name: "role", title: "Rola / stanowisko", type: "localizedString" }),
+    defineField({ name: "title", title: "Imie / tytul", type: "localizedString" }),
+    defineField({ name: "bio", title: "Biografia", type: "localizedBlocks" }),
     defineField({
       name: "hobbies",
-      title: "Po godzinach (Hobbies)",
+      title: "Po godzinach",
       type: "array",
       of: [
         {
           type: "object",
           name: "hobby",
           fields: [
-            { name: "name", type: "string", title: "Nazwa (np. Malarstwo)" },
+            { name: "name", type: "localizedString", title: "Nazwa" },
             {
               name: "icon",
               type: "string",
@@ -79,20 +41,17 @@ export default defineType({
               },
             },
           ],
+          preview: {
+            select: { title: "name.pl", subtitle: "name.en" },
+          },
         },
       ],
     }),
-    defineField({
-      name: "contactTitle",
-      title: "Tytuł sekcji kontaktowej",
-      type: "string",
-      initialValue: "Zróbmy razem coś wyjątkowego.",
-    }),
-    defineField({
-      name: "contactEmail",
-      title: "Email kontaktowy",
-      type: "string",
-      initialValue: "annsayuriart@gmail.com",
-    }),
+    defineField({ name: "contactTitle", title: "Tytul sekcji kontaktowej", type: "localizedString" }),
+    defineField({ name: "contactEmail", title: "Email kontaktowy", type: "string" }),
+    defineField({ name: "seo", title: "SEO", type: "seoFields" }),
   ],
+  preview: {
+    select: { title: "title.pl", subtitle: "title.en", media: "profileImage" },
+  },
 });

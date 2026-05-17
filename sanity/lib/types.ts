@@ -1,6 +1,12 @@
 import type { SanityImageSource } from "@sanity/image-url";
 import { PortableTextBlock } from "@portabletext/types";
 
+export interface SeoFields {
+  title?: string;
+  description?: string;
+  image?: SanityImageSource;
+}
+
 export interface SiteSettings {
   title: string;
   description?: string;
@@ -12,6 +18,7 @@ export interface SiteSettings {
     facebook?: string;
     linkedin?: string;
   };
+  seo?: SeoFields;
 }
 
 export interface Hero {
@@ -20,6 +27,7 @@ export interface Hero {
   ctaText?: string;
   ctaLink?: string;
   heroImage?: SanityImageSource;
+  seo?: SeoFields;
 }
 
 export interface Manifesto {
@@ -50,6 +58,7 @@ export interface BeforeAfter {
 export interface PortfolioSection {
   sectionTitle: string;
   sectionDescription?: string;
+  seo?: SeoFields;
 }
 
 export interface Project {
@@ -74,6 +83,7 @@ export interface Project {
   }>;
   featured?: boolean;
   order: number;
+  seo?: SeoFields;
 }
 
 export interface PricingPackage {
@@ -130,4 +140,5 @@ export interface About {
   hobbies?: Array<{ name: string; icon: string }>;
   contactTitle?: string;
   contactEmail?: string;
+  seo?: SeoFields;
 }
