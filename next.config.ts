@@ -9,6 +9,18 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/en/terms-of-use",
+        destination: "/en/regulamin",
+      },
+      {
+        source: "/en/privacy-policy",
+        destination: "/en/polityka-prywatnosci",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

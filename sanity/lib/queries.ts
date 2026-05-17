@@ -127,6 +127,13 @@ export const testimonialsQuery = groq`*[_type == "testimonial"] | order(order as
   order
 }`;
 
+export const processSectionQuery = groq`*[_type == "processSection"][0]{
+  _id,
+  _type,
+  "sectionTitle": ${l("sectionTitle")},
+  "sectionDescription": ${l("sectionDescription")}
+}`;
+
 export const processQuery = groq`*[_type == "process"] | order(order asc){
   _id,
   _type,

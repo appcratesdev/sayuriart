@@ -75,8 +75,8 @@ export const Footer = ({ settings, locale = "pl" }: { settings?: FooterSettings;
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 text-xs text-white/30 gap-4 text-center md:text-left">
           <span className="font-bold tracking-widest uppercase text-white/50" data-sanity={settings?.titleEdit}>{settings?.title || "LIFESTYLE IMAGES"}</span>
           <div className="flex flex-wrap justify-center items-center gap-6">
-            <Link href={`/${locale}/polityka-prywatnosci`} className="hover:text-white transition-colors">{dict.footer.privacy}</Link>
-            <Link href={`/${locale}/regulamin`} className="hover:text-white transition-colors">{dict.footer.terms}</Link>
+            <Link href={`/${locale}/${locale === "en" ? "privacy-policy" : "polityka-prywatnosci"}`} className="hover:text-white transition-colors">{dict.footer.privacy}</Link>
+            <Link href={`/${locale}/${locale === "en" ? "terms-of-use" : "regulamin"}`} className="hover:text-white transition-colors">{dict.footer.terms}</Link>
             <span className="opacity-50 hidden md:inline">|</span>
             <a href="https://appcrates.pl" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
               Developed by Appcrates.pl

@@ -134,6 +134,11 @@ export interface Process extends SanityDocumentMeta {
   order: number;
 }
 
+export interface ProcessSection extends SanityDocumentMeta {
+  sectionTitle: string;
+  sectionDescription?: string;
+}
+
 export interface FAQ extends SanityDocumentMeta {
   _id: string;
   _type?: string;

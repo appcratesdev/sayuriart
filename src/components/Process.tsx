@@ -44,14 +44,35 @@ export interface ProcessContent {
   descEdit?: string;
 }
 
-export const Process = ({ items, locale = "pl" }: { items?: ProcessContent[]; locale?: Locale }) => {
+export const Process = ({ 
+  items, 
+  title, 
+  description, 
+  titleEdit, 
+  descriptionEdit, 
+  locale = "pl" 
+}: { 
+  items?: ProcessContent[]; 
+  title?: string;
+  description?: string;
+  titleEdit?: string;
+  descriptionEdit?: string;
+  locale?: Locale 
+}) => {
   const processSteps = items?.length ? items : fallbackSteps;
   const dict = getDictionary(locale);
 
   return (
     <section className="section-padding bg-[var(--dark-bg)]" id="process">
       <div className="container-main">
-        <SectionHeader title={dict.home.processTitle} description={dict.home.processDescription} align="center" dark />
+        <SectionHeader 
+          title={title || dict.home.processTitle} 
+          description={description || dict.home.processDescription} 
+          titleEdit={titleEdit}
+          descriptionEdit={descriptionEdit}
+          align="center" 
+          dark 
+        />
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6 mt-16 relative">
           <div className="hidden md:block absolute top-12 left-[12.5%] right-[12.5%] h-[1px] bg-white/20" />

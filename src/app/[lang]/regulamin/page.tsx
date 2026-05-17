@@ -19,7 +19,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props) {
   const locale = assertLocale((await params).lang);
-  const page = await getLegalPageBySlug("regulamin", locale);
+  const page = await getLegalPageBySlug(locale === "en" ? "terms-of-use" : "regulamin", locale);
 
   return buildMetadata({
     locale,
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props) {
 export default async function TermsPage({ params }: Props) {
   const locale = assertLocale((await params).lang);
   const [page, siteSettings] = await Promise.all([
-    getLegalPageBySlug("regulamin", locale),
+    getLegalPageBySlug(locale === "en" ? "terms-of-use" : "regulamin", locale),
     getSiteSettings(locale)
   ]);
 

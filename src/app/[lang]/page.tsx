@@ -21,6 +21,7 @@ import {
   getPortfolioSection,
   getPricing,
   getProcess,
+  getProcessSection,
   getProjects,
   getServices,
   getSiteSettings,
@@ -100,6 +101,7 @@ export default async function Home({ params }: Props) {
     pricing,
     testimonials,
     process,
+    processSection,
     faq,
     siteSettings,
   ] = await Promise.all([
@@ -112,6 +114,7 @@ export default async function Home({ params }: Props) {
     getPricing(locale),
     getTestimonials(locale),
     getProcess(locale),
+    getProcessSection(locale),
     getFAQ(locale),
     getSiteSettings(locale),
   ]);
@@ -206,6 +209,10 @@ export default async function Home({ params }: Props) {
         />
         <Process
           locale={locale}
+          title={processSection?.sectionTitle}
+          description={processSection?.sectionDescription}
+          titleEdit={createSanityEdit(processSection, localizedField("sectionTitle", locale))}
+          descriptionEdit={createSanityEdit(processSection, localizedField("sectionDescription", locale))}
           items={process.map((step) => ({
             number: step.number,
             title: step.title,

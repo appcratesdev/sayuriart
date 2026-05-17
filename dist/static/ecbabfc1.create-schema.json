@@ -1481,6 +1481,34 @@
             ]
           }
         ],
+        "name": "sectionTitle",
+        "type": "localizedString",
+        "title": "Tytul sekcji"
+      },
+      {
+        "name": "sectionDescription",
+        "type": "localizedText",
+        "title": "Opis sekcji"
+      }
+    ],
+    "name": "processSection",
+    "type": "document",
+    "title": "Proces - sekcja"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
         "name": "question",
         "type": "localizedString",
         "title": "Pytanie"

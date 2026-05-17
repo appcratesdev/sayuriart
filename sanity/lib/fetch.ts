@@ -11,6 +11,7 @@ import {
   projectBySlugQuery,
   pricingQuery,
   testimonialsQuery,
+  processSectionQuery,
   processQuery,
   faqQuery,
   aboutQuery,
@@ -26,6 +27,7 @@ import type {
   Project,
   Pricing,
   Testimonial,
+  ProcessSection,
   Process,
   FAQ,
   About,
@@ -109,6 +111,10 @@ export async function getPricing(locale: Locale = defaultLocale): Promise<Pricin
 
 export async function getTestimonials(locale: Locale = defaultLocale): Promise<Testimonial[]> {
   return safeFetch(testimonialsQuery, localeParams(locale), [])
+}
+
+export async function getProcessSection(locale: Locale = defaultLocale): Promise<ProcessSection | null> {
+  return safeFetch(processSectionQuery, localeParams(locale), null)
 }
 
 export async function getProcess(locale: Locale = defaultLocale): Promise<Process[]> {

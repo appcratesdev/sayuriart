@@ -7,6 +7,7 @@ import project from './project'
 import pricing from './pricing'
 import testimonial from './testimonial'
 import process from './process'
+import processSection from './processSection'
 import faq from './faq'
 import siteSettings from './siteSettings'
 import about from './about'
@@ -37,6 +38,7 @@ export const schemaTypes = [
   pricing,
   testimonial,
   process,
+  processSection,
   faq,
   about,
   legalPage,
