@@ -1,5 +1,5 @@
 import type { SanityImageSource } from "@sanity/image-url";
-import { PortableTextBlock } from "@portabletext/types";
+import type { PortableTextBlock } from "@portabletext/types";
 
 export interface SeoFields {
   title?: string;

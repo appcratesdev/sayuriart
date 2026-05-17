@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { stegaClean } from "next-sanity";
 import { defaultLocale, localeOpenGraph, locales, type Locale, pathForLocale } from "@/lib/i18n";
 
+const productionUrl = "https://sayuriart.vercel.app";
+
 function normalizeSiteUrl(url: string) {
   const normalized = url.replace(/\/$/, "");
   return /^https?:\/\//i.test(normalized) ? normalized : `https://${normalized}`;
@@ -10,7 +12,7 @@ function normalizeSiteUrl(url: string) {
 export const siteUrl = normalizeSiteUrl(
   process.env.NEXT_PUBLIC_SITE_URL ||
   process.env.VERCEL_PROJECT_PRODUCTION_URL ||
-  "https://lifestyleimages.pl"
+  productionUrl
 );
 
 export const siteName = "Lifestyle Images";
