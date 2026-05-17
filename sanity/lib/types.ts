@@ -154,3 +154,10 @@ export interface About extends SanityDocumentMeta {
   contactEmail?: string;
   seo?: SeoFields;
 }
+
+export interface LegalPage extends SanityDocumentMeta {
+  title: string;
+  slug: { current: string };
+  content?: PortableTextBlock[];
+  seo?: SeoFields;
+}

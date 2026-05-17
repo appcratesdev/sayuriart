@@ -10,6 +10,7 @@ import process from './process'
 import faq from './faq'
 import siteSettings from './siteSettings'
 import about from './about'
+import legalPage from './legalPage'
 import {
   localizedBlocks,
   localizedSlug,
@@ -38,4 +39,5 @@ export const schemaTypes = [
   process,
   faq,
   about,
+  legalPage,
 ]

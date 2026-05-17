@@ -46,9 +46,9 @@ const PricingCard = ({ pkg, locale }: { pkg: Package; locale: Locale }) => {
   const dict = getDictionary(locale);
 
   return (
-    <div className={`pricing-card ${pkg.featured ? "featured" : ""}`}>
+    <div className={`pricing-card transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:ring-2 hover:ring-[var(--primary)] cursor-default ${pkg.featured ? "featured ring-1 ring-[var(--primary)]" : ""}`} style={{ padding: '1.75rem', fontSize: '0.9rem' }}>
       {pkg.featured && (
-        <span className="badge badge-primary absolute top-4 right-4 md:top-6 md:right-6 z-10 whitespace-nowrap">
+        <span className="badge badge-primary absolute top-3 right-3 md:top-4 md:right-4 z-10 whitespace-nowrap text-xs">
           {dict.home.pricingPopular}
         </span>
       )}
@@ -58,9 +58,9 @@ const PricingCard = ({ pkg, locale }: { pkg: Package; locale: Locale }) => {
       </h3>
 
       <div className="flex items-baseline gap-1 mb-1">
-        <span className="text-4xl md:text-5xl font-serif text-[var(--foreground)]" data-sanity={pkg.priceEdit}>{pkg.price}</span>
-        <span className="text-lg text-[var(--muted-foreground)]">{dict.home.pricingCurrency}</span>
-        {pkg.unit && <span className="text-sm text-[var(--muted-foreground)] ml-1">{pkg.unit}</span>}
+        <span className="text-3xl md:text-4xl font-serif text-[var(--foreground)]" data-sanity={pkg.priceEdit}>{pkg.price}</span>
+        <span className="text-base text-[var(--muted-foreground)]">{dict.home.pricingCurrency}</span>
+        {pkg.unit && <span className="text-xs text-[var(--muted-foreground)] ml-1">{pkg.unit}</span>}
       </div>
 
       {pkg.savings ? (
@@ -89,7 +89,19 @@ const PricingCard = ({ pkg, locale }: { pkg: Package; locale: Locale }) => {
         </ul>
       </div>
 
-      <Link href="#contact" className={`btn mt-6 w-full ${pkg.featured ? "btn-accent" : "btn-secondary"}`}>
+      <Link 
+        href="#contact" 
+        onClick={() => {
+          setTimeout(() => {
+            const messageEl = document.getElementById('message') as HTMLTextAreaElement;
+            if (messageEl) {
+              messageEl.value = `Dzień dobry, interesuje mnie ${pkg.name}. Proszę o więcej informacji.`;
+              messageEl.focus();
+            }
+          }, 100);
+        }}
+        className={`btn mt-6 w-full transition-transform hover:scale-[1.02] ${pkg.featured ? "btn-accent" : "btn-secondary"}`}
+      >
         {dict.home.pricingOrder}
       </Link>
     </div>

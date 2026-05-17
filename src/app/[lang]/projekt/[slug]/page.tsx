@@ -130,18 +130,7 @@ export default async function ProjectPage({ params }: Props) {
       <main className="flex-1">
         <ProjectPageContent project={mappedProject} locale={locale} />
       </main>
-      <Footer
-        locale={locale}
-        settings={{
-          title: siteSettings?.title,
-          titleEdit: createSanityEdit(siteSettings, localizedField("title", locale)),
-          email: siteSettings?.email,
-          emailEdit: createSanityEdit(siteSettings, "email"),
-          instagram: siteSettings?.socialLinks?.instagram,
-          facebook: siteSettings?.socialLinks?.facebook,
-          linkedin: siteSettings?.socialLinks?.linkedin,
-        }}
-      />
+      <Footer settings={siteSettings || undefined} locale={locale} />
     </div>
   );
 }

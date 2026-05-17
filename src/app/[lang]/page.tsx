@@ -204,17 +204,6 @@ export default async function Home({ params }: Props) {
             })),
           }))}
         />
-        <Testimonials
-          locale={locale}
-          items={testimonials.map((testimonial) => ({
-            quote: testimonial.content,
-            author: testimonial.name,
-            role: testimonial.role,
-            quoteEdit: createSanityEdit(testimonial, localizedField("content", locale)),
-            authorEdit: createSanityEdit(testimonial, "name"),
-            roleEdit: createSanityEdit(testimonial, localizedField("role", locale)),
-          }))}
-        />
         <Process
           locale={locale}
           items={process.map((step) => ({
@@ -225,6 +214,17 @@ export default async function Home({ params }: Props) {
             numberEdit: createSanityEdit(step, "number"),
             titleEdit: createSanityEdit(step, localizedField("title", locale)),
             descEdit: createSanityEdit(step, localizedField("description", locale)),
+          }))}
+        />
+        <Testimonials
+          locale={locale}
+          items={testimonials.map((testimonial) => ({
+            quote: testimonial.content,
+            author: testimonial.name,
+            role: testimonial.role,
+            quoteEdit: createSanityEdit(testimonial, localizedField("content", locale)),
+            authorEdit: createSanityEdit(testimonial, "name"),
+            roleEdit: createSanityEdit(testimonial, localizedField("role", locale)),
           }))}
         />
         <FAQ

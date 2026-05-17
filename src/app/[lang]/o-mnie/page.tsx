@@ -1,5 +1,7 @@
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import InkFluidWrapper from "@/components/FluidCanvas/InkFluidWrapper";
+import Link from "next/link";
 import Image from "next/image";
 import { Coffee, Leaf, Music, Palette } from "lucide-react";
 import { PortableText } from "@portabletext/react";
@@ -64,14 +66,13 @@ export default async function AboutPage({ params }: Props) {
 
   return (
     <main className="relative min-h-screen bg-[var(--background)]">
+      <Header title={siteSettings?.title} titleEdit={createSanityEdit(siteSettings, localizedField("title", locale))} locale={locale} />
+
       <div className="absolute inset-0 z-0 pointer-events-auto overflow-hidden">
         <InkFluidWrapper />
       </div>
 
       <div className="relative z-10 pointer-events-none">
-        <div className="pointer-events-auto">
-          <Header title={siteSettings?.title} titleEdit={createSanityEdit(siteSettings, localizedField("title", locale))} locale={locale} />
-        </div>
 
         <section className="w-full pt-32 pb-24 px-6 pointer-events-auto">
           <div className="container-main mx-auto max-w-7xl relative">
@@ -125,17 +126,20 @@ export default async function AboutPage({ params }: Props) {
         </section>
 
         <section className="flex flex-col items-center justify-center min-h-[50svh] px-6 pb-32 pt-12 pointer-events-none mix-blend-multiply">
-          <h2 className="text-[clamp(3.5rem,8vw,9rem)] leading-[1.05] font-serif text-[var(--foreground)] tracking-tight text-center mb-4 md:mb-8" data-sanity={createSanityEdit(about, localizedField("contactTitle", locale))}>
+          <h2 className="text-[clamp(3.5rem,8vw,9rem)] leading-[1.05] font-serif text-[var(--foreground)] tracking-tight text-center max-w-[20ch] mx-auto mb-8 md:mb-12" data-sanity={createSanityEdit(about, localizedField("contactTitle", locale))}>
             {contactTitle}
           </h2>
-          <a
-            href={`mailto:${contactEmail}`}
-            className="text-[clamp(1.5rem,3.5vw,4rem)] text-[var(--foreground)] font-sans font-light pointer-events-auto hover:text-[var(--gold)] transition-colors"
-            data-sanity={createSanityEdit(about, "contactEmail") || createSanityEdit(siteSettings, "email")}
+          <Link
+            href="/#contact"
+            className="btn btn-primary btn-primary-lg pointer-events-auto text-lg px-10 py-4"
           >
-            {contactEmail}
-          </a>
+            {dict.nav.cta}
+          </Link>
         </section>
+
+        <div className="pointer-events-auto mix-blend-normal">
+          <Footer settings={siteSettings || undefined} locale={locale} />
+        </div>
       </div>
     </main>
   );

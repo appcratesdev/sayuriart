@@ -162,3 +162,12 @@ export const aboutQuery = groq`*[_type == "about"][0]{
   contactEmail,
   ${seo()}
 }`;
+
+export const legalPageQuery = groq`*[_type == "legalPage" && coalesce(slug[$lang].current, slug.current) == $slug][0]{
+  _id,
+  _type,
+  "title": ${l("title")},
+  "slug": {"current": coalesce(slug[$lang].current, slug.current)},
+  "content": ${l("content")},
+  ${seo()}
+}`;

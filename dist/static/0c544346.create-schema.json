@@ -1630,5 +1630,31 @@
     "name": "about",
     "type": "document",
     "title": "O mnie (About Page)"
+  },
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "localizedString",
+        "title": "Tytuł strony"
+      },
+      {
+        "name": "slug",
+        "type": "localizedSlug"
+      },
+      {
+        "name": "content",
+        "type": "localizedBlocks",
+        "title": "Treść"
+      },
+      {
+        "name": "seo",
+        "type": "seoFields",
+        "title": "SEO"
+      }
+    ],
+    "name": "legalPage",
+    "type": "document",
+    "title": "Strony Prawne (Legal Pages)"
   }
 ]

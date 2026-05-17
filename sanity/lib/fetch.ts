@@ -14,6 +14,7 @@ import {
   processQuery,
   faqQuery,
   aboutQuery,
+  legalPageQuery,
 } from './queries'
 import type {
   SiteSettings,
@@ -28,6 +29,7 @@ import type {
   Process,
   FAQ,
   About,
+  LegalPage,
 } from './types'
 
 import { defaultLocale, type Locale } from '@/lib/i18n'
@@ -119,4 +121,8 @@ export async function getFAQ(locale: Locale = defaultLocale): Promise<FAQ[]> {
 
 export async function getAbout(locale: Locale = defaultLocale): Promise<About | null> {
   return safeFetch(aboutQuery, localeParams(locale), null)
+}
+
+export async function getLegalPageBySlug(slug: string, locale: Locale = defaultLocale): Promise<LegalPage | null> {
+  return safeFetch(legalPageQuery, { slug, ...localeParams(locale) }, null)
 }

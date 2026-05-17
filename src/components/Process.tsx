@@ -49,12 +49,12 @@ export const Process = ({ items, locale = "pl" }: { items?: ProcessContent[]; lo
   const dict = getDictionary(locale);
 
   return (
-    <section className="section-padding bg-[var(--card)]" id="process">
+    <section className="section-padding bg-[var(--dark-bg)]" id="process">
       <div className="container-main">
-        <SectionHeader title={dict.home.processTitle} description={dict.home.processDescription} align="center" />
+        <SectionHeader title={dict.home.processTitle} description={dict.home.processDescription} align="center" dark />
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6 mt-16 relative">
-          <div className="hidden md:block absolute top-12 left-[12.5%] right-[12.5%] h-[1px] bg-[var(--border)]" />
+          <div className="hidden md:block absolute top-12 left-[12.5%] right-[12.5%] h-[1px] bg-white/20" />
 
           {processSteps.map((step, index) => (
             <motion.div
@@ -65,14 +65,14 @@ export const Process = ({ items, locale = "pl" }: { items?: ProcessContent[]; lo
               transition={{ duration: 0.6, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col items-center text-center relative z-10"
             >
-              <div className="w-24 h-24 rounded-full bg-[var(--background)] border border-[var(--border)] flex items-center justify-center mb-6 relative">
+              <div className="w-24 h-24 rounded-full bg-[var(--background)] border border-white/10 flex items-center justify-center mb-6 relative">
                 <div className="text-[var(--primary)]">{icons[step.iconName || "brief"]}</div>
-                <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-[var(--primary)] text-white text-xs font-bold flex items-center justify-center" data-sanity={step.numberEdit}>
+                <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-[var(--gold)] text-white text-xs font-bold flex items-center justify-center" data-sanity={step.numberEdit}>
                   {step.number}
                 </span>
               </div>
-              <h3 className="text-xl font-serif text-[var(--foreground)] mb-3" data-sanity={step.titleEdit}>{step.title}</h3>
-              <p className="text-body text-sm max-w-[240px]" data-sanity={step.descEdit}>{step.desc}</p>
+              <h3 className="text-xl font-serif text-white mb-3" data-sanity={step.titleEdit}>{step.title}</h3>
+              <p className="text-white/70 text-sm max-w-[240px]" data-sanity={step.descEdit}>{step.desc}</p>
             </motion.div>
           ))}
         </div>

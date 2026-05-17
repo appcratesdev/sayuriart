@@ -59,7 +59,7 @@ export const Testimonials = ({ items, locale = "pl" }: { items?: TestimonialCont
   const current = testimonialItems[currentIndex] ?? testimonialItems[0];
 
   return (
-    <section className="section-padding bg-[var(--card)]">
+    <section className="section-padding bg-[var(--background)]">
       <div className="container-main">
         <div className="flex flex-col md:flex-row gap-12 md:gap-20 items-start">
           {/* Left */}
@@ -75,14 +75,14 @@ export const Testimonials = ({ items, locale = "pl" }: { items?: TestimonialCont
                 className="w-10 h-10 rounded-full border border-[var(--border)] flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-white hover:border-[var(--primary)] transition-colors"
                 aria-label="Previous testimonial"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
               </button>
               <button
                 onClick={() => setCurrentIndex((prev) => (prev + 1) % testimonialItems.length)}
                 className="w-10 h-10 rounded-full border border-[var(--border)] flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-white hover:border-[var(--primary)] transition-colors"
                 aria-label="Next testimonial"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
               </button>
 
               {/* Progress dots */}
@@ -91,9 +91,8 @@ export const Testimonials = ({ items, locale = "pl" }: { items?: TestimonialCont
                   <button
                     key={i}
                     onClick={() => setCurrentIndex(i)}
-                    className={`h-1.5 rounded-full transition-all duration-500 ${
-                      i === currentIndex ? "w-8 bg-[var(--primary)]" : "w-3 bg-[var(--border)]"
-                    }`}
+                    className={`h-1.5 rounded-full transition-all duration-500 ${i === currentIndex ? "w-8 bg-[var(--primary)]" : "w-3 bg-[var(--border)]"
+                      }`}
                     aria-label={`Go to slide ${i + 1}`}
                   />
                 ))}
@@ -102,7 +101,7 @@ export const Testimonials = ({ items, locale = "pl" }: { items?: TestimonialCont
           </div>
 
           {/* Right — Quote */}
-          <div className="w-full md:w-2/3 relative min-h-[320px]">
+          <div className="w-full md:w-2/3 relative h-[450px] md:h-[350px] lg:h-[320px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
@@ -110,7 +109,7 @@ export const Testimonials = ({ items, locale = "pl" }: { items?: TestimonialCont
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -30 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="flex flex-col justify-center"
+                className="flex flex-col justify-center absolute inset-0"
               >
                 {/* Quote mark */}
                 <svg className="w-12 h-12 text-[var(--border)] mb-6" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
