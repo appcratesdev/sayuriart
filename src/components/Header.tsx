@@ -5,7 +5,7 @@ import { useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { getDictionary, localeLabels, locales, localizedHref, type Locale } from "@/lib/i18n";
 
-export const Header = ({ title, locale = "pl" }: { title?: string; locale?: Locale }) => {
+export const Header = ({ title, titleEdit, locale = "pl" }: { title?: string; titleEdit?: string; locale?: Locale }) => {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -44,6 +44,7 @@ export const Header = ({ title, locale = "pl" }: { title?: string; locale?: Loca
         <Link
           href={localizedHref(locale, "/")}
           className="text-lg font-bold tracking-tight text-[var(--foreground)] relative z-50"
+          data-sanity={titleEdit}
         >
           {title || "LIFESTYLE IMAGES"}
         </Link>

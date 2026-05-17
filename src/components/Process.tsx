@@ -27,7 +27,7 @@ const icons = {
   ),
 };
 
-const fallbackSteps = [
+const fallbackSteps: ProcessContent[] = [
   { number: "01", title: "Brief", desc: "Send product details, audience and visual expectations.", iconName: "brief" as const },
   { number: "02", title: "Concept", desc: "I prepare the scene, style and creative direction.", iconName: "concept" as const },
   { number: "03", title: "Creation", desc: "The visuals are created in line with your brand and platform standards.", iconName: "creation" as const },
@@ -39,6 +39,9 @@ export interface ProcessContent {
   title: string;
   desc: string;
   iconName?: keyof typeof icons;
+  numberEdit?: string;
+  titleEdit?: string;
+  descEdit?: string;
 }
 
 export const Process = ({ items, locale = "pl" }: { items?: ProcessContent[]; locale?: Locale }) => {
@@ -64,12 +67,12 @@ export const Process = ({ items, locale = "pl" }: { items?: ProcessContent[]; lo
             >
               <div className="w-24 h-24 rounded-full bg-[var(--background)] border border-[var(--border)] flex items-center justify-center mb-6 relative">
                 <div className="text-[var(--primary)]">{icons[step.iconName || "brief"]}</div>
-                <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-[var(--primary)] text-white text-xs font-bold flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-[var(--primary)] text-white text-xs font-bold flex items-center justify-center" data-sanity={step.numberEdit}>
                   {step.number}
                 </span>
               </div>
-              <h3 className="text-xl font-serif text-[var(--foreground)] mb-3">{step.title}</h3>
-              <p className="text-body text-sm max-w-[240px]">{step.desc}</p>
+              <h3 className="text-xl font-serif text-[var(--foreground)] mb-3" data-sanity={step.titleEdit}>{step.title}</h3>
+              <p className="text-body text-sm max-w-[240px]" data-sanity={step.descEdit}>{step.desc}</p>
             </motion.div>
           ))}
         </div>

@@ -14,12 +14,16 @@ interface Package {
   savings?: string;
   originalValue?: string;
   features: string[];
+  nameEdit?: string;
+  priceEdit?: string;
+  featuresEdit?: string;
 }
 
 export interface PricingCategory {
   id: string;
   label: string;
   packages: Package[];
+  labelEdit?: string;
 }
 
 const fallbackCategories: PricingCategory[] = [
@@ -49,12 +53,12 @@ const PricingCard = ({ pkg, locale }: { pkg: Package; locale: Locale }) => {
         </span>
       )}
 
-      <h3 className={`heading-card text-[var(--foreground)] mb-2 ${pkg.featured ? "pr-28 sm:pr-32" : ""}`}>
+      <h3 className={`heading-card text-[var(--foreground)] mb-2 ${pkg.featured ? "pr-28 sm:pr-32" : ""}`} data-sanity={pkg.nameEdit}>
         {pkg.name}
       </h3>
 
       <div className="flex items-baseline gap-1 mb-1">
-        <span className="text-4xl md:text-5xl font-serif text-[var(--foreground)]">{pkg.price}</span>
+        <span className="text-4xl md:text-5xl font-serif text-[var(--foreground)]" data-sanity={pkg.priceEdit}>{pkg.price}</span>
         <span className="text-lg text-[var(--muted-foreground)]">{dict.home.pricingCurrency}</span>
         {pkg.unit && <span className="text-sm text-[var(--muted-foreground)] ml-1">{pkg.unit}</span>}
       </div>
@@ -73,7 +77,7 @@ const PricingCard = ({ pkg, locale }: { pkg: Package; locale: Locale }) => {
       )}
 
       <div className="border-t border-[var(--border)] my-4 pt-4 flex-1">
-        <ul className="space-y-2.5">
+        <ul className="space-y-2.5" data-sanity={pkg.featuresEdit}>
           {pkg.features.map((feature) => (
             <li key={feature} className="pricing-feature">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0 mt-0.5">
@@ -110,6 +114,7 @@ export const Pricing = ({ items, locale = "pl" }: { items?: PricingCategory[]; l
                 key={category.id}
                 onClick={() => setActiveCategory(index)}
                 className={`tab-btn ${activeCategory === index ? "active" : ""}`}
+                data-sanity={category.labelEdit}
               >
                 {category.label}
               </button>

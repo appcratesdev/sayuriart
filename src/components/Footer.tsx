@@ -10,6 +10,8 @@ export interface FooterSettings {
   facebook?: string;
   linkedin?: string;
   title?: string;
+  titleEdit?: string;
+  emailEdit?: string;
 }
 
 export const Footer = ({ settings, locale = "pl" }: { settings?: FooterSettings; locale?: Locale }) => {
@@ -37,7 +39,7 @@ export const Footer = ({ settings, locale = "pl" }: { settings?: FooterSettings;
             <div className="mt-auto flex flex-col gap-6">
               <div>
                 <span className="form-label">{dict.footer.email}</span>
-                <a href={`mailto:${email}`} className="text-xl font-medium hover:text-[var(--gold)] transition-colors block">
+                <a href={`mailto:${email}`} className="text-xl font-medium hover:text-[var(--gold)] transition-colors block" data-sanity={settings?.emailEdit}>
                   {email}
                 </a>
               </div>
@@ -96,7 +98,7 @@ export const Footer = ({ settings, locale = "pl" }: { settings?: FooterSettings;
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 text-xs text-white/30 gap-4 text-center md:text-left">
-          <span className="font-bold tracking-widest uppercase text-white/50">{settings?.title || "LIFESTYLE IMAGES"}</span>
+          <span className="font-bold tracking-widest uppercase text-white/50" data-sanity={settings?.titleEdit}>{settings?.title || "LIFESTYLE IMAGES"}</span>
           <div className="flex flex-wrap justify-center gap-6">
             <Link href="#" className="hover:text-white transition-colors">{dict.footer.privacy}</Link>
             <Link href="#" className="hover:text-white transition-colors">{dict.footer.terms}</Link>

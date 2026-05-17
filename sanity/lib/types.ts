@@ -1,13 +1,18 @@
 import type { SanityImageSource } from "@sanity/image-url";
 import type { PortableTextBlock } from "@portabletext/types";
 
+export interface SanityDocumentMeta {
+  _id?: string;
+  _type?: string;
+}
+
 export interface SeoFields {
   title?: string;
   description?: string;
   image?: SanityImageSource;
 }
 
-export interface SiteSettings {
+export interface SiteSettings extends SanityDocumentMeta {
   title: string;
   description?: string;
   logo?: SanityImageSource;
@@ -21,7 +26,7 @@ export interface SiteSettings {
   seo?: SeoFields;
 }
 
-export interface Hero {
+export interface Hero extends SanityDocumentMeta {
   title: string;
   subtitle?: string;
   ctaText?: string;
@@ -30,15 +35,16 @@ export interface Hero {
   seo?: SeoFields;
 }
 
-export interface Manifesto {
+export interface Manifesto extends SanityDocumentMeta {
   overline?: string;
   title: string;
   description?: PortableTextBlock[];
   image?: SanityImageSource;
 }
 
-export interface Service {
+export interface Service extends SanityDocumentMeta {
   _id: string;
+  _type?: string;
   title: string;
   description?: string;
   features?: string[];
@@ -46,8 +52,9 @@ export interface Service {
   order: number;
 }
 
-export interface BeforeAfter {
+export interface BeforeAfter extends SanityDocumentMeta {
   _id: string;
+  _type?: string;
   title: string;
   description?: string;
   beforeImage: SanityImageSource;
@@ -55,14 +62,15 @@ export interface BeforeAfter {
   order: number;
 }
 
-export interface PortfolioSection {
+export interface PortfolioSection extends SanityDocumentMeta {
   sectionTitle: string;
   sectionDescription?: string;
   seo?: SeoFields;
 }
 
-export interface Project {
+export interface Project extends SanityDocumentMeta {
   _id: string;
+  _type?: string;
   title: string;
   slug: {
     current: string;
@@ -96,16 +104,18 @@ export interface PricingPackage {
   features: string[];
 }
 
-export interface Pricing {
+export interface Pricing extends SanityDocumentMeta {
   _id: string;
+  _type?: string;
   categoryId: string;
   categoryLabel: string;
   packages: PricingPackage[];
   order: number;
 }
 
-export interface Testimonial {
+export interface Testimonial extends SanityDocumentMeta {
   _id: string;
+  _type?: string;
   name: string;
   role?: string;
   content: string;
@@ -114,8 +124,9 @@ export interface Testimonial {
   order: number;
 }
 
-export interface Process {
+export interface Process extends SanityDocumentMeta {
   _id: string;
+  _type?: string;
   number: string;
   title: string;
   description: string;
@@ -123,14 +134,15 @@ export interface Process {
   order: number;
 }
 
-export interface FAQ {
+export interface FAQ extends SanityDocumentMeta {
   _id: string;
+  _type?: string;
   question: string;
   answer: string;
   order: number;
 }
 
-export interface About {
+export interface About extends SanityDocumentMeta {
   seoTitle?: string;
   seoDescription?: string;
   profileImage?: SanityImageSource & { alt?: string };

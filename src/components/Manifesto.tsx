@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const fallbackText =
   "Przecietne zdjecia kosztuja Cie wiecej, niz myslisz. Tracisz zaufanie i konwersje. My zamieniamy Twoje produkty w obiekty pozadania - bez koniecznosci organizacji drogich sesji.";
 
-export const Manifesto = ({ text }: { text?: string }) => {
+export const Manifesto = ({ text, textEdit }: { text?: string; textEdit?: string }) => {
   const words = (text || fallbackText).split(" ");
 
   return (
@@ -19,6 +19,7 @@ export const Manifesto = ({ text }: { text?: string }) => {
         <div className="max-w-5xl mx-auto text-center">
           <motion.p
             className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-serif text-white leading-[1.35] md:leading-[1.3] flex flex-wrap justify-center gap-x-[0.22em] gap-y-[0.1em]"
+            data-sanity={textEdit}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-15%" }}

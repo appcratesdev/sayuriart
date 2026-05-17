@@ -5,6 +5,7 @@ import Link from "next/link";
 import { assertLocale, getDictionary, locales, localizedHref } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import { portableTextToPlainText, sanityImageUrl } from "@/lib/sanity-mappers";
+import { createSanityEdit } from "../../../../../sanity/lib/edit";
 import { getProjectBySlug, getProjects, getSiteSettings } from "../../../../../sanity/lib/fetch";
 
 type Props = {
@@ -25,6 +26,8 @@ const categoryLabels = {
     infographics: "Infographics",
   },
 };
+
+const localizedField = (field: string, locale: string) => `${field}.${locale}`;
 
 export async function generateStaticParams() {
   const params = await Promise.all(
@@ -80,7 +83,7 @@ export default async function ProjectPage({ params }: Props) {
   if (!project) {
     return (
       <div className="min-h-screen flex flex-col">
-        <Header title={siteSettings?.title} locale={locale} />
+        <Header title={siteSettings?.title} titleEdit={createSanityEdit(siteSettings, localizedField("title", locale))} locale={locale} />
         <main className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <h1 className="heading-section text-[var(--foreground)] mb-4">{dict.project.notFoundTitle}</h1>
@@ -106,6 +109,15 @@ export default async function ProjectPage({ params }: Props) {
       sanityImageUrl(project.coverImage, 1600, 900),
       ...(project.gallery || []).map((image) => sanityImageUrl(image, 1200, 1200)),
     ].filter((image): image is string => Boolean(image)),
+    titleEdit: createSanityEdit(project, localizedField("title", locale)),
+    categoryEdit: createSanityEdit(project, "category"),
+    clientEdit: createSanityEdit(project, "client"),
+    yearEdit: createSanityEdit(project, "year"),
+    descriptionEdit: createSanityEdit(project, localizedField("description", locale)),
+    challengeEdit: createSanityEdit(project, localizedField("challenge", locale)),
+    solutionEdit: createSanityEdit(project, localizedField("solution", locale)),
+    resultsEdit: createSanityEdit(project, project.results?.length ? localizedField("results", locale) : localizedField("services", locale)),
+    coverImageEdit: createSanityEdit(project, "coverImage"),
   };
 
   if (!mappedProject.images.length) {
@@ -114,7 +126,7 @@ export default async function ProjectPage({ params }: Props) {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header title={siteSettings?.title} locale={locale} />
+      <Header title={siteSettings?.title} titleEdit={createSanityEdit(siteSettings, localizedField("title", locale))} locale={locale} />
       <main className="flex-1">
         <ProjectPageContent project={mappedProject} locale={locale} />
       </main>
@@ -122,7 +134,9 @@ export default async function ProjectPage({ params }: Props) {
         locale={locale}
         settings={{
           title: siteSettings?.title,
+          titleEdit: createSanityEdit(siteSettings, localizedField("title", locale)),
           email: siteSettings?.email,
+          emailEdit: createSanityEdit(siteSettings, "email"),
           instagram: siteSettings?.socialLinks?.instagram,
           facebook: siteSettings?.socialLinks?.facebook,
           linkedin: siteSettings?.socialLinks?.linkedin,

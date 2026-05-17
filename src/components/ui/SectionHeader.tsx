@@ -8,9 +8,21 @@ interface SectionHeaderProps {
   description?: string;
   align?: "left" | "center";
   dark?: boolean;
+  overlineEdit?: string;
+  titleEdit?: string;
+  descriptionEdit?: string;
 }
 
-export const SectionHeader = ({ overline, title, description, align = "left", dark = false }: SectionHeaderProps) => (
+export const SectionHeader = ({
+  overline,
+  title,
+  description,
+  align = "left",
+  dark = false,
+  overlineEdit,
+  titleEdit,
+  descriptionEdit,
+}: SectionHeaderProps) => (
   <motion.div
     initial={{ opacity: 0, y: 24 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -19,15 +31,15 @@ export const SectionHeader = ({ overline, title, description, align = "left", da
     className={align === "center" ? "text-center" : ""}
   >
     {overline && (
-      <span className={`overline block mb-4 ${dark ? "text-[var(--gold)]" : ""}`}>
+      <span className={`overline block mb-4 ${dark ? "text-[var(--gold)]" : ""}`} data-sanity={overlineEdit}>
         {overline}
       </span>
     )}
-    <h2 className={`heading-section ${dark ? "text-white" : "text-[var(--foreground)]"}`}>
+    <h2 className={`heading-section ${dark ? "text-white" : "text-[var(--foreground)]"}`} data-sanity={titleEdit}>
       {title}
     </h2>
     {description && (
-      <p className={`text-body-lg mt-4 max-w-xl ${align === "center" ? "mx-auto" : ""} ${dark ? "text-white/60" : ""}`}>
+      <p className={`text-body-lg mt-4 max-w-xl ${align === "center" ? "mx-auto" : ""} ${dark ? "text-white/60" : ""}`} data-sanity={descriptionEdit}>
         {description}
       </p>
     )}

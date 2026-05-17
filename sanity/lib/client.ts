@@ -17,13 +17,17 @@ export const client = createClient({
   },
 })
 
+export function getSanityReadToken() {
+  return process.env.SANITY_API_READ_TOKEN || process.env.SANITY_API_TOKEN || process.env.SANITY_API_KEY
+}
+
 /**
  * Create a client configured for draft/preview mode.
  * Enables stega encoding with studioUrl so visual editing overlays
  * can create proper edit intent links back to the Studio.
  */
 export function getDraftClient() {
-  const token = process.env.SANITY_API_TOKEN
+  const token = getSanityReadToken()
   if (!token) {
     throw new Error('SANITY_API_TOKEN is required for draft mode')
   }

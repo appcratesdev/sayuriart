@@ -17,6 +17,15 @@ interface ProjectData {
   solution: string;
   results: string[];
   images: string[];
+  titleEdit?: string;
+  categoryEdit?: string;
+  clientEdit?: string;
+  yearEdit?: string;
+  descriptionEdit?: string;
+  challengeEdit?: string;
+  solutionEdit?: string;
+  resultsEdit?: string;
+  coverImageEdit?: string;
 }
 
 export const ProjectPageContent = ({
@@ -66,17 +75,17 @@ export const ProjectPageContent = ({
 
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
               <div>
-                <span className="badge badge-outline mb-4">{project.category}</span>
-                <h1 className="heading-display text-[var(--foreground)]">{project.title}</h1>
+                <span className="badge badge-outline mb-4" data-sanity={project.categoryEdit}>{project.category}</span>
+                <h1 className="heading-display text-[var(--foreground)]" data-sanity={project.titleEdit}>{project.title}</h1>
               </div>
               <div className="flex gap-8 text-sm text-[var(--muted-foreground)]">
                 <div>
                   <span className="block font-medium text-[var(--foreground)]">{dict.project.client}</span>
-                  {project.client}
+                  <span data-sanity={project.clientEdit}>{project.client}</span>
                 </div>
                 <div>
                   <span className="block font-medium text-[var(--foreground)]">{dict.project.year}</span>
-                  {project.year}
+                  <span data-sanity={project.yearEdit}>{project.year}</span>
                 </div>
               </div>
             </div>
@@ -87,6 +96,7 @@ export const ProjectPageContent = ({
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="img-wrapper aspect-[21/9] w-full"
+            data-sanity={project.coverImageEdit}
           >
             <Image src={project.images[0] || "/images/placeholder.jpg"} alt={project.title} fill className="object-cover" priority />
           </motion.div>
@@ -97,16 +107,16 @@ export const ProjectPageContent = ({
         <div className="container-main">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
-              <p className="text-body-lg">{project.description}</p>
+              <p className="text-body-lg" data-sanity={project.descriptionEdit}>{project.description}</p>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }} className="space-y-8">
               <div>
                 <h3 className="heading-card text-[var(--foreground)] mb-3">{dict.project.challenge}</h3>
-                <p className="text-body">{project.challenge}</p>
+                <p className="text-body" data-sanity={project.challengeEdit}>{project.challenge}</p>
               </div>
               <div>
                 <h3 className="heading-card text-[var(--foreground)] mb-3">{dict.project.solution}</h3>
-                <p className="text-body">{project.solution}</p>
+                <p className="text-body" data-sanity={project.solutionEdit}>{project.solution}</p>
               </div>
             </motion.div>
           </div>
@@ -141,7 +151,7 @@ export const ProjectPageContent = ({
         <div className="container-main">
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
             <h2 className="heading-section text-[var(--foreground)] mb-10">{dict.project.results}</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6" data-sanity={project.resultsEdit}>
               {project.results.map((result, index) => (
                 <div key={result} className="card-flat p-6">
                   <div className="w-10 h-10 rounded-full bg-[var(--primary)] text-white flex items-center justify-center text-sm font-bold mb-4">

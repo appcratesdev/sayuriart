@@ -6,6 +6,7 @@ import { PortableText } from "@portabletext/react";
 import { assertLocale, getDictionary, locales } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import { sanityImageUrl } from "@/lib/sanity-mappers";
+import { createSanityEdit } from "../../../../sanity/lib/edit";
 import { getAbout, getSiteSettings } from "../../../../sanity/lib/fetch";
 
 type Props = {
@@ -18,6 +19,8 @@ const hobbyIcons = {
   leaf: Leaf,
   coffee: Coffee,
 };
+
+const localizedField = (field: string, locale: string) => `${field}.${locale}`;
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -67,7 +70,7 @@ export default async function AboutPage({ params }: Props) {
 
       <div className="relative z-10 pointer-events-none">
         <div className="pointer-events-auto">
-          <Header title={siteSettings?.title} locale={locale} />
+          <Header title={siteSettings?.title} titleEdit={createSanityEdit(siteSettings, localizedField("title", locale))} locale={locale} />
         </div>
 
         <section className="w-full pt-32 pb-24 px-6 pointer-events-auto">
@@ -87,14 +90,14 @@ export default async function AboutPage({ params }: Props) {
                   <span className="p-3 rounded-full bg-[var(--muted)] text-[var(--primary)] shadow-sm">
                     <Palette className="w-6 h-6" strokeWidth={1.5} />
                   </span>
-                  <span className="overline text-[var(--gold)] tracking-widest">{role}</span>
+                  <span className="overline text-[var(--gold)] tracking-widest" data-sanity={createSanityEdit(about, localizedField("role", locale))}>{role}</span>
                 </div>
 
-                <h1 className="text-[clamp(2.5rem,4vw,4rem)] leading-[1.1] font-serif text-[var(--foreground)] mb-8">
+                <h1 className="text-[clamp(2.5rem,4vw,4rem)] leading-[1.1] font-serif text-[var(--foreground)] mb-8" data-sanity={createSanityEdit(about, localizedField("title", locale))}>
                   {title}
                 </h1>
 
-                <div className="space-y-6 text-body-lg text-black max-w-2xl font-light">
+                <div className="space-y-6 text-body-lg text-black max-w-2xl font-light" data-sanity={createSanityEdit(about, localizedField("bio", locale))}>
                   {about?.bio ? (
                     <PortableText value={about.bio} />
                   ) : (
@@ -122,12 +125,13 @@ export default async function AboutPage({ params }: Props) {
         </section>
 
         <section className="flex flex-col items-center justify-center min-h-[50svh] px-6 pb-32 pt-12 pointer-events-none mix-blend-multiply">
-          <h2 className="text-[clamp(3.5rem,8vw,9rem)] leading-[1.05] font-serif text-[var(--foreground)] tracking-tight text-center mb-4 md:mb-8">
+          <h2 className="text-[clamp(3.5rem,8vw,9rem)] leading-[1.05] font-serif text-[var(--foreground)] tracking-tight text-center mb-4 md:mb-8" data-sanity={createSanityEdit(about, localizedField("contactTitle", locale))}>
             {contactTitle}
           </h2>
           <a
             href={`mailto:${contactEmail}`}
             className="text-[clamp(1.5rem,3.5vw,4rem)] text-[var(--foreground)] font-sans font-light pointer-events-auto hover:text-[var(--gold)] transition-colors"
+            data-sanity={createSanityEdit(about, "contactEmail") || createSanityEdit(siteSettings, "email")}
           >
             {contactEmail}
           </a>

@@ -7,15 +7,6 @@ import { motion } from "framer-motion";
 import { SectionHeader } from "./ui/SectionHeader";
 import { getDictionary, localizedHref, type Locale } from "@/lib/i18n";
 
-const works = [
-  { title: "Kosmetyki naturalne", slug: "kosmetyki-naturalne", category: "Lifestyle", img: "/images/placeholder.jpg", aspect: "aspect-[4/5]", span: "col-span-1 md:col-span-2 md:row-span-2" },
-  { title: "Kolekcja zapachow", slug: "kolekcja-zapachow", category: "Packshot", img: "/images/placeholder.jpg", aspect: "aspect-square", span: "col-span-1" },
-  { title: "Swiece premium", slug: "swiece-premium", category: "Lifestyle", img: "/images/placeholder.jpg", aspect: "aspect-square", span: "col-span-1" },
-  { title: "Ceramika artystyczna", slug: "ceramika-artystyczna", category: "Infografiki", img: "/images/placeholder.jpg", aspect: "aspect-[3/4]", span: "col-span-1" },
-  { title: "Suplementy diety", slug: "suplementy-diety", category: "A+ Content", img: "/images/placeholder.jpg", aspect: "aspect-[16/10]", span: "col-span-1 md:col-span-2" },
-  { title: "Bizuteria premium", slug: "bizuteria-premium", category: "Packshot", img: "/images/placeholder.jpg", aspect: "aspect-[3/4]", span: "col-span-1" },
-];
-
 export interface PortfolioContent {
   title?: string;
   description?: string;
@@ -26,8 +17,22 @@ export interface PortfolioContent {
     img?: string;
     aspect?: string;
     span?: string;
+    titleEdit?: string;
+    categoryEdit?: string;
+    imageEdit?: string;
   }>;
+  titleEdit?: string;
+  descriptionEdit?: string;
 }
+
+const works: NonNullable<PortfolioContent["works"]> = [
+  { title: "Kosmetyki naturalne", slug: "kosmetyki-naturalne", category: "Lifestyle", img: "/images/placeholder.jpg", aspect: "aspect-[4/5]", span: "col-span-1 md:col-span-2 md:row-span-2" },
+  { title: "Kolekcja zapachow", slug: "kolekcja-zapachow", category: "Packshot", img: "/images/placeholder.jpg", aspect: "aspect-square", span: "col-span-1" },
+  { title: "Swiece premium", slug: "swiece-premium", category: "Lifestyle", img: "/images/placeholder.jpg", aspect: "aspect-square", span: "col-span-1" },
+  { title: "Ceramika artystyczna", slug: "ceramika-artystyczna", category: "Infografiki", img: "/images/placeholder.jpg", aspect: "aspect-[3/4]", span: "col-span-1" },
+  { title: "Suplementy diety", slug: "suplementy-diety", category: "A+ Content", img: "/images/placeholder.jpg", aspect: "aspect-[16/10]", span: "col-span-1 md:col-span-2" },
+  { title: "Bizuteria premium", slug: "bizuteria-premium", category: "Packshot", img: "/images/placeholder.jpg", aspect: "aspect-[3/4]", span: "col-span-1" },
+];
 
 export const Portfolio = ({ content, locale = "pl" }: { content?: PortfolioContent; locale?: Locale }) => {
   const workItems = content?.works?.length ? content.works : works;
@@ -49,6 +54,8 @@ export const Portfolio = ({ content, locale = "pl" }: { content?: PortfolioConte
               content?.description ||
               dict.home.portfolioDescription
             }
+            titleEdit={content?.titleEdit}
+            descriptionEdit={content?.descriptionEdit}
           />
         </div>
 
@@ -76,7 +83,7 @@ export const Portfolio = ({ content, locale = "pl" }: { content?: PortfolioConte
               className={`group cursor-pointer ${work.span || "col-span-1"}`}
             >
               <Link href={localizedHref(locale, `/projekt/${work.slug}`)} className="block w-full h-full">
-                <div className={`img-wrapper w-full ${work.aspect || "aspect-square"}`}>
+                <div className={`img-wrapper w-full ${work.aspect || "aspect-square"}`} data-sanity={work.imageEdit}>
                   <Image
                     src={work.img || "/images/placeholder.jpg"}
                     alt={work.title}
@@ -91,8 +98,8 @@ export const Portfolio = ({ content, locale = "pl" }: { content?: PortfolioConte
                   </div>
                 </div>
                 <div className="mt-4 flex justify-between items-center">
-                  <h3 className="text-base font-medium text-[var(--foreground)]">{work.title}</h3>
-                  <span className="badge badge-outline">{work.category}</span>
+                  <h3 className="text-base font-medium text-[var(--foreground)]" data-sanity={work.titleEdit}>{work.title}</h3>
+                  <span className="badge badge-outline" data-sanity={work.categoryEdit}>{work.category}</span>
                 </div>
               </Link>
             </motion.div>

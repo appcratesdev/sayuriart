@@ -8,6 +8,8 @@ const seo = (field = "seo") => `"seo": {
 }`;
 
 export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]{
+  _id,
+  _type,
   "title": ${l("title")},
   "description": ${l("description")},
   logo,
@@ -18,6 +20,8 @@ export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]{
 }`;
 
 export const heroQuery = groq`*[_type == "hero"][0]{
+  _id,
+  _type,
   "title": ${l("title")},
   "subtitle": ${l("subtitle")},
   "ctaText": ${l("ctaText")},
@@ -27,6 +31,8 @@ export const heroQuery = groq`*[_type == "hero"][0]{
 }`;
 
 export const manifestoQuery = groq`*[_type == "manifesto"][0]{
+  _id,
+  _type,
   "overline": ${l("overline")},
   "title": ${l("title")},
   "description": ${l("description")},
@@ -35,6 +41,7 @@ export const manifestoQuery = groq`*[_type == "manifesto"][0]{
 
 export const servicesQuery = groq`*[_type == "service"] | order(order asc){
   _id,
+  _type,
   "title": ${l("title")},
   "description": ${l("description")},
   "features": ${l("features")},
@@ -44,6 +51,7 @@ export const servicesQuery = groq`*[_type == "service"] | order(order asc){
 
 export const beforeAfterQuery = groq`*[_type == "beforeAfter"] | order(order asc){
   _id,
+  _type,
   "title": ${l("title")},
   "description": ${l("description")},
   beforeImage,
@@ -52,6 +60,8 @@ export const beforeAfterQuery = groq`*[_type == "beforeAfter"] | order(order asc
 }`;
 
 export const portfolioSectionQuery = groq`*[_type == "portfolio"][0]{
+  _id,
+  _type,
   "sectionTitle": ${l("sectionTitle")},
   "sectionDescription": ${l("sectionDescription")},
   ${seo()}
@@ -59,6 +69,7 @@ export const portfolioSectionQuery = groq`*[_type == "portfolio"][0]{
 
 export const projectsQuery = groq`*[_type == "project"] | order(order asc){
   _id,
+  _type,
   "title": ${l("title")},
   "slug": {"current": coalesce(slug[$lang].current, slug.current)},
   category,
@@ -71,6 +82,7 @@ export const projectsQuery = groq`*[_type == "project"] | order(order asc){
 
 export const projectBySlugQuery = groq`*[_type == "project" && coalesce(slug[$lang].current, slug.current) == $slug][0]{
   _id,
+  _type,
   "title": ${l("title")},
   "slug": {"current": coalesce(slug[$lang].current, slug.current)},
   category,
@@ -89,6 +101,7 @@ export const projectBySlugQuery = groq`*[_type == "project" && coalesce(slug[$la
 
 export const pricingQuery = groq`*[_type == "pricing"] | order(order asc){
   _id,
+  _type,
   categoryId,
   "categoryLabel": ${l("categoryLabel")},
   packages[]{
@@ -105,6 +118,7 @@ export const pricingQuery = groq`*[_type == "pricing"] | order(order asc){
 
 export const testimonialsQuery = groq`*[_type == "testimonial"] | order(order asc){
   _id,
+  _type,
   name,
   "role": ${l("role")},
   "content": ${l("content")},
@@ -115,6 +129,7 @@ export const testimonialsQuery = groq`*[_type == "testimonial"] | order(order as
 
 export const processQuery = groq`*[_type == "process"] | order(order asc){
   _id,
+  _type,
   number,
   "title": ${l("title")},
   "description": ${l("description")},
@@ -124,12 +139,15 @@ export const processQuery = groq`*[_type == "process"] | order(order asc){
 
 export const faqQuery = groq`*[_type == "faq"] | order(order asc){
   _id,
+  _type,
   "question": ${l("question")},
   "answer": ${l("answer")},
   order
 }`;
 
 export const aboutQuery = groq`*[_type == "about"][0]{
+  _id,
+  _type,
   "seoTitle": ${l("seoTitle")},
   "seoDescription": ${l("seoDescription")},
   profileImage,

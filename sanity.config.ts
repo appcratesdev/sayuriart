@@ -24,6 +24,10 @@ const previewOrigin = toPreviewOrigin(
 );
 const previewUrl = `${previewOrigin}/en`;
 
+function getPreviewUrl(path = "/") {
+  return new URL(path, previewOrigin).toString();
+}
+
 const projectLocations = defineLocations({
   select: {
     title: "title.pl",
@@ -56,11 +60,10 @@ export default defineConfig({
       previewUrl: {
         initial: previewUrl,
         previewMode: {
-          enable: "/api/draft-mode/enable",
-          disable: "/api/draft-mode/disable",
+          enable: getPreviewUrl("/api/draft-mode/enable"),
         },
       },
-      allowOrigins: [previewOrigin, "http://localhost:*"],
+      allowOrigins: [previewOrigin],
       resolve: {
         locations: {
           siteSettings: defineLocations({

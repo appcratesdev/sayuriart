@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { getDictionary, type Locale } from "@/lib/i18n";
 import { SectionHeader } from "./ui/SectionHeader";
 
-const fallbackServices = [
+const fallbackServices: ServiceContent[] = [
   {
     title: "Grafiki lifestyle",
     desc: "Realistyczne, estetyczne sceny lifestyle pokazujace produkt w naturalnym otoczeniu.",
@@ -33,6 +33,10 @@ export interface ServiceContent {
   desc?: string;
   features?: string[];
   img?: string;
+  titleEdit?: string;
+  descEdit?: string;
+  featuresEdit?: string;
+  imageEdit?: string;
 }
 
 export const Services = ({ items, locale = "pl" }: { items?: ServiceContent[]; locale?: Locale }) => {
@@ -53,6 +57,7 @@ export const Services = ({ items, locale = "pl" }: { items?: ServiceContent[]; l
                 key={service.title}
                 onClick={() => setActiveIndex(index)}
                 className={`tab-btn ${activeIndex === index ? "active" : ""}`}
+                data-sanity={service.titleEdit}
               >
                 {service.title}
               </button>
@@ -70,7 +75,7 @@ export const Services = ({ items, locale = "pl" }: { items?: ServiceContent[]; l
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col md:flex-row"
             >
-              <div className="relative w-full md:w-1/2 aspect-[4/3] md:aspect-auto md:min-h-[480px]">
+              <div className="relative w-full md:w-1/2 aspect-[4/3] md:aspect-auto md:min-h-[480px]" data-sanity={activeService.imageEdit}>
                 <Image
                   src={activeService.img || "/images/placeholder.jpg"}
                   alt={activeService.title}
@@ -80,10 +85,10 @@ export const Services = ({ items, locale = "pl" }: { items?: ServiceContent[]; l
               </div>
 
               <div className="flex-1 p-8 md:p-12 flex flex-col justify-center">
-                <h3 className="heading-card text-[var(--foreground)] mb-4">{activeService.title}</h3>
-                {activeService.desc && <p className="text-body mb-8">{activeService.desc}</p>}
+                <h3 className="heading-card text-[var(--foreground)] mb-4" data-sanity={activeService.titleEdit}>{activeService.title}</h3>
+                {activeService.desc && <p className="text-body mb-8" data-sanity={activeService.descEdit}>{activeService.desc}</p>}
 
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-3 mb-8" data-sanity={activeService.featuresEdit}>
                   {(activeService.features || []).map((feature) => (
                     <li key={feature} className="pricing-feature">
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">

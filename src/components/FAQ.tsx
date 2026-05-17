@@ -5,7 +5,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import { getDictionary, type Locale } from "@/lib/i18n";
 import { SectionHeader } from "./ui/SectionHeader";
 
-const fallbackFaqs = [
+export interface FAQContent {
+  question: string;
+  answer: string;
+  questionEdit?: string;
+  answerEdit?: string;
+}
+
+const fallbackFaqs: FAQContent[] = [
   {
     question: "How long does a project take?",
     answer: "Most projects are completed in 2-5 business days after the brief is approved.",
@@ -15,11 +22,6 @@ const fallbackFaqs = [
     answer: "Not always. For AI lifestyle visuals, existing product photos or packshots are often enough.",
   },
 ];
-
-export interface FAQContent {
-  question: string;
-  answer: string;
-}
 
 export const FAQ = ({ items, locale = "pl" }: { items?: FAQContent[]; locale?: Locale }) => {
   const faqItems = items?.length ? items : fallbackFaqs;
@@ -48,7 +50,7 @@ export const FAQ = ({ items, locale = "pl" }: { items?: FAQContent[]; locale?: L
                   onClick={() => setOpenIndex(openIndex === index ? null : index)}
                   className="w-full flex justify-between items-center py-5 text-left focus:outline-none group"
                 >
-                  <span className="text-base font-medium text-[var(--foreground)] pr-4 group-hover:text-[var(--primary)] transition-colors">
+                  <span className="text-base font-medium text-[var(--foreground)] pr-4 group-hover:text-[var(--primary)] transition-colors" data-sanity={faq.questionEdit}>
                     {faq.question}
                   </span>
                   <span
@@ -70,7 +72,7 @@ export const FAQ = ({ items, locale = "pl" }: { items?: FAQContent[]; locale?: L
                       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="pb-6 text-body text-sm max-w-lg">{faq.answer}</p>
+                      <p className="pb-6 text-body text-sm max-w-lg" data-sanity={faq.answerEdit}>{faq.answer}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>

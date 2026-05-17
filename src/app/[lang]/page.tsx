@@ -12,6 +12,7 @@ import { Footer } from "@/components/Footer";
 import { assertLocale, getDictionary, locales } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import { portableTextToPlainText, sanityImageUrl } from "@/lib/sanity-mappers";
+import { createSanityEdit } from "../../../sanity/lib/edit";
 import {
   getBeforeAfter,
   getFAQ,
@@ -58,6 +59,8 @@ const projectAspects = [
   "aspect-[16/10]",
   "aspect-[3/4]",
 ];
+
+const localizedField = (field: string, locale: string) => `${field}.${locale}`;
 
 type Props = {
   params: Promise<{ lang: string }>;
@@ -115,7 +118,7 @@ export default async function Home({ params }: Props) {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header title={siteSettings?.title} locale={locale} />
+      <Header title={siteSettings?.title} titleEdit={createSanityEdit(siteSettings, localizedField("title", locale))} locale={locale} />
       <main className="flex-1">
         <Hero
           locale={locale}
@@ -127,11 +130,18 @@ export default async function Home({ params }: Props) {
                   ctaText: hero.ctaText,
                   ctaLink: hero.ctaLink,
                   image: sanityImageUrl(hero.heroImage, 1920, 1080),
+                  titleEdit: createSanityEdit(hero, localizedField("title", locale)),
+                  subtitleEdit: createSanityEdit(hero, localizedField("subtitle", locale)),
+                  ctaTextEdit: createSanityEdit(hero, localizedField("ctaText", locale)),
+                  imageEdit: createSanityEdit(hero, "heroImage"),
                 }
               : undefined
           }
         />
-        <Manifesto text={portableTextToPlainText(manifesto?.description) || manifesto?.title} />
+        <Manifesto
+          text={portableTextToPlainText(manifesto?.description) || manifesto?.title}
+          textEdit={createSanityEdit(manifesto, manifesto?.description ? localizedField("description", locale) : localizedField("title", locale))}
+        />
         <Services
           locale={locale}
           items={services.map((service) => ({
@@ -139,6 +149,10 @@ export default async function Home({ params }: Props) {
             desc: service.description,
             features: service.features,
             img: sanityImageUrl(service.image, 900, 700),
+            titleEdit: createSanityEdit(service, localizedField("title", locale)),
+            descEdit: createSanityEdit(service, localizedField("description", locale)),
+            featuresEdit: createSanityEdit(service, localizedField("features", locale)),
+            imageEdit: createSanityEdit(service, "image"),
           }))}
         />
         <BeforeAfter
@@ -161,6 +175,8 @@ export default async function Home({ params }: Props) {
           content={{
             title: portfolioSection?.sectionTitle,
             description: portfolioSection?.sectionDescription,
+            titleEdit: createSanityEdit(portfolioSection, localizedField("sectionTitle", locale)),
+            descriptionEdit: createSanityEdit(portfolioSection, localizedField("sectionDescription", locale)),
             works: projects.map((project, index) => ({
               title: project.title,
               slug: project.slug.current,
@@ -168,6 +184,9 @@ export default async function Home({ params }: Props) {
               img: sanityImageUrl(project.coverImage, 900, 900),
               aspect: projectAspects[index % projectAspects.length],
               span: projectSpans[index % projectSpans.length],
+              titleEdit: createSanityEdit(project, localizedField("title", locale)),
+              categoryEdit: createSanityEdit(project, "category"),
+              imageEdit: createSanityEdit(project, "coverImage"),
             })),
           }}
         />
@@ -176,7 +195,13 @@ export default async function Home({ params }: Props) {
           items={pricing.map((category) => ({
             id: category.categoryId,
             label: category.categoryLabel,
-            packages: category.packages || [],
+            labelEdit: createSanityEdit(category, localizedField("categoryLabel", locale)),
+            packages: (category.packages || []).map((pkg, packageIndex) => ({
+              ...pkg,
+              nameEdit: createSanityEdit(category, `packages[${packageIndex}].${localizedField("name", locale)}`),
+              priceEdit: createSanityEdit(category, `packages[${packageIndex}].price`),
+              featuresEdit: createSanityEdit(category, `packages[${packageIndex}].${localizedField("features", locale)}`),
+            })),
           }))}
         />
         <Testimonials
@@ -185,6 +210,9 @@ export default async function Home({ params }: Props) {
             quote: testimonial.content,
             author: testimonial.name,
             role: testimonial.role,
+            quoteEdit: createSanityEdit(testimonial, localizedField("content", locale)),
+            authorEdit: createSanityEdit(testimonial, "name"),
+            roleEdit: createSanityEdit(testimonial, localizedField("role", locale)),
           }))}
         />
         <Process
@@ -194,15 +222,27 @@ export default async function Home({ params }: Props) {
             title: step.title,
             desc: step.description,
             iconName: step.iconName,
+            numberEdit: createSanityEdit(step, "number"),
+            titleEdit: createSanityEdit(step, localizedField("title", locale)),
+            descEdit: createSanityEdit(step, localizedField("description", locale)),
           }))}
         />
-        <FAQ locale={locale} items={faq} />
+        <FAQ
+          locale={locale}
+          items={faq.map((item) => ({
+            ...item,
+            questionEdit: createSanityEdit(item, localizedField("question", locale)),
+            answerEdit: createSanityEdit(item, localizedField("answer", locale)),
+          }))}
+        />
       </main>
       <Footer
         locale={locale}
         settings={{
           title: siteSettings?.title,
+          titleEdit: createSanityEdit(siteSettings, localizedField("title", locale)),
           email: siteSettings?.email,
+          emailEdit: createSanityEdit(siteSettings, "email"),
           instagram: siteSettings?.socialLinks?.instagram,
           facebook: siteSettings?.socialLinks?.facebook,
           linkedin: siteSettings?.socialLinks?.linkedin,
