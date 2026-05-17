@@ -2,11 +2,16 @@ import type { Metadata } from "next";
 import { stegaClean } from "next-sanity";
 import { defaultLocale, localeOpenGraph, locales, type Locale, pathForLocale } from "@/lib/i18n";
 
-export const siteUrl = (
+function normalizeSiteUrl(url: string) {
+  const normalized = url.replace(/\/$/, "");
+  return /^https?:\/\//i.test(normalized) ? normalized : `https://${normalized}`;
+}
+
+export const siteUrl = normalizeSiteUrl(
   process.env.NEXT_PUBLIC_SITE_URL ||
   process.env.VERCEL_PROJECT_PRODUCTION_URL ||
   "https://lifestyleimages.pl"
-).replace(/\/$/, "");
+);
 
 export const siteName = "Lifestyle Images";
 

@@ -4,14 +4,17 @@ import { visionTool } from "@sanity/vision";
 import { defineLocations, presentationTool } from "sanity/presentation";
 import { schemaTypes } from "./sanity/schemas";
 
-const previewUrl = (
+function normalizePreviewUrl(url: string) {
+  const normalized = url.replace(/\/$/, "");
+  return /^https?:\/\//i.test(normalized) ? normalized : `https://${normalized}`;
+}
+
+const previewUrl = normalizePreviewUrl(
   process.env.SANITY_STUDIO_PREVIEW_URL ||
   process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : undefined) ||
+  process.env.VERCEL_PROJECT_PRODUCTION_URL ||
   "https://lifestyleimages.pl"
-).replace(/\/$/, "");
+);
 
 const projectLocations = defineLocations({
   select: {
