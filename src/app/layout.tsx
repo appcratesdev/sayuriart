@@ -27,12 +27,14 @@ export default async function RootLayout({
   const { isEnabled } = await draftMode();
   const requestHeaders = await headers();
   const locale = assertLocale(requestHeaders.get("x-locale") || undefined);
+  const referer = requestHeaders.get("referer") || "";
+  const isPresentationFrame = referer.includes(".sanity.studio");
 
   return (
     <html lang={locale}>
       <body className={`${inter.variable} ${playfair.variable} font-sans`}>
         {children}
-        {isEnabled && <VisualEditing zIndex={1000} />}
+        {(isEnabled || isPresentationFrame) && <VisualEditing zIndex={1000} />}
       </body>
     </html>
   );
