@@ -9,12 +9,18 @@ function normalizePreviewUrl(url: string) {
   return /^https?:\/\//i.test(normalized) ? normalized : `https://${normalized}`;
 }
 
-const previewUrl = normalizePreviewUrl(
+function toPreviewOrigin(url: string) {
+  const normalized = normalizePreviewUrl(url);
+  return new URL(normalized).origin;
+}
+
+const previewOrigin = toPreviewOrigin(
   process.env.SANITY_STUDIO_PREVIEW_URL ||
   process.env.NEXT_PUBLIC_SITE_URL ||
   process.env.VERCEL_PROJECT_PRODUCTION_URL ||
   "https://lifestyleimages.pl"
 );
+const previewUrl = `${previewOrigin}/en`;
 
 const projectLocations = defineLocations({
   select: {
@@ -52,7 +58,7 @@ export default defineConfig({
           disable: "/api/draft-mode/disable",
         },
       },
-      allowOrigins: [previewUrl, "http://localhost:*"],
+      allowOrigins: [previewOrigin, "http://localhost:*"],
       resolve: {
         locations: {
           siteSettings: defineLocations({
