@@ -4,6 +4,15 @@ import { visionTool } from "@sanity/vision";
 import { defineLocations, presentationTool } from "sanity/presentation";
 import { schemaTypes } from "./sanity/schemas";
 
+const previewUrl = (
+  process.env.SANITY_STUDIO_PREVIEW_URL ||
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : undefined) ||
+  "https://lifestyleimages.pl"
+).replace(/\/$/, "");
+
 const projectLocations = defineLocations({
   select: {
     title: "title.pl",
@@ -34,10 +43,13 @@ export default defineConfig({
     visionTool(),
     presentationTool({
       previewUrl: {
+        initial: previewUrl,
         previewMode: {
           enable: "/api/draft-mode/enable",
+          disable: "/api/draft-mode/disable",
         },
       },
+      allowOrigins: [previewUrl, "http://localhost:*"],
       resolve: {
         locations: {
           siteSettings: defineLocations({

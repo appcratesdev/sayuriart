@@ -1,27 +1,8 @@
-import { validatePreviewUrl } from '@sanity/preview-url-secret'
 import { client } from '../../../../../sanity/lib/client'
-import { draftMode } from 'next/headers'
-import { redirect } from 'next/navigation'
+import { defineEnableDraftMode } from 'next-sanity/draft-mode'
 
 const token = process.env.SANITY_API_TOKEN
 
-export async function GET(request: Request) {
-  if (!token) {
-    console.error('SANITY_API_TOKEN is missing!')
-    return new Response('Configuration Error: Missing token', { status: 500 })
-  }
-
-  const { isValid, redirectTo = '/' } = await validatePreviewUrl(
-    client.withConfig({ token }),
-    request.url
-  )
-
-  if (!isValid) {
-    return new Response('Invalid secret', { status: 401 })
-  }
-
-  const draft = await draftMode()
-  draft.enable()
-
-  redirect(redirectTo)
-}
+export const { GET } = defineEnableDraftMode({
+  client: client.withConfig({ token: token || '' }),
+})

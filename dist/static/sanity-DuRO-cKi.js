@@ -1,0 +1,1 @@
+import{renderStudio as t}from"sanity";import{s as o}from"./sanity.config-oSTvZais.js";import"sanity/structure";import"@sanity/vision";import"sanity/presentation";t(document.getElementById("sanity"),o,{reactStrictMode:!1,basePath:"/"});
