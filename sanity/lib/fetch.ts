@@ -30,8 +30,8 @@ import type {
   About,
 } from './types'
 
-import { draftMode } from 'next/headers'
 import { defaultLocale, type Locale } from '@/lib/i18n'
+import { isSanityPreviewRequest } from './preview'
 
 const isSanityConfigured = Boolean(projectId && dataset)
 
@@ -44,20 +44,19 @@ async function safeFetch<T>(
     return fallback
   }
 
-  let isDraftMode = false
+  let isPreview = false
   try {
-    const draft = await draftMode()
-    isDraftMode = draft.isEnabled
+    isPreview = await isSanityPreviewRequest()
   } catch {
-    // Ignore errors when draftMode is called outside of request context
+    // Ignore errors when preview checks run outside of request context
   }
 
   try {
     const { data } = await sanityFetch({
       query,
       params,
-      perspective: isDraftMode ? undefined : 'published',
-      stega: isDraftMode ? undefined : false,
+      perspective: isPreview ? undefined : 'published',
+      stega: isPreview ? undefined : false,
       tags: ['sanity'],
     })
 

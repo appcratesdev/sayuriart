@@ -5,6 +5,7 @@ import { headers } from "next/headers";
 import { assertLocale } from "@/lib/i18n";
 import { siteUrl } from "@/lib/seo";
 import { SanityLive } from "../../sanity/lib/live";
+import { isSanityPreviewRequest } from "../../sanity/lib/preview";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -27,12 +28,13 @@ export default async function RootLayout({
 }>) {
   const requestHeaders = await headers();
   const locale = assertLocale(requestHeaders.get("x-locale") || undefined);
+  const isPreview = await isSanityPreviewRequest();
 
   return (
     <html lang={locale}>
       <body className={`${inter.variable} ${playfair.variable} font-sans`}>
         {children}
-        <VisualEditing zIndex={1000} />
+        {isPreview && <VisualEditing zIndex={1000} />}
         <SanityLive />
       </body>
     </html>
