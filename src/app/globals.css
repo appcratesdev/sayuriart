@@ -11,7 +11,7 @@
     /* Colors */
     --background: #FAF8F2;
     --foreground: #204636;
-    --card: #FFFFFF;
+    --card: #F0EAD6;
     --card-foreground: #10231B;
     --primary: #1F4A35;
     --primary-light: #2A6349;
@@ -635,4 +635,278 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--muted-foreground);
+}
+
+/* ============================================
+   PORTFOLIO V2 — TYPOGRAPHIC LIST + FLOATING IMAGE
+   ============================================ */
+
+@layer components {
+
+  /* ── Section ───────────────────────────── */
+
+  .pv2-section {
+    padding-top: var(--section-py);
+    padding-bottom: var(--section-py);
+    background: var(--background);
+    position: relative;
+  }
+
+  /* ── Header area ───────────────────────── */
+
+  .pv2-header {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .pv2-header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+  }
+
+  /* ── Filter pills ──────────────────────── */
+
+  .pv2-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .pv2-filter-btn {
+    padding: 0.5rem 1.25rem;
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-smooth);
+  }
+
+  .pv2-filter-btn:hover {
+    color: var(--foreground);
+    border-color: var(--foreground);
+  }
+
+  .pv2-filter-btn.active {
+    background: var(--foreground);
+    color: var(--background);
+    border-color: var(--foreground);
+  }
+
+  /* ── List container ────────────────────── */
+
+  .pv2-list {
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Single row ────────────────────────── */
+
+  .pv2-row {
+    display: grid;
+    grid-template-columns: 3rem 1fr auto auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--foreground);
+    cursor: pointer;
+    transition: all var(--duration-base) var(--ease-smooth);
+    position: relative;
+  }
+
+  .pv2-row::before {
+    content: '';
+    position: absolute;
+    left: -var(--container-px);
+    right: -var(--container-px);
+    top: 0;
+    bottom: 0;
+    background: var(--primary);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity var(--duration-base) var(--ease-smooth);
+    pointer-events: none;
+  }
+
+  .pv2-row:hover,
+  .pv2-row--active {
+    color: var(--primary);
+  }
+
+  /* ── Row: index number ─────────────────── */
+
+  .pv2-row-index {
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.05em;
+    transition: color var(--duration-base) var(--ease-smooth);
+  }
+
+  .pv2-row:hover .pv2-row-index,
+  .pv2-row--active .pv2-row-index {
+    color: var(--primary);
+  }
+
+  /* ── Row: title ────────────────────────── */
+
+  .pv2-row-title {
+    font-family: var(--font-playfair), Georgia, serif;
+    font-size: clamp(1.5rem, 3vw, 2.75rem);
+    font-weight: 400;
+    line-height: 1.15;
+    margin: 0;
+    transition: transform var(--duration-base) var(--ease-out-expo),
+      color var(--duration-base) var(--ease-smooth);
+  }
+
+  .pv2-row:hover .pv2-row-title,
+  .pv2-row--active .pv2-row-title {
+    transform: translateX(1rem);
+  }
+
+  /* ── Row: category ─────────────────────── */
+
+  .pv2-row-category {
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+    white-space: nowrap;
+    transition: color var(--duration-base) var(--ease-smooth);
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .pv2-row-category {
+      display: block;
+    }
+  }
+
+  .pv2-row:hover .pv2-row-category,
+  .pv2-row--active .pv2-row-category {
+    color: var(--primary);
+  }
+
+  /* ── Row: arrow ────────────────────────── */
+
+  .pv2-row-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    color: var(--muted-foreground);
+    transition: all var(--duration-base) var(--ease-smooth);
+    flex-shrink: 0;
+  }
+
+  .pv2-row:hover .pv2-row-arrow,
+  .pv2-row--active .pv2-row-arrow {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+    transform: rotate(0deg) scale(1.05);
+  }
+
+  /* ── Row: mobile thumbnail ─────────────── */
+
+  .pv2-row-thumb {
+    display: block;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 768px) {
+    .pv2-row-thumb {
+      display: none;
+    }
+
+    .pv2-row {
+      grid-template-columns: 3rem 1fr auto auto;
+      padding: 2rem 0;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .pv2-row {
+      grid-template-columns: 2rem 1fr auto auto;
+      gap: 0.75rem;
+      padding: 1.25rem 0;
+    }
+
+    .pv2-row-title {
+      font-size: 1.125rem;
+    }
+
+    .pv2-row:hover .pv2-row-title,
+    .pv2-row--active .pv2-row-title {
+      transform: translateX(0);
+    }
+  }
+
+  /* ── Floating image (desktop only) ─────── */
+
+  .pv2-floating-image {
+    position: fixed;
+    width: 360px;
+    height: 440px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 100;
+    box-shadow:
+      0 25px 60px rgba(0, 0, 0, 0.2),
+      0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width: 767px) {
+    .pv2-floating-image {
+      display: none;
+    }
+  }
+
+  /* ── Footer divider ────────────────────── */
+
+  .pv2-footer {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .pv2-footer-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .pv2-footer-count {
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
 }

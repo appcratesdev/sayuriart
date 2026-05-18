@@ -852,6 +852,34 @@
         ],
         "name": "sectionTitle",
         "type": "localizedString",
+        "title": "Tytuł sekcji"
+      },
+      {
+        "name": "sectionDescription",
+        "type": "localizedText",
+        "title": "Opis sekcji"
+      }
+    ],
+    "name": "beforeAfterSection",
+    "type": "document",
+    "title": "Przed/Po - sekcja"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "sectionTitle",
+        "type": "localizedString",
         "title": "Tytul sekcji"
       },
       {
@@ -1494,6 +1522,34 @@
     "name": "processSection",
     "type": "document",
     "title": "Proces - sekcja"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "sectionTitle",
+        "type": "localizedString",
+        "title": "Tytuł sekcji"
+      },
+      {
+        "name": "sectionDescription",
+        "type": "localizedText",
+        "title": "Opis sekcji"
+      }
+    ],
+    "name": "servicesSection",
+    "type": "document",
+    "title": "Usługi - sekcja"
   },
   {
     "fields": [

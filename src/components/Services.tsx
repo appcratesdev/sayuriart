@@ -39,7 +39,23 @@ export interface ServiceContent {
   imageEdit?: string;
 }
 
-export const Services = ({ items, locale = "pl" }: { items?: ServiceContent[]; locale?: Locale }) => {
+interface ServicesProps {
+  items?: ServiceContent[];
+  locale?: Locale;
+  sectionTitle?: string;
+  sectionDescription?: string;
+  sectionTitleEdit?: string;
+  sectionDescriptionEdit?: string;
+}
+
+export const Services = ({
+  items,
+  locale = "pl",
+  sectionTitle,
+  sectionDescription,
+  sectionTitleEdit,
+  sectionDescriptionEdit,
+}: ServicesProps) => {
   const serviceItems = items?.length ? items : fallbackServices;
   const [activeIndex, setActiveIndex] = useState(0);
   const activeService = serviceItems[activeIndex] ?? serviceItems[0];
@@ -48,7 +64,12 @@ export const Services = ({ items, locale = "pl" }: { items?: ServiceContent[]; l
   return (
     <section className="section-padding bg-[var(--background)]" id="services">
       <div className="container-main">
-        <SectionHeader title={dict.home.servicesTitle} description={dict.home.servicesDescription} />
+        <SectionHeader
+          title={sectionTitle || dict.home.servicesTitle}
+          description={sectionDescription || dict.home.servicesDescription}
+          titleEdit={sectionTitleEdit}
+          descriptionEdit={sectionDescriptionEdit}
+        />
 
         <div className="mt-12 mb-10 overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0">
           <div className="flex gap-2 w-max md:w-auto md:flex-wrap md:justify-center">
@@ -75,7 +96,10 @@ export const Services = ({ items, locale = "pl" }: { items?: ServiceContent[]; l
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col md:flex-row"
             >
-              <div className="relative w-full md:w-1/2 aspect-[4/3] md:aspect-auto md:min-h-[480px]" data-sanity={activeService.imageEdit}>
+              <div
+                className="relative w-full md:w-1/2 aspect-[4/3] md:aspect-auto md:min-h-[480px]"
+                data-sanity={activeService.imageEdit}
+              >
                 <Image
                   src={activeService.img || "/images/placeholder.jpg"}
                   alt={activeService.title}
@@ -85,14 +109,29 @@ export const Services = ({ items, locale = "pl" }: { items?: ServiceContent[]; l
               </div>
 
               <div className="flex-1 p-8 md:p-12 flex flex-col justify-center">
-                <h3 className="heading-card text-[var(--foreground)] mb-4" data-sanity={activeService.titleEdit}>{activeService.title}</h3>
-                {activeService.desc && <p className="text-body mb-8" data-sanity={activeService.descEdit}>{activeService.desc}</p>}
+                <h3
+                  className="heading-card text-[var(--foreground)] mb-4"
+                  data-sanity={activeService.titleEdit}
+                >
+                  {activeService.title}
+                </h3>
+                {activeService.desc && (
+                  <p className="text-body mb-8" data-sanity={activeService.descEdit}>
+                    {activeService.desc}
+                  </p>
+                )}
 
                 <ul className="space-y-3 mb-8" data-sanity={activeService.featuresEdit}>
                   {(activeService.features || []).map((feature) => (
                     <li key={feature} className="pricing-feature">
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M13.5 4.5L6 12L2.5 8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path
+                          d="M13.5 4.5L6 12L2.5 8.5"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
                       </svg>
                       <span>{feature}</span>
                     </li>

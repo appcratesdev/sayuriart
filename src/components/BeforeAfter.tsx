@@ -11,6 +11,14 @@ interface BeforeAfterItem {
   description?: string;
 }
 
+interface BeforeAfterProps {
+  items?: BeforeAfterItem[];
+  sectionTitle?: string;
+  sectionDescription?: string;
+  titleEdit?: string;
+  descriptionEdit?: string;
+}
+
 const examples: BeforeAfterItem[] = [
   {
     before: "/images/przed.jpg",
@@ -32,7 +40,13 @@ const examples: BeforeAfterItem[] = [
   },
 ];
 
-export const BeforeAfter = ({ items }: { items?: BeforeAfterItem[] }) => {
+export const BeforeAfter = ({
+  items,
+  sectionTitle,
+  sectionDescription,
+  titleEdit,
+  descriptionEdit,
+}: BeforeAfterProps) => {
   const beforeAfterItems = items?.length ? items : examples;
   const [activeIndex, setActiveIndex] = useState(0);
   const [sliderPosition, setSliderPosition] = useState(50);
@@ -41,7 +55,6 @@ export const BeforeAfter = ({ items }: { items?: BeforeAfterItem[] }) => {
 
   const handleMove = (clientX: number) => {
     if (!containerRef.current) return;
-    
     const rect = containerRef.current.getBoundingClientRect();
     const x = clientX - rect.left;
     const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
@@ -73,8 +86,13 @@ export const BeforeAfter = ({ items }: { items?: BeforeAfterItem[] }) => {
     <section className="section-padding bg-[var(--secondary)]" id="before-after">
       <div className="container-main">
         <SectionHeader
-          title="Zobacz różnicę"
-          description="Profesjonalna obróbka, która wydobywa pełen potencjał Twoich zdjęć produktowych."
+          title={sectionTitle || "Zobacz różnicę"}
+          description={
+            sectionDescription ||
+            "Profesjonalna obróbka, która wydobywa pełen potencjał Twoich zdjęć produktowych."
+          }
+          titleEdit={titleEdit}
+          descriptionEdit={descriptionEdit}
         />
 
         {/* Tabs */}
@@ -98,7 +116,6 @@ export const BeforeAfter = ({ items }: { items?: BeforeAfterItem[] }) => {
         {/* Before/After Slider */}
         <div className="max-w-4xl mx-auto">
           <div className="bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius-xl)] overflow-hidden p-6 md:p-8">
-            
             {/* Image Comparison Container */}
             <div
               ref={containerRef}
@@ -137,19 +154,18 @@ export const BeforeAfter = ({ items }: { items?: BeforeAfterItem[] }) => {
 
               {/* Slider Line */}
               <div
-                className="absolute top-0 bottom-0 w-0.5 bg-white shadow-lg  "
+                className="absolute top-0 bottom-0 w-0.5 bg-white shadow-lg"
                 style={{ left: `${sliderPosition}%` }}
               >
                 {/* Slider Handle */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center cursor-ew-resize slider-handle ">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center cursor-ew-resize slider-handle">
                   <svg
                     width="28"
                     height="24"
                     viewBox="0 0 28 24"
                     fill="none"
-                    className="text-[var(--foreground)] "
+                    className="text-[var(--foreground)]"
                   >
-                    {/* Left arrow */}
                     <path
                       d="M10 8L4 12L10 16"
                       stroke="currentColor"
@@ -157,7 +173,6 @@ export const BeforeAfter = ({ items }: { items?: BeforeAfterItem[] }) => {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
-                    {/* Right arrow */}
                     <path
                       d="M18 8L24 12L18 16"
                       stroke="currentColor"
@@ -183,9 +198,7 @@ export const BeforeAfter = ({ items }: { items?: BeforeAfterItem[] }) => {
               <h3 className="heading-card text-[var(--foreground)] mb-2">
                 {activeExample.title}
               </h3>
-              <p className="text-body">
-                {activeExample.description}
-              </p>
+              <p className="text-body">{activeExample.description}</p>
             </div>
           </div>
 

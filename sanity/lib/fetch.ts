@@ -5,7 +5,9 @@ import {
   heroQuery,
   manifestoQuery,
   servicesQuery,
+  servicesSectionQuery,
   beforeAfterQuery,
+  beforeAfterSectionQuery,
   portfolioSectionQuery,
   projectsQuery,
   projectBySlugQuery,
@@ -22,7 +24,9 @@ import type {
   Hero,
   Manifesto,
   Service,
+  ServicesSection,
   BeforeAfter,
+  BeforeAfterSection,
   PortfolioSection,
   Project,
   Pricing,
@@ -89,8 +93,16 @@ export async function getServices(locale: Locale = defaultLocale): Promise<Servi
   return safeFetch(servicesQuery, localeParams(locale), [])
 }
 
+export async function getServicesSection(locale: Locale = defaultLocale): Promise<ServicesSection | null> {
+  return safeFetch(servicesSectionQuery, localeParams(locale), null)
+}
+
 export async function getBeforeAfter(locale: Locale = defaultLocale): Promise<BeforeAfter[]> {
   return safeFetch(beforeAfterQuery, localeParams(locale), [])
+}
+
+export async function getBeforeAfterSection(locale: Locale = defaultLocale): Promise<BeforeAfterSection | null> {
+  return safeFetch(beforeAfterSectionQuery, localeParams(locale), null)
 }
 
 export async function getPortfolioSection(locale: Locale = defaultLocale): Promise<PortfolioSection | null> {

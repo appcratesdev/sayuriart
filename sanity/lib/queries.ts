@@ -49,6 +49,13 @@ export const servicesQuery = groq`*[_type == "service"] | order(order asc){
   order
 }`;
 
+export const servicesSectionQuery = groq`*[_type == "servicesSection"][0]{
+  _id,
+  _type,
+  "sectionTitle": ${l("sectionTitle")},
+  "sectionDescription": ${l("sectionDescription")}
+}`;
+
 export const beforeAfterQuery = groq`*[_type == "beforeAfter"] | order(order asc){
   _id,
   _type,
@@ -57,6 +64,13 @@ export const beforeAfterQuery = groq`*[_type == "beforeAfter"] | order(order asc
   beforeImage,
   afterImage,
   order
+}`;
+
+export const beforeAfterSectionQuery = groq`*[_type == "beforeAfterSection"][0]{
+  _id,
+  _type,
+  "sectionTitle": ${l("sectionTitle")},
+  "sectionDescription": ${l("sectionDescription")}
 }`;
 
 export const portfolioSectionQuery = groq`*[_type == "portfolio"][0]{

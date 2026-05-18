@@ -2,12 +2,14 @@ import hero from './hero'
 import manifesto from './manifesto'
 import service from './service'
 import beforeAfter from './beforeAfter'
+import beforeAfterSection from './beforeAfterSection'
 import portfolio from './portfolio'
 import project from './project'
 import pricing from './pricing'
 import testimonial from './testimonial'
 import process from './process'
 import processSection from './processSection'
+import servicesSection from './servicesSection'
 import faq from './faq'
 import siteSettings from './siteSettings'
 import about from './about'
@@ -33,12 +35,14 @@ export const schemaTypes = [
   manifesto,
   service,
   beforeAfter,
+  beforeAfterSection,
   portfolio,
   project,
   pricing,
   testimonial,
   process,
   processSection,
+  servicesSection,
   faq,
   about,
   legalPage,

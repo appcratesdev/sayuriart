@@ -62,6 +62,16 @@ export interface BeforeAfter extends SanityDocumentMeta {
   order: number;
 }
 
+export interface BeforeAfterSection extends SanityDocumentMeta {
+  sectionTitle: string;
+  sectionDescription?: string;
+}
+
+export interface ServicesSection extends SanityDocumentMeta {
+  sectionTitle: string;
+  sectionDescription?: string;
+}
+
 export interface PortfolioSection extends SanityDocumentMeta {
   sectionTitle: string;
   sectionDescription?: string;

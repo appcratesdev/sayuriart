@@ -15,6 +15,7 @@ import { portableTextToPlainText, sanityImageUrl } from "@/lib/sanity-mappers";
 import { createSanityEdit } from "../../../sanity/lib/edit";
 import {
   getBeforeAfter,
+  getBeforeAfterSection,
   getFAQ,
   getHero,
   getManifesto,
@@ -24,6 +25,7 @@ import {
   getProcessSection,
   getProjects,
   getServices,
+  getServicesSection,
   getSiteSettings,
   getTestimonials,
 } from "../../../sanity/lib/fetch";
@@ -95,7 +97,9 @@ export default async function Home({ params }: Props) {
     hero,
     manifesto,
     services,
+    servicesSection,
     beforeAfter,
+    beforeAfterSection,
     portfolioSection,
     projects,
     pricing,
@@ -108,7 +112,9 @@ export default async function Home({ params }: Props) {
     getHero(locale),
     getManifesto(locale),
     getServices(locale),
+    getServicesSection(locale),
     getBeforeAfter(locale),
+    getBeforeAfterSection(locale),
     getPortfolioSection(locale),
     getProjects(locale),
     getPricing(locale),
@@ -128,16 +134,16 @@ export default async function Home({ params }: Props) {
           content={
             hero
               ? {
-                  title: hero.title,
-                  subtitle: hero.subtitle,
-                  ctaText: hero.ctaText,
-                  ctaLink: hero.ctaLink,
-                  image: sanityImageUrl(hero.heroImage, 1920, 1080),
-                  titleEdit: createSanityEdit(hero, localizedField("title", locale)),
-                  subtitleEdit: createSanityEdit(hero, localizedField("subtitle", locale)),
-                  ctaTextEdit: createSanityEdit(hero, localizedField("ctaText", locale)),
-                  imageEdit: createSanityEdit(hero, "heroImage"),
-                }
+                title: hero.title,
+                subtitle: hero.subtitle,
+                ctaText: hero.ctaText,
+                ctaLink: hero.ctaLink,
+                image: sanityImageUrl(hero.heroImage, 1920, 1080),
+                titleEdit: createSanityEdit(hero, localizedField("title", locale)),
+                subtitleEdit: createSanityEdit(hero, localizedField("subtitle", locale)),
+                ctaTextEdit: createSanityEdit(hero, localizedField("ctaText", locale)),
+                imageEdit: createSanityEdit(hero, "heroImage"),
+              }
               : undefined
           }
         />
@@ -147,6 +153,10 @@ export default async function Home({ params }: Props) {
         />
         <Services
           locale={locale}
+          sectionTitle={servicesSection?.sectionTitle}
+          sectionDescription={servicesSection?.sectionDescription}
+          sectionTitleEdit={createSanityEdit(servicesSection, localizedField("sectionTitle", locale))}
+          sectionDescriptionEdit={createSanityEdit(servicesSection, localizedField("sectionDescription", locale))}
           items={services.map((service) => ({
             title: service.title,
             desc: service.description,
@@ -159,6 +169,10 @@ export default async function Home({ params }: Props) {
           }))}
         />
         <BeforeAfter
+          sectionTitle={beforeAfterSection?.sectionTitle}
+          sectionDescription={beforeAfterSection?.sectionDescription}
+          titleEdit={createSanityEdit(beforeAfterSection, localizedField("sectionTitle", locale))}
+          descriptionEdit={createSanityEdit(beforeAfterSection, localizedField("sectionDescription", locale))}
           items={beforeAfter
             .map((example) => {
               const before = sanityImageUrl(example.beforeImage, 1200, 900);
