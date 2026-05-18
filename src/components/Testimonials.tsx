@@ -44,7 +44,23 @@ const initialsFromName = (name: string) =>
     .slice(0, 2)
     .toUpperCase();
 
-export const Testimonials = ({ items, locale = "pl" }: { items?: TestimonialContent[]; locale?: Locale }) => {
+interface TestimonialsProps {
+  items?: TestimonialContent[];
+  locale?: Locale;
+  sectionTitle?: string;
+  sectionDescription?: string;
+  sectionTitleEdit?: string;
+  sectionDescriptionEdit?: string;
+}
+
+export const Testimonials = ({
+  items,
+  locale = "pl",
+  sectionTitle,
+  sectionDescription,
+  sectionTitleEdit,
+  sectionDescriptionEdit,
+}: TestimonialsProps) => {
   const testimonialItems = items?.length ? items : testimonials;
   const [currentIndex, setCurrentIndex] = useState(0);
   const dict = getDictionary(locale);
@@ -65,8 +81,10 @@ export const Testimonials = ({ items, locale = "pl" }: { items?: TestimonialCont
           {/* Left */}
           <div className="w-full md:w-1/3 md:sticky md:top-32">
             <SectionHeader
-              title={dict.home.testimonialsTitle}
-              description={dict.home.testimonialsDescription}
+              title={sectionTitle || dict.home.testimonialsTitle}
+              description={sectionDescription || dict.home.testimonialsDescription}
+              titleEdit={sectionTitleEdit}
+              descriptionEdit={sectionDescriptionEdit}
             />
 
             <div className="flex items-center gap-4 mt-8">

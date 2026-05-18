@@ -79,7 +79,7 @@ export default async function AboutPage({ params }: Props) {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
               <div className="lg:col-span-5 relative group z-10">
                 <div className="relative p-2 sm:p-3 md:p-4 rounded-[2.5rem] bg-white/10 backdrop-blur-xl border border-white/40 shadow-2xl transition-all duration-700 ease-out group-hover:bg-[var(--card)]/40 group-hover:shadow-3xl">
-                  <div className="relative aspect-[4/5] w-full rounded-[2rem] overflow-hidden bg-[var(--muted)] shadow-inner">
+                  <div className="relative aspect-[4/5] w-full rounded-[2rem] overflow-hidden bg-[var(--muted)] shadow-inner" data-sanity={createSanityEdit(about, "profileImage")}>
                     <Image src={imageSrc} alt={imageAlt} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition-transform duration-[1.5s] ease-out" priority />
                     <div className="absolute inset-0 bg-black/0 transition-colors duration-700 group-hover:bg-black/10 mix-blend-overlay" />
                   </div>
@@ -109,12 +109,12 @@ export default async function AboutPage({ params }: Props) {
                 <div className="mt-12 pt-12 border-t border-[var(--border)] w-full">
                   <h2 className="text-xl font-serif text-[var(--foreground)] mb-6">{dict.about.hobbiesTitle}</h2>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    {hobbies.map((hobby) => {
+                    {hobbies.map((hobby, index) => {
                       const Icon = hobbyIcons[hobby.icon as keyof typeof hobbyIcons] || Palette;
                       return (
-                        <div key={`${hobby.icon}-${hobby.name}`} className="flex flex-col items-center justify-center p-6 rounded-2xl bg-[var(--card)]/80 backdrop-blur-md border border-[var(--border)] transition-all duration-300 hover:-translate-y-1 hover:border-[var(--primary)] hover:shadow-lg hover:shadow-[var(--primary)]/5 group">
+                        <div key={`${hobby.icon}-${hobby.name}`} className="flex flex-col items-center justify-center p-6 rounded-2xl bg-[var(--card)]/80 backdrop-blur-md border border-[var(--border)] transition-all duration-300 hover:-translate-y-1 hover:border-[var(--primary)] hover:shadow-lg hover:shadow-[var(--primary)]/5 group" data-sanity={about?.hobbies?.length ? createSanityEdit(about, `hobbies[${index}]`) : undefined}>
                           <Icon className="w-8 h-8 mb-3 text-[var(--primary)] group-hover:text-[var(--gold)] transition-colors duration-300" strokeWidth={1.5} />
-                          <span className="text-sm font-medium text-[var(--foreground)]">{hobby.name}</span>
+                          <span className="text-sm font-medium text-[var(--foreground)]" data-sanity={about?.hobbies?.length ? createSanityEdit(about, `hobbies[${index}].${localizedField("name", locale)}`) : undefined}>{hobby.name}</span>
                         </div>
                       );
                     })}

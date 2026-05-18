@@ -9,6 +9,8 @@ interface BeforeAfterItem {
   after: string;
   title: string;
   description?: string;
+  titleEdit?: string;
+  descriptionEdit?: string;
 }
 
 interface BeforeAfterProps {
@@ -195,10 +197,10 @@ export const BeforeAfter = ({
 
             {/* Description */}
             <div className="mt-6 text-center">
-              <h3 className="heading-card text-[var(--foreground)] mb-2">
+              <h3 className="heading-card text-[var(--foreground)] mb-2" data-sanity={activeExample.titleEdit}>
                 {activeExample.title}
               </h3>
-              <p className="text-body">{activeExample.description}</p>
+              <p className="text-body" data-sanity={activeExample.descriptionEdit}>{activeExample.description}</p>
             </div>
           </div>
 

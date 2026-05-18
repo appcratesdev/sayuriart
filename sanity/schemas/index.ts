@@ -6,7 +6,9 @@ import beforeAfterSection from './beforeAfterSection'
 import portfolio from './portfolio'
 import project from './project'
 import pricing from './pricing'
+import pricingSection from './pricingSection'
 import testimonial from './testimonial'
+import testimonialsSection from './testimonialsSection'
 import process from './process'
 import processSection from './processSection'
 import servicesSection from './servicesSection'
@@ -39,7 +41,9 @@ export const schemaTypes = [
   portfolio,
   project,
   pricing,
+  pricingSection,
   testimonial,
+  testimonialsSection,
   process,
   processSection,
   servicesSection,

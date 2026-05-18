@@ -12,7 +12,9 @@ import {
   projectsQuery,
   projectBySlugQuery,
   pricingQuery,
+  pricingSectionQuery,
   testimonialsQuery,
+  testimonialsSectionQuery,
   processSectionQuery,
   processQuery,
   faqQuery,
@@ -30,7 +32,9 @@ import type {
   PortfolioSection,
   Project,
   Pricing,
+  PricingSection,
   Testimonial,
+  TestimonialsSection,
   ProcessSection,
   Process,
   FAQ,
@@ -121,8 +125,16 @@ export async function getPricing(locale: Locale = defaultLocale): Promise<Pricin
   return safeFetch(pricingQuery, localeParams(locale), [])
 }
 
+export async function getPricingSection(locale: Locale = defaultLocale): Promise<PricingSection | null> {
+  return safeFetch(pricingSectionQuery, localeParams(locale), null)
+}
+
 export async function getTestimonials(locale: Locale = defaultLocale): Promise<Testimonial[]> {
   return safeFetch(testimonialsQuery, localeParams(locale), [])
+}
+
+export async function getTestimonialsSection(locale: Locale = defaultLocale): Promise<TestimonialsSection | null> {
+  return safeFetch(testimonialsSectionQuery, localeParams(locale), null)
 }
 
 export async function getProcessSection(locale: Locale = defaultLocale): Promise<ProcessSection | null> {

@@ -18,7 +18,7 @@ export const Manifesto = ({ text, textEdit }: { text?: string; textEdit?: string
       <div className="container-main section-padding relative z-10">
         <div className="max-w-5xl mx-auto text-center">
           <motion.p
-            className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-serif text-white leading-[1.35] md:leading-[1.3] flex flex-wrap justify-center gap-x-[0.22em] gap-y-[0.1em]"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif text-white leading-[1.35] md:leading-[1.3] flex flex-wrap justify-center gap-x-[0.22em] gap-y-[0.1em]"
             data-sanity={textEdit}
             initial="hidden"
             whileInView="visible"
@@ -34,11 +34,10 @@ export const Manifesto = ({ text, textEdit }: { text?: string; textEdit?: string
             {words.map((word, index) => (
               <motion.span
                 key={`${word}-${index}`}
-                className={`inline-block ${
-                  ["pozadania", "konwersje.", "zaufanie"].includes(word)
+                className={`inline-block ${["pozadania", "konwersje.", "zaufanie"].includes(word)
                     ? "text-[var(--gold)]"
                     : ""
-                }`}
+                  }`}
                 variants={{
                   visible: {
                     opacity: 1,

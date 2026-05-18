@@ -21,6 +21,7 @@ import {
   getManifesto,
   getPortfolioSection,
   getPricing,
+  getPricingSection,
   getProcess,
   getProcessSection,
   getProjects,
@@ -28,6 +29,7 @@ import {
   getServicesSection,
   getSiteSettings,
   getTestimonials,
+  getTestimonialsSection,
 } from "../../../sanity/lib/fetch";
 
 const categoryLabels = {
@@ -103,7 +105,9 @@ export default async function Home({ params }: Props) {
     portfolioSection,
     projects,
     pricing,
+    pricingSection,
     testimonials,
+    testimonialsSection,
     process,
     processSection,
     faq,
@@ -118,7 +122,9 @@ export default async function Home({ params }: Props) {
     getPortfolioSection(locale),
     getProjects(locale),
     getPricing(locale),
+    getPricingSection(locale),
     getTestimonials(locale),
+    getTestimonialsSection(locale),
     getProcess(locale),
     getProcessSection(locale),
     getFAQ(locale),
@@ -183,6 +189,8 @@ export default async function Home({ params }: Props) {
                 description: example.description,
                 before,
                 after,
+                titleEdit: createSanityEdit(example, localizedField("title", locale)),
+                descriptionEdit: createSanityEdit(example, localizedField("description", locale)),
               };
             })
             .filter((example): example is NonNullable<typeof example> => Boolean(example))}
@@ -209,6 +217,14 @@ export default async function Home({ params }: Props) {
         />
         <Pricing
           locale={locale}
+          sectionTitle={pricingSection?.sectionTitle}
+          sectionDescription={pricingSection?.sectionDescription}
+          customQuestion={pricingSection?.customQuestion}
+          customCta={pricingSection?.customCta}
+          sectionTitleEdit={createSanityEdit(pricingSection, localizedField("sectionTitle", locale))}
+          sectionDescriptionEdit={createSanityEdit(pricingSection, localizedField("sectionDescription", locale))}
+          customQuestionEdit={createSanityEdit(pricingSection, localizedField("customQuestion", locale))}
+          customCtaEdit={createSanityEdit(pricingSection, localizedField("customCta", locale))}
           items={pricing.map((category) => ({
             id: category.categoryId,
             label: category.categoryLabel,
@@ -239,6 +255,10 @@ export default async function Home({ params }: Props) {
         />
         <Testimonials
           locale={locale}
+          sectionTitle={testimonialsSection?.sectionTitle}
+          sectionDescription={testimonialsSection?.sectionDescription}
+          sectionTitleEdit={createSanityEdit(testimonialsSection, localizedField("sectionTitle", locale))}
+          sectionDescriptionEdit={createSanityEdit(testimonialsSection, localizedField("sectionDescription", locale))}
           items={testimonials.map((testimonial) => ({
             quote: testimonial.content,
             author: testimonial.name,

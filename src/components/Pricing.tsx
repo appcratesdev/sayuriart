@@ -108,7 +108,31 @@ const PricingCard = ({ pkg, locale }: { pkg: Package; locale: Locale }) => {
   );
 };
 
-export const Pricing = ({ items, locale = "pl" }: { items?: PricingCategory[]; locale?: Locale }) => {
+interface PricingProps {
+  items?: PricingCategory[];
+  locale?: Locale;
+  sectionTitle?: string;
+  sectionDescription?: string;
+  customQuestion?: string;
+  customCta?: string;
+  sectionTitleEdit?: string;
+  sectionDescriptionEdit?: string;
+  customQuestionEdit?: string;
+  customCtaEdit?: string;
+}
+
+export const Pricing = ({
+  items,
+  locale = "pl",
+  sectionTitle,
+  sectionDescription,
+  customQuestion,
+  customCta,
+  sectionTitleEdit,
+  sectionDescriptionEdit,
+  customQuestionEdit,
+  customCtaEdit,
+}: PricingProps) => {
   const pricingCategories = items?.length ? items : fallbackCategories;
   const [activeCategory, setActiveCategory] = useState(0);
   const current = pricingCategories[activeCategory] ?? pricingCategories[0];
@@ -117,7 +141,13 @@ export const Pricing = ({ items, locale = "pl" }: { items?: PricingCategory[]; l
   return (
     <section className="section-padding bg-[var(--secondary)]" id="pricing">
       <div className="container-main">
-        <SectionHeader title={dict.home.pricingTitle} description={dict.home.pricingDescription} align="center" />
+        <SectionHeader 
+          title={sectionTitle || dict.home.pricingTitle} 
+          description={sectionDescription || dict.home.pricingDescription} 
+          titleEdit={sectionTitleEdit}
+          descriptionEdit={sectionDescriptionEdit}
+          align="center" 
+        />
 
         <div className="flex justify-center mt-10 mb-12 overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
           <div className="tabs-container flex-wrap justify-center">
@@ -158,9 +188,9 @@ export const Pricing = ({ items, locale = "pl" }: { items?: PricingCategory[]; l
           transition={{ delay: 0.3 }}
           className="text-center mt-12"
         >
-          <p className="text-body mb-4">{dict.home.pricingCustomQuestion}</p>
-          <Link href="#contact" className="btn btn-secondary">
-            {dict.home.pricingCustomCta}
+          <p className="text-body mb-4" data-sanity={customQuestionEdit}>{customQuestion || dict.home.pricingCustomQuestion}</p>
+          <Link href="#contact" className="btn btn-secondary" data-sanity={customCtaEdit}>
+            {customCta || dict.home.pricingCustomCta}
           </Link>
         </motion.div>
       </div>

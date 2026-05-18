@@ -130,6 +130,15 @@ export const pricingQuery = groq`*[_type == "pricing"] | order(order asc){
   order
 }`;
 
+export const pricingSectionQuery = groq`*[_type == "pricingSection"][0]{
+  _id,
+  _type,
+  "sectionTitle": ${l("sectionTitle")},
+  "sectionDescription": ${l("sectionDescription")},
+  "customQuestion": ${l("customQuestion")},
+  "customCta": ${l("customCta")}
+}`;
+
 export const testimonialsQuery = groq`*[_type == "testimonial"] | order(order asc){
   _id,
   _type,
@@ -139,6 +148,13 @@ export const testimonialsQuery = groq`*[_type == "testimonial"] | order(order as
   avatar,
   rating,
   order
+}`;
+
+export const testimonialsSectionQuery = groq`*[_type == "testimonialsSection"][0]{
+  _id,
+  _type,
+  "sectionTitle": ${l("sectionTitle")},
+  "sectionDescription": ${l("sectionDescription")}
 }`;
 
 export const processSectionQuery = groq`*[_type == "processSection"][0]{

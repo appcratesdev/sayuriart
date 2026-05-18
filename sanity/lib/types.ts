@@ -123,6 +123,13 @@ export interface Pricing extends SanityDocumentMeta {
   order: number;
 }
 
+export interface PricingSection extends SanityDocumentMeta {
+  sectionTitle: string;
+  sectionDescription?: string;
+  customQuestion?: string;
+  customCta?: string;
+}
+
 export interface Testimonial extends SanityDocumentMeta {
   _id: string;
   _type?: string;
@@ -132,6 +139,11 @@ export interface Testimonial extends SanityDocumentMeta {
   avatar?: SanityImageSource;
   rating: number;
   order: number;
+}
+
+export interface TestimonialsSection extends SanityDocumentMeta {
+  sectionTitle: string;
+  sectionDescription?: string;
 }
 
 export interface Process extends SanityDocumentMeta {
