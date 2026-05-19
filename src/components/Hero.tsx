@@ -47,6 +47,7 @@ export const Hero = ({ content, locale = "pl" }: { content?: HeroContent; locale
           fill
           className="object-cover"
           priority
+          sizes="(max-width: 768px) 100vw, 60vw"
         />
       </motion.div>
 

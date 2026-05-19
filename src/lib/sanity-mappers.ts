@@ -9,8 +9,8 @@ export function sanityImageUrl(
 ) {
   if (!image) return undefined;
 
-  const builder = urlFor(image).width(width).auto("format").fit("max");
-  return height ? builder.height(height).url() : builder.url();
+  const builder = urlFor(image).width(width).auto("format");
+  return height ? builder.height(height).fit("crop").url() : builder.fit("max").url();
 }
 
 export function portableTextToPlainText(blocks: PortableTextBlock[] | undefined) {

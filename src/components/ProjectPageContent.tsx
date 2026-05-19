@@ -98,7 +98,7 @@ export const ProjectPageContent = ({
             className="img-wrapper aspect-[21/9] w-full"
             data-sanity={project.coverImageEdit}
           >
-            <Image src={project.images[0] || "/images/placeholder.jpg"} alt={project.title} fill className="object-cover" priority />
+            <Image src={project.images[0] || "/images/placeholder.jpg"} alt={project.title} fill className="object-cover" priority sizes="(max-width: 1280px) 100vw, 1280px" />
           </motion.div>
         </div>
       </section>
@@ -139,7 +139,7 @@ export const ProjectPageContent = ({
                   onClick={() => setLightboxIndex(index)}
                 >
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10 duration-500" />
-                  <Image src={img} alt={`${project.title} - ${dict.project.imageAlt} ${index + 2}`} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <Image src={img} alt={`${project.title} - ${dict.project.imageAlt} ${index + 2}`} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px" />
                 </motion.button>
               ))}
             </div>
@@ -203,7 +203,7 @@ export const ProjectPageContent = ({
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="relative w-full h-full max-w-5xl max-h-[85vh] m-4 md:m-12 flex items-center justify-center"
             >
-              <Image src={galleryImages[lightboxIndex]} alt={`${project.title} - ${dict.project.zoomAlt}`} fill className="object-contain" quality={100} priority />
+              <Image src={galleryImages[lightboxIndex]} alt={`${project.title} - ${dict.project.zoomAlt}`} fill className="object-contain" quality={100} priority sizes="(max-width: 1024px) 100vw, 1024px" />
             </motion.div>
             <div className="absolute bottom-6 left-0 right-0 text-center text-white/50 text-sm">
               {lightboxIndex + 1} / {galleryImages.length}
