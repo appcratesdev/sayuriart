@@ -166,14 +166,15 @@ export default async function Home({ params }: Props) {
           sectionTitleEdit={createSanityEdit(servicesSection, localizedField("sectionTitle", locale))}
           sectionDescriptionEdit={createSanityEdit(servicesSection, localizedField("sectionDescription", locale))}
           items={services.map((service) => {
+            const firstGalleryImage = service.image?.images?.[0] as any;
             const firstImage = extractFirstImage(service.image);
             
             const imageBlock = service.image as any;
             const ratio =
-              firstImage?.aspectRatio === "custom"
-                ? firstImage.customAspectRatio
-                : firstImage?.aspectRatio && firstImage.aspectRatio !== "auto"
-                  ? firstImage.aspectRatio
+              firstGalleryImage?.aspectRatio === "custom"
+                ? firstGalleryImage.customAspectRatio
+                : firstGalleryImage?.aspectRatio && firstGalleryImage.aspectRatio !== "auto"
+                  ? firstGalleryImage.aspectRatio
                   : imageBlock?.aspectRatio === "custom"
                     ? imageBlock.customAspectRatio
                     : imageBlock?.aspectRatio;
