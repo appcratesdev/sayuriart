@@ -758,7 +758,7 @@
             ]
           }
         ],
-        "description": "Uzycie: kafel uslugi, mobile 4:3, desktop polowa szerokosci panelu i ok. 480px wysokosci, object-cover. Rekomendacja: 4:3, minimum 1600 x 1200px. Ustaw hotspot na najwazniejszy produkt/fragment.",
+        "description": "Uzycie: sekcja uslugi, stale okno 4:3 na mobile i desktop, object-contain. Zdjecie nie jest docinane przez komponent; moze byc kwadratowe albo poziome. Rekomendacja: minimum 1600 x 1200px, najlepiej 2048px+ na dluzszym boku. Zostaw troche marginesu wokol produktu.",
         "fields": [
           {
             "name": "alt",

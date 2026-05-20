@@ -172,6 +172,14 @@ export default async function Home({ params }: Props) {
             descEdit: createSanityEdit(service, localizedField("description", locale)),
             featuresEdit: createSanityEdit(service, localizedField("features", locale)),
             imageEdit: createSanityEdit(service, "image"),
+            _id: service._id,
+            _type: service._type,
+            imageValue: service.image
+              ? {
+                  hotspot: (service.image as unknown as { hotspot?: { x: number; y: number } }).hotspot,
+                  crop: (service.image as unknown as { crop?: { top: number; bottom: number; left: number; right: number } }).crop,
+                }
+              : null,
           }))}
         />
         <BeforeAfter

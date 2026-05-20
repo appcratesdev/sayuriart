@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { getDictionary, type Locale } from "@/lib/i18n";
 import { SectionHeader } from "./ui/SectionHeader";
+import { EditableImage } from "./EditableImage";
 
 const fallbackServices: ServiceContent[] = [
   {
@@ -37,6 +37,12 @@ export interface ServiceContent {
   descEdit?: string;
   featuresEdit?: string;
   imageEdit?: string;
+  _id?: string;
+  _type?: string;
+  imageValue?: {
+    hotspot?: { x: number; y: number };
+    crop?: { top: number; bottom: number; left: number; right: number };
+  } | null;
 }
 
 interface ServicesProps {
@@ -86,7 +92,7 @@ export const Services = ({
           </div>
         </div>
 
-        <div className="relative bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius-xl)] overflow-hidden min-h-[420px] md:min-h-[480px]">
+        <div className="relative">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}
@@ -94,53 +100,61 @@ export const Services = ({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col md:flex-row"
+              className="rounded-[var(--radius-xl)] bg-[var(--card)] p-5 sm:p-6 md:p-8 lg:p-10"
             >
-              <div
-                className="relative w-full md:w-1/2 aspect-[4/3] md:aspect-auto md:min-h-[480px]"
-                data-sanity={activeService.imageEdit}
+              <h3
+                className="heading-card text-center text-foreground mb-6 md:mb-8"
+                data-sanity={activeService.titleEdit}
               >
-                <Image
-                  src={activeService.img || "/images/placeholder.jpg"}
-                  alt={activeService.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 640px"
-                  quality={95}
-                />
+                {activeService.title}
+              </h3>
+
+              <div className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(360px,0.9fr)] lg:items-center">
+                <div
+                  className="relative aspect-[4/3] w-full overflow-hidden rounded-[var(--radius-lg)] bg-[var(--card)]"
+                  data-sanity={activeService.imageEdit}
+                >
+                  <EditableImage
+                    src={activeService.img || "/images/placeholder.jpg"}
+                    alt={activeService.title}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 1024px) 100vw, 720px"
+                    quality={95}
+                    documentId={activeService._id}
+                    fieldPath="image"
+                    imageValue={activeService.imageValue}
+                  />
+                </div>
+
+                <div className="lg:pl-2">
+                  {activeService.desc && (
+                    <p className="text-body mb-6" data-sanity={activeService.descEdit}>
+                      {activeService.desc}
+                    </p>
+                  )}
+
+                  <ul className="space-y-2.5" data-sanity={activeService.featuresEdit}>
+                    {(activeService.features || []).map((feature) => (
+                      <li key={feature} className="pricing-feature">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <path
+                            d="M13.5 4.5L6 12L2.5 8.5"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
 
-              <div className="flex-1 p-8 md:p-12 flex flex-col justify-center">
-                <h3
-                  className="heading-card text-[var(--foreground)] mb-4"
-                  data-sanity={activeService.titleEdit}
-                >
-                  {activeService.title}
-                </h3>
-                {activeService.desc && (
-                  <p className="text-body mb-8" data-sanity={activeService.descEdit}>
-                    {activeService.desc}
-                  </p>
-                )}
-
-                <ul className="space-y-3 mb-8" data-sanity={activeService.featuresEdit}>
-                  {(activeService.features || []).map((feature) => (
-                    <li key={feature} className="pricing-feature">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path
-                          d="M13.5 4.5L6 12L2.5 8.5"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Link href="#pricing" className="btn btn-accent self-start">
+              <div className="mt-8 flex justify-center">
+                <Link href="#pricing" className="btn btn-accent">
                   {dict.home.servicesCta} -&gt;
                 </Link>
               </div>
