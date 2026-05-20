@@ -106,7 +106,7 @@ export function EditableImage({
   return (
     <div
       ref={containerRef}
-      className={`relative ${containerClassName || ""}`}
+      className={`relative w-full h-full ${containerClassName || ""}`}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}

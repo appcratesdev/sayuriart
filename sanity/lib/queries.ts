@@ -109,7 +109,26 @@ export const projectBySlugQuery = groq`*[_type == "project" && coalesce(slug[$la
   "solution": ${l("solution")},
   "results": ${l("results")},
   "description": ${l("description")},
-  gallery,
+  gallery[]{
+    _key,
+    _type,
+    layout,
+    aspectRatio,
+    customAspectRatio,
+    images[]{
+      _key,
+      _type,
+      image{
+        asset->{_id, url, metadata{dimensions{width, height}}},
+        hotspot,
+        crop
+      },
+      aspectRatio,
+      customAspectRatio,
+      objectPositionX,
+      objectPositionY
+    }
+  },
   ${seo()}
 }`;
 

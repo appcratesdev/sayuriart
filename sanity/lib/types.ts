@@ -78,6 +78,29 @@ export interface PortfolioSection extends SanityDocumentMeta {
   seo?: SeoFields;
 }
 
+export interface GalleryImage {
+  _key?: string;
+  _type?: string;
+  image?: SanityImageSource & {
+    hotspot?: { x: number; y: number };
+    crop?: { top: number; bottom: number; left: number; right: number };
+    asset?: { _id?: string; url?: string; metadata?: { dimensions?: { width?: number; height?: number } } };
+  };
+  aspectRatio?: string;
+  customAspectRatio?: string;
+  objectPositionX?: number;
+  objectPositionY?: number;
+}
+
+export interface GalleryBlock {
+  _key?: string;
+  _type?: string;
+  layout?: string;
+  aspectRatio?: string;
+  customAspectRatio?: string;
+  images?: GalleryImage[];
+}
+
 export interface Project extends SanityDocumentMeta {
   _id: string;
   _type?: string;
@@ -95,10 +118,7 @@ export interface Project extends SanityDocumentMeta {
   solution?: string;
   results?: string[];
   description?: PortableTextBlock[];
-  gallery?: Array<{
-    asset?: SanityImageSource;
-    caption?: string;
-  }>;
+  gallery?: GalleryBlock[];
   featured?: boolean;
   order: number;
   seo?: SeoFields;

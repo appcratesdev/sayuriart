@@ -96,6 +96,8 @@ export default async function ProjectPage({ params }: Props) {
     );
   }
 
+  const coverImage = sanityImageUrl(project.coverImage) || "/images/placeholder.jpg";
+
   const mappedProject = {
     title: project.title,
     category: categoryLabels[locale][project.category] || project.category,
@@ -105,10 +107,9 @@ export default async function ProjectPage({ params }: Props) {
     challenge: project.challenge || "",
     solution: project.solution || "",
     results: project.results?.length ? project.results : project.services || [],
-    images: [
-      sanityImageUrl(project.coverImage),
-      ...(project.gallery || []).map((image) => sanityImageUrl(image)),
-    ].filter((image): image is string => Boolean(image)),
+    coverImage,
+    gallery: project.gallery || [],
+    images: [coverImage], // legacy support for lightbox
     titleEdit: createSanityEdit(project, localizedField("title", locale)),
     categoryEdit: createSanityEdit(project, "category"),
     clientEdit: createSanityEdit(project, "client"),
@@ -119,10 +120,6 @@ export default async function ProjectPage({ params }: Props) {
     resultsEdit: createSanityEdit(project, project.results?.length ? localizedField("results", locale) : localizedField("services", locale)),
     coverImageEdit: createSanityEdit(project, "coverImage"),
   };
-
-  if (!mappedProject.images.length) {
-    mappedProject.images.push("/images/placeholder.jpg");
-  }
 
   return (
     <div className="min-h-screen flex flex-col">

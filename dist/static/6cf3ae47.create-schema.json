@@ -575,6 +575,336 @@
   {
     "fields": [
       {
+        "options": {
+          "list": [
+            {
+              "title": "Pelna szerokosc (1 zdjecie)",
+              "value": "full"
+            },
+            {
+              "title": "Dwie rowne kolumny (2 zdjecia)",
+              "value": "two-col"
+            },
+            {
+              "title": "Jedno duze lewe, dwa male prawe (3 zdjecia)",
+              "value": "one-two"
+            },
+            {
+              "title": "Dwa male lewe, jedno duze prawe (3 zdjecia)",
+              "value": "two-one"
+            },
+            {
+              "title": "Trzy rowne kolumny (3 zdjecia)",
+              "value": "three-col"
+            },
+            {
+              "title": "Duze gora + dwa male dol (Hero, 3 zdjecia)",
+              "value": "hero-two"
+            },
+            {
+              "title": "Portret + dwa mniejsze (3 zdjecia)",
+              "value": "portrait-stack"
+            },
+            {
+              "title": "Siatka (do 6 zdjec)",
+              "value": "grid"
+            }
+          ],
+          "layout": "dropdown"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "full",
+                  "two-col",
+                  "one-two",
+                  "two-one",
+                  "three-col",
+                  "hero-two",
+                  "portrait-stack",
+                  "grid"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "layout",
+        "type": "string",
+        "title": "Uklad (Layout)"
+      },
+      {
+        "initialValue": "4 / 3",
+        "options": {
+          "list": [
+            {
+              "title": "Auto / oryginalne",
+              "value": "auto"
+            },
+            {
+              "title": "Kwadrat 1:1",
+              "value": "1 / 1"
+            },
+            {
+              "title": "Poziome 4:3",
+              "value": "4 / 3"
+            },
+            {
+              "title": "Pionowe 3:4",
+              "value": "3 / 4"
+            },
+            {
+              "title": "Szerokie 16:9",
+              "value": "16 / 9"
+            },
+            {
+              "title": "Pionowe 9:16",
+              "value": "9 / 16"
+            },
+            {
+              "title": "Portret 4:5",
+              "value": "4 / 5"
+            },
+            {
+              "title": "Poziome 5:4",
+              "value": "5 / 4"
+            },
+            {
+              "title": "Poziome 3:2",
+              "value": "3 / 2"
+            },
+            {
+              "title": "Pionowe 2:3",
+              "value": "2 / 3"
+            },
+            {
+              "title": "Wlasne",
+              "value": "custom"
+            }
+          ],
+          "layout": "dropdown"
+        },
+        "description": "Stosowane do wszystkich zdjec w tym bloku. Pojedynczy element z wlasnym aspect ratio nadpisuje te wartosc.",
+        "name": "aspectRatio",
+        "type": "string",
+        "title": "Aspect ratio mediow w bloku",
+        "fieldset": "advanced"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
+        "description": "Uzywane, gdy wyzej wybrano 'Wlasne'.",
+        "hidden": "conditional",
+        "name": "customAspectRatio",
+        "type": "string",
+        "title": "Wlasny aspect ratio",
+        "fieldset": "advanced"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "description": "Wrzuc zdjecia do bloku. Kolejnosc elementow jest kolejnoscia na stronie.",
+        "of": [
+          {
+            "fields": [
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "description": "Wybierz z biblioteki Media albo wgraj pojedynczy plik.",
+                "name": "image",
+                "type": "image",
+                "title": "Zdjecie"
+              },
+              {
+                "initialValue": "auto",
+                "options": {
+                  "list": [
+                    {
+                      "title": "Auto / oryginalne",
+                      "value": "auto"
+                    },
+                    {
+                      "title": "Kwadrat 1:1",
+                      "value": "1 / 1"
+                    },
+                    {
+                      "title": "Poziome 4:3",
+                      "value": "4 / 3"
+                    },
+                    {
+                      "title": "Pionowe 3:4",
+                      "value": "3 / 4"
+                    },
+                    {
+                      "title": "Szerokie 16:9",
+                      "value": "16 / 9"
+                    },
+                    {
+                      "title": "Pionowe 9:16",
+                      "value": "9 / 16"
+                    },
+                    {
+                      "title": "Portret 4:5",
+                      "value": "4 / 5"
+                    },
+                    {
+                      "title": "Poziome 5:4",
+                      "value": "5 / 4"
+                    },
+                    {
+                      "title": "Poziome 3:2",
+                      "value": "3 / 2"
+                    },
+                    {
+                      "title": "Pionowe 2:3",
+                      "value": "2 / 3"
+                    },
+                    {
+                      "title": "Wlasne",
+                      "value": "custom"
+                    }
+                  ],
+                  "layout": "dropdown"
+                },
+                "name": "aspectRatio",
+                "type": "string",
+                "title": "Aspect ratio",
+                "fieldset": "advanced"
+              },
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "custom"
+                      }
+                    ]
+                  }
+                ],
+                "description": "Wpisz np. 7 / 5, 21 / 9, 1080 / 1350.",
+                "hidden": "conditional",
+                "name": "customAspectRatio",
+                "type": "string",
+                "title": "Wlasny aspect ratio",
+                "fieldset": "advanced"
+              },
+              {
+                "initialValue": 50,
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "min",
+                        "constraint": 0
+                      },
+                      {
+                        "flag": "max",
+                        "constraint": 100
+                      }
+                    ]
+                  }
+                ],
+                "hidden": true,
+                "name": "objectPositionX",
+                "type": "number",
+                "title": "Kadr poziomo (%)",
+                "fieldset": "advanced"
+              },
+              {
+                "initialValue": 50,
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "min",
+                        "constraint": 0
+                      },
+                      {
+                        "flag": "max",
+                        "constraint": 100
+                      }
+                    ]
+                  }
+                ],
+                "hidden": true,
+                "name": "objectPositionY",
+                "type": "number",
+                "title": "Kadr pionowo (%)",
+                "fieldset": "advanced"
+              }
+            ],
+            "fieldsets": [
+              {
+                "name": "advanced",
+                "title": "Zaawansowane ustawienia zdjecia",
+                "options": {
+                  "collapsible": true,
+                  "collapsed": true
+                }
+              }
+            ],
+            "type": "object",
+            "name": "galleryImage",
+            "title": "Zdjecie"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "type": "image",
+            "title": "Zdjecie legacy bez aspect ratio"
+          }
+        ],
+        "name": "images",
+        "type": "array",
+        "title": "Zdjecia"
+      }
+    ],
+    "fieldsets": [
+      {
+        "name": "advanced",
+        "title": "Zaawansowane kadrowanie",
+        "options": {
+          "collapsible": true,
+          "collapsed": true
+        }
+      }
+    ],
+    "name": "galleryBlock",
+    "type": "object",
+    "title": "Blok Galerii"
+  },
+  {
+    "fields": [
+      {
         "validation": [
           {
             "level": "error",
@@ -1149,33 +1479,18 @@
       {
         "of": [
           {
-            "options": {
-              "hotspot": true
-            },
-            "validation": [
+            "fieldsets": [
               {
-                "level": "warning",
-                "rules": [
-                  {
-                    "flag": "custom"
-                  }
-                ]
+                "name": "advanced",
+                "title": "Zaawansowane kadrowanie",
+                "options": {
+                  "collapsible": true,
+                  "collapsed": true
+                }
               }
             ],
-            "description": "Uzycie: galeria projektu. Pierwsze zdjecie w galerii jest wysokie 4:5, kolejne sa kwadratowe, a lightbox pokazuje caly obraz jako object-contain. Rekomendacja: minimum 1600 x 1600px lub wiecej; trzymaj wazne elementy w centrum i ustaw hotspot.",
-            "fields": [
-              {
-                "name": "caption",
-                "type": "localizedString",
-                "title": "Podpis"
-              },
-              {
-                "name": "alt",
-                "type": "localizedString",
-                "title": "Alt text"
-              }
-            ],
-            "type": "image"
+            "type": "galleryBlock",
+            "title": "Blok Galerii"
           }
         ],
         "name": "gallery",

@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { imageGuides, requiredImageWithWarning, schemaImageWarning } from "./imageGuidance";
+import { imageGuides, requiredImageWithWarning } from "./imageGuidance";
 
 export default defineType({
   name: "project",
@@ -53,18 +53,7 @@ export default defineType({
       name: "gallery",
       title: "Galeria zdjec",
       type: "array",
-      of: [
-        {
-          type: "image",
-          description: imageGuides.projectGallery.description,
-          options: { hotspot: true },
-          validation: schemaImageWarning(imageGuides.projectGallery),
-          fields: [
-            { name: "caption", title: "Podpis", type: "localizedString" },
-            { name: "alt", title: "Alt text", type: "localizedString" },
-          ],
-        },
-      ],
+      of: [{ type: "galleryBlock" }],
     }),
     defineField({ name: "featured", title: "Wyrozniony", type: "boolean", initialValue: false }),
     defineField({

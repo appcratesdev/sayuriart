@@ -6,6 +6,8 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { getDictionary, localizedHref, type Locale } from "@/lib/i18n";
+import { GalleryBlockRenderer } from "./GalleryBlock";
+import type { GalleryBlock } from "../../sanity/lib/types";
 
 interface ProjectData {
   title: string;
@@ -16,6 +18,8 @@ interface ProjectData {
   challenge: string;
   solution: string;
   results: string[];
+  coverImage: string;
+  gallery: GalleryBlock[];
   images: string[];
   titleEdit?: string;
   categoryEdit?: string;
@@ -36,8 +40,17 @@ export const ProjectPageContent = ({
   locale?: Locale;
 }) => {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  const galleryImages = project.images.slice(1);
   const dict = getDictionary(locale);
+
+  // Collect all gallery image sources from blocks for lightbox
+  const galleryImages: string[] = [];
+  for (const block of project.gallery || []) {
+    for (const img of block.images || []) {
+      const source = (img as { image?: unknown }).image || img;
+      const src = typeof source === "string" ? source : (source as { asset?: { url?: string } })?.asset?.url;
+      if (src) galleryImages.push(src);
+    }
+  }
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -98,7 +111,7 @@ export const ProjectPageContent = ({
             className="img-wrapper aspect-[21/9] w-full"
             data-sanity={project.coverImageEdit}
           >
-            <Image src={project.images[0] || "/images/placeholder.jpg"} alt={project.title} fill className="object-cover" priority sizes="(max-width: 1280px) 100vw, 1280px" quality={95} />
+            <Image src={project.coverImage} alt={project.title} fill className="object-cover" priority sizes="(max-width: 1280px) 100vw, 1280px" quality={95} />
           </motion.div>
         </div>
       </section>
@@ -123,28 +136,14 @@ export const ProjectPageContent = ({
         </div>
       </section>
 
-      {galleryImages.length > 0 && (
-        <section className="py-8 md:py-12 bg-[var(--background)]">
-          <div className="container-main">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-              {galleryImages.map((img, index) => (
-                <motion.button
-                  type="button"
-                  key={`${img}-${index}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                  className={`img-wrapper group cursor-pointer overflow-hidden ${index === 0 ? "aspect-[4/5] md:row-span-2" : "aspect-square"}`}
-                  onClick={() => setLightboxIndex(index)}
-                >
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10 duration-500" />
-                  <Image src={img} alt={`${project.title} - ${dict.project.imageAlt} ${index + 2}`} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px" quality={95} />
-                </motion.button>
-              ))}
-            </div>
-          </div>
-        </section>
+      {project.gallery.length > 0 && (
+        <GalleryBlockRenderer
+          blocks={project.gallery}
+          onImageClick={(src) => {
+            const idx = galleryImages.indexOf(src);
+            if (idx !== -1) setLightboxIndex(idx);
+          }}
+        />
       )}
 
       <section className="py-16 md:py-24 bg-[var(--card)] border-y border-[var(--border)]">

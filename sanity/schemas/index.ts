@@ -1,6 +1,7 @@
 import hero from './hero'
 import manifesto from './manifesto'
 import service from './service'
+import { galleryBlockType } from './galleryBlock'
 import beforeAfter from './beforeAfter'
 import beforeAfterSection from './beforeAfterSection'
 import portfolio from './portfolio'
@@ -33,6 +34,7 @@ export const schemaTypes = [
   localizedSlug,
   seoFields,
   siteSettings,
+  galleryBlockType,
   hero,
   manifesto,
   service,
