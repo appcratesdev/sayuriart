@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { imageGuides, imageWarning } from "./imageGuidance";
 
 const languageFields = (type: "string" | "text") => [
   defineField({
@@ -131,6 +132,7 @@ export const seoFields = defineType({
       name: "image",
       title: "Obraz Open Graph",
       type: "image",
+      description: imageGuides.openGraph.description,
       options: { hotspot: true },
       fields: [
         defineField({
@@ -139,6 +141,7 @@ export const seoFields = defineType({
           type: "localizedString",
         }),
       ],
+      validation: imageWarning(imageGuides.openGraph),
     }),
   ],
 });

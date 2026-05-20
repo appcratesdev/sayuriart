@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { imageGuides, imageWarning } from "./imageGuidance";
 
 export default defineType({
   name: "testimonial",
@@ -12,8 +13,10 @@ export default defineType({
       name: "avatar",
       title: "Zdjecie",
       type: "image",
+      description: imageGuides.avatar.description,
       options: { hotspot: true },
       fields: [{ name: "alt", title: "Alt text", type: "localizedString" }],
+      validation: imageWarning(imageGuides.avatar),
     }),
     defineField({ name: "rating", title: "Ocena (1-5)", type: "number", validation: (Rule) => Rule.required().min(1).max(5) }),
     defineField({ name: "order", title: "Kolejnosc", type: "number", validation: (Rule) => Rule.required().min(0) }),

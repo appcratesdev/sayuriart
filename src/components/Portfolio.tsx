@@ -94,6 +94,7 @@ export const Portfolio = ({ content, locale = "pl" }: { content?: PortfolioConte
                         ? "(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 800px"
                         : "(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
                     }
+                    quality={95}
                   />
                   <div className="img-overlay" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">

@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { imageGuides, imageWarning } from "./imageGuidance";
 
 export default defineType({
   name: "manifesto",
@@ -17,8 +18,10 @@ export default defineType({
       name: "image",
       title: "Zdjecie",
       type: "image",
+      description: imageGuides.unusedContentImage.description,
       options: { hotspot: true },
       fields: [{ name: "alt", title: "Alt text", type: "localizedString" }],
+      validation: imageWarning(imageGuides.unusedContentImage),
     }),
   ],
   preview: {

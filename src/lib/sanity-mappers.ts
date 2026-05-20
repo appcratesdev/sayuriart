@@ -4,13 +4,24 @@ import { urlFor } from "../../sanity/lib/image";
 
 export function sanityImageUrl(
   image: SanityImageSource | undefined,
-  width: number,
+  width?: number,
   height?: number
 ) {
   if (!image) return undefined;
 
-  const builder = urlFor(image).width(width).auto("format");
-  return height ? builder.height(height).fit("crop").url() : builder.fit("max").url();
+  let builder = urlFor(image).auto("format");
+
+  if (width) {
+    builder = builder.width(width);
+  }
+
+  if (height) {
+    builder = builder.height(height).fit("crop");
+  } else {
+    builder = builder.fit("max");
+  }
+
+  return builder.url();
 }
 
 export function portableTextToPlainText(blocks: PortableTextBlock[] | undefined) {

@@ -14,34 +14,29 @@ export default function sanityImageLoader({
       const url = new URL(src);
       const params = url.searchParams;
 
-      const origWStr = params.get("w");
-      const origHStr = params.get("h");
-
-      if (origWStr) {
-        const origW = parseInt(origWStr, 10);
-        params.set("w", width.toString());
-
-        if (origHStr) {
-          const origH = parseInt(origHStr, 10);
-          if (!isNaN(origW) && !isNaN(origH) && origW > 0) {
-            const aspect = origH / origW;
-            const newHeight = Math.round(width * aspect);
-            params.set("h", newHeight.toString());
-          }
-        }
-      } else {
-        params.set("w", width.toString());
-      }
-
-      // Enforce high quality (85) instead of Next.js's default 75
-      params.set("q", (quality || 85).toString());
+      params.delete("h");
+      params.set("w", width.toString());
+      params.set("fit", "max");
       params.set("auto", "format");
+      params.set("q", (quality || 85).toString());
 
       return url.toString();
-    } catch (e) {
+    } catch {
       return src;
     }
   }
 
-  return src;
+  if (src.startsWith("/")) {
+    const separator = src.includes("?") ? "&" : "?";
+    return `${src}${separator}w=${width}&q=${quality || 85}`;
+  }
+
+  try {
+    const url = new URL(src);
+    url.searchParams.set("w", width.toString());
+    url.searchParams.set("q", (quality || 85).toString());
+    return url.toString();
+  } catch {
+    return src;
+  }
 }

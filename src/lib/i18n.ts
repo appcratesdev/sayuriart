@@ -84,7 +84,7 @@ export const dictionary = {
       pricingTitle: "Transparentne ceny",
       pricingDescription: "Wybierz pakiet dopasowany do swoich potrzeb. Bez ukrytych kosztow.",
       pricingPopular: "Popularny",
-      pricingOrder: "Zamow pakiet",
+      pricingOrder: "Zamów pakiet",
       pricingCurrency: "zl",
       pricingSavings: "Oszczedzasz",
       pricingCustomQuestion: "Potrzebujesz czegos innego?",

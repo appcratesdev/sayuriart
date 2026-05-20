@@ -138,6 +138,7 @@ export const BeforeAfter = ({
                   className="object-cover"
                   draggable={false}
                   sizes="(max-width: 1024px) 100vw, 900px"
+                  quality={95}
                 />
               </div>
 
@@ -153,6 +154,7 @@ export const BeforeAfter = ({
                   className="object-cover"
                   draggable={false}
                   sizes="(max-width: 1024px) 100vw, 900px"
+                  quality={95}
                 />
               </div>
 

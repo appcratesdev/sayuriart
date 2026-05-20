@@ -98,7 +98,7 @@ export const ProjectPageContent = ({
             className="img-wrapper aspect-[21/9] w-full"
             data-sanity={project.coverImageEdit}
           >
-            <Image src={project.images[0] || "/images/placeholder.jpg"} alt={project.title} fill className="object-cover" priority sizes="(max-width: 1280px) 100vw, 1280px" />
+            <Image src={project.images[0] || "/images/placeholder.jpg"} alt={project.title} fill className="object-cover" priority sizes="(max-width: 1280px) 100vw, 1280px" quality={95} />
           </motion.div>
         </div>
       </section>
@@ -139,7 +139,7 @@ export const ProjectPageContent = ({
                   onClick={() => setLightboxIndex(index)}
                 >
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10 duration-500" />
-                  <Image src={img} alt={`${project.title} - ${dict.project.imageAlt} ${index + 2}`} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px" />
+                  <Image src={img} alt={`${project.title} - ${dict.project.imageAlt} ${index + 2}`} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px" quality={95} />
                 </motion.button>
               ))}
             </div>

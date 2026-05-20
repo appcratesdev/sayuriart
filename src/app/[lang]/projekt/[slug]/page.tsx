@@ -106,8 +106,8 @@ export default async function ProjectPage({ params }: Props) {
     solution: project.solution || "",
     results: project.results?.length ? project.results : project.services || [],
     images: [
-      sanityImageUrl(project.coverImage, 1600, 900),
-      ...(project.gallery || []).map((image) => sanityImageUrl(image, 1200, 1200)),
+      sanityImageUrl(project.coverImage),
+      ...(project.gallery || []).map((image) => sanityImageUrl(image)),
     ].filter((image): image is string => Boolean(image)),
     titleEdit: createSanityEdit(project, localizedField("title", locale)),
     categoryEdit: createSanityEdit(project, "category"),

@@ -144,7 +144,7 @@ export default async function Home({ params }: Props) {
                 subtitle: hero.subtitle,
                 ctaText: hero.ctaText,
                 ctaLink: hero.ctaLink,
-                image: sanityImageUrl(hero.heroImage, 1920, 1080),
+                image: sanityImageUrl(hero.heroImage),
                 titleEdit: createSanityEdit(hero, localizedField("title", locale)),
                 subtitleEdit: createSanityEdit(hero, localizedField("subtitle", locale)),
                 ctaTextEdit: createSanityEdit(hero, localizedField("ctaText", locale)),
@@ -167,7 +167,7 @@ export default async function Home({ params }: Props) {
             title: service.title,
             desc: service.description,
             features: service.features,
-            img: sanityImageUrl(service.image, 900, 700),
+            img: sanityImageUrl(service.image),
             titleEdit: createSanityEdit(service, localizedField("title", locale)),
             descEdit: createSanityEdit(service, localizedField("description", locale)),
             featuresEdit: createSanityEdit(service, localizedField("features", locale)),
@@ -181,8 +181,8 @@ export default async function Home({ params }: Props) {
           descriptionEdit={createSanityEdit(beforeAfterSection, localizedField("sectionDescription", locale))}
           items={beforeAfter
             .map((example) => {
-              const before = sanityImageUrl(example.beforeImage, 1200, 900);
-              const after = sanityImageUrl(example.afterImage, 1200, 900);
+              const before = sanityImageUrl(example.beforeImage);
+              const after = sanityImageUrl(example.afterImage);
               if (!before || !after) return null;
               return {
                 title: example.title,
@@ -206,7 +206,7 @@ export default async function Home({ params }: Props) {
               title: project.title,
               slug: project.slug.current,
               category: categoryLabels[locale][project.category] || project.category,
-              img: sanityImageUrl(project.coverImage, 900, 900),
+              img: sanityImageUrl(project.coverImage),
               aspect: projectAspects[index % projectAspects.length],
               span: projectSpans[index % projectSpans.length],
               titleEdit: createSanityEdit(project, localizedField("title", locale)),

@@ -50,7 +50,7 @@ export default async function AboutPage({ params }: Props) {
 
   const title = about?.title || dict.about.defaultTitle;
   const role = about?.role || dict.about.defaultRole;
-  const imageSrc = (about?.profileImage && sanityImageUrl(about.profileImage, 800, 1000)) || "/images/Ania.webp";
+  const imageSrc = (about?.profileImage && sanityImageUrl(about.profileImage)) || "/images/Ania.webp";
   const imageAlt = about?.profileImage?.alt || dict.about.defaultImageAlt;
   const contactTitle = about?.contactTitle || dict.about.contactTitle;
   const contactEmail = about?.contactEmail || siteSettings?.email || "annsayuriart@gmail.com";

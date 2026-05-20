@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { imageGuides, imageWarning } from "./imageGuidance";
 
 export default defineType({
   name: "about",
@@ -11,8 +12,10 @@ export default defineType({
       name: "profileImage",
       title: "Zdjecie profilowe",
       type: "image",
+      description: imageGuides.profile.description,
       options: { hotspot: true },
       fields: [{ name: "alt", title: "Alt text", type: "localizedString" }],
+      validation: imageWarning(imageGuides.profile),
     }),
     defineField({ name: "role", title: "Rola / stanowisko", type: "localizedString" }),
     defineField({ name: "title", title: "Imie / tytul", type: "localizedString" }),

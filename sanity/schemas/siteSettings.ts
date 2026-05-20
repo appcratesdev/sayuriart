@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { imageGuides, imageWarning } from "./imageGuidance";
 
 export default defineType({
   name: "siteSettings",
@@ -16,8 +17,10 @@ export default defineType({
       name: "logo",
       title: "Logo",
       type: "image",
+      description: imageGuides.logo.description,
       options: { hotspot: true },
       fields: [{ name: "alt", title: "Alt text", type: "localizedString" }],
+      validation: imageWarning(imageGuides.logo),
     }),
     defineField({ name: "email", title: "Email kontaktowy", type: "string" }),
     defineField({ name: "phone", title: "Telefon", type: "string" }),

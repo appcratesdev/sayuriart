@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { imageGuides, imageWarning } from "./imageGuidance";
 
 export default defineType({
   name: "hero",
@@ -31,6 +32,7 @@ export default defineType({
       name: "heroImage",
       title: "Zdjecie Hero",
       type: "image",
+      description: imageGuides.hero.description,
       options: { hotspot: true },
       fields: [
         defineField({
@@ -39,6 +41,7 @@ export default defineType({
           type: "localizedString",
         }),
       ],
+      validation: imageWarning(imageGuides.hero),
     }),
     defineField({
       name: "seo",
