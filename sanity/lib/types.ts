@@ -48,7 +48,7 @@ export interface Service extends SanityDocumentMeta {
   title: string;
   description?: string;
   features?: string[];
-  image: SanityImageSource;
+  image: GalleryBlock;
   order: number;
 }
 
@@ -57,8 +57,8 @@ export interface BeforeAfter extends SanityDocumentMeta {
   _type?: string;
   title: string;
   description?: string;
-  beforeImage: SanityImageSource;
-  afterImage: SanityImageSource;
+  beforeImage: GalleryBlock;
+  afterImage: GalleryBlock;
   order: number;
 }
 
@@ -110,7 +110,7 @@ export interface Project extends SanityDocumentMeta {
   };
   category: "lifestyle" | "product" | "amazon" | "infographics";
   excerpt?: string;
-  coverImage: SanityImageSource;
+  coverImage: GalleryBlock;
   client?: string;
   year?: number;
   services?: string[];

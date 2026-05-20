@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { imageGuides, requiredImageWithWarning } from "./imageGuidance";
+import { imageGuides } from "./imageGuidance";
 
 export default defineType({
   name: "beforeAfter",
@@ -16,20 +16,14 @@ export default defineType({
     defineField({
       name: "beforeImage",
       title: "Zdjecie przed",
-      type: "image",
+      type: "galleryBlock",
       description: imageGuides.beforeAfter.description,
-      options: { hotspot: true },
-      fields: [{ name: "alt", title: "Alt text", type: "localizedString" }],
-      validation: requiredImageWithWarning(imageGuides.beforeAfter),
     }),
     defineField({
       name: "afterImage",
       title: "Zdjecie po",
-      type: "image",
+      type: "galleryBlock",
       description: imageGuides.beforeAfter.description,
-      options: { hotspot: true },
-      fields: [{ name: "alt", title: "Alt text", type: "localizedString" }],
-      validation: requiredImageWithWarning(imageGuides.beforeAfter),
     }),
     defineField({
       name: "order",

@@ -2,6 +2,7 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { defineLocations, presentationTool } from "sanity/presentation";
+import { media } from "sanity-plugin-media";
 import { schemaTypes } from "./sanity/schemas";
 
 const productionUrl = "https://sayuriart.vercel.app";
@@ -56,6 +57,7 @@ export default defineConfig({
   plugins: [
     structureTool(),
     visionTool(),
+    media(),
     presentationTool({
       previewUrl: {
         initial: previewUrl,

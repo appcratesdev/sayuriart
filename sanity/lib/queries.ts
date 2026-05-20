@@ -7,6 +7,27 @@ const seo = (field = "seo") => `"seo": {
   "image": ${field}.image
 }`;
 
+const galleryBlockFields = `{
+  _key,
+  _type,
+  layout,
+  aspectRatio,
+  customAspectRatio,
+  images[]{
+    _key,
+    _type,
+    image{
+      asset->{_id, url, metadata{dimensions{width, height}}},
+      hotspot,
+      crop
+    },
+    aspectRatio,
+    customAspectRatio,
+    objectPositionX,
+    objectPositionY
+  }
+}`;
+
 export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]{
   _id,
   _type,
@@ -45,7 +66,7 @@ export const servicesQuery = groq`*[_type == "service"] | order(order asc){
   "title": ${l("title")},
   "description": ${l("description")},
   "features": ${l("features")},
-  image,
+  image${galleryBlockFields},
   order
 }`;
 
@@ -61,8 +82,8 @@ export const beforeAfterQuery = groq`*[_type == "beforeAfter"] | order(order asc
   _type,
   "title": ${l("title")},
   "description": ${l("description")},
-  beforeImage,
-  afterImage,
+  beforeImage${galleryBlockFields},
+  afterImage${galleryBlockFields},
   order
 }`;
 
@@ -88,7 +109,7 @@ export const projectsQuery = groq`*[_type == "project"] | order(order asc){
   "slug": {"current": coalesce(slug[$lang].current, slug.current)},
   category,
   "excerpt": ${l("excerpt")},
-  coverImage,
+  coverImage${galleryBlockFields},
   featured,
   order,
   ${seo()}
@@ -101,7 +122,7 @@ export const projectBySlugQuery = groq`*[_type == "project" && coalesce(slug[$la
   "slug": {"current": coalesce(slug[$lang].current, slug.current)},
   category,
   "excerpt": ${l("excerpt")},
-  coverImage,
+  coverImage${galleryBlockFields},
   client,
   year,
   "services": ${l("services")},
@@ -109,26 +130,7 @@ export const projectBySlugQuery = groq`*[_type == "project" && coalesce(slug[$la
   "solution": ${l("solution")},
   "results": ${l("results")},
   "description": ${l("description")},
-  gallery[]{
-    _key,
-    _type,
-    layout,
-    aspectRatio,
-    customAspectRatio,
-    images[]{
-      _key,
-      _type,
-      image{
-        asset->{_id, url, metadata{dimensions{width, height}}},
-        hotspot,
-        crop
-      },
-      aspectRatio,
-      customAspectRatio,
-      objectPositionX,
-      objectPositionY
-    }
-  },
+  gallery[]${galleryBlockFields},
   ${seo()}
 }`;
 

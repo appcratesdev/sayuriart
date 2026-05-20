@@ -131,6 +131,8 @@ export default async function Home({ params }: Props) {
     getSiteSettings(locale),
   ]);
 
+  const extractFirstImage = (block: import("../../../sanity/lib/types").GalleryBlock) => block?.images?.[0]?.image;
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header title={siteSettings?.title} titleEdit={createSanityEdit(siteSettings, localizedField("title", locale))} locale={locale} />
@@ -163,24 +165,27 @@ export default async function Home({ params }: Props) {
           sectionDescription={servicesSection?.sectionDescription}
           sectionTitleEdit={createSanityEdit(servicesSection, localizedField("sectionTitle", locale))}
           sectionDescriptionEdit={createSanityEdit(servicesSection, localizedField("sectionDescription", locale))}
-          items={services.map((service) => ({
-            title: service.title,
-            desc: service.description,
-            features: service.features,
-            img: sanityImageUrl(service.image),
-            titleEdit: createSanityEdit(service, localizedField("title", locale)),
-            descEdit: createSanityEdit(service, localizedField("description", locale)),
-            featuresEdit: createSanityEdit(service, localizedField("features", locale)),
-            imageEdit: createSanityEdit(service, "image"),
-            _id: service._id,
-            _type: service._type,
-            imageValue: service.image
-              ? {
-                  hotspot: (service.image as unknown as { hotspot?: { x: number; y: number } }).hotspot,
-                  crop: (service.image as unknown as { crop?: { top: number; bottom: number; left: number; right: number } }).crop,
-                }
-              : null,
-          }))}
+          items={services.map((service) => {
+            const firstImage = extractFirstImage(service.image);
+            return {
+              title: service.title,
+              desc: service.description,
+              features: service.features,
+              img: sanityImageUrl(firstImage),
+              titleEdit: createSanityEdit(service, localizedField("title", locale)),
+              descEdit: createSanityEdit(service, localizedField("description", locale)),
+              featuresEdit: createSanityEdit(service, localizedField("features", locale)),
+              imageEdit: createSanityEdit(service, "image"),
+              _id: service._id,
+              _type: service._type,
+              imageValue: firstImage
+                ? {
+                    hotspot: firstImage.hotspot,
+                    crop: firstImage.crop,
+                  }
+                : null,
+            };
+          })}
         />
         <BeforeAfter
           sectionTitle={beforeAfterSection?.sectionTitle}
@@ -189,8 +194,8 @@ export default async function Home({ params }: Props) {
           descriptionEdit={createSanityEdit(beforeAfterSection, localizedField("sectionDescription", locale))}
           items={beforeAfter
             .map((example) => {
-              const before = sanityImageUrl(example.beforeImage);
-              const after = sanityImageUrl(example.afterImage);
+              const before = sanityImageUrl(extractFirstImage(example.beforeImage));
+              const after = sanityImageUrl(extractFirstImage(example.afterImage));
               if (!before || !after) return null;
               return {
                 title: example.title,
@@ -214,7 +219,7 @@ export default async function Home({ params }: Props) {
               title: project.title,
               slug: project.slug.current,
               category: categoryLabels[locale][project.category] || project.category,
-              img: sanityImageUrl(project.coverImage),
+              img: sanityImageUrl(extractFirstImage(project.coverImage)),
               aspect: projectAspects[index % projectAspects.length],
               span: projectSpans[index % projectSpans.length],
               titleEdit: createSanityEdit(project, localizedField("title", locale)),

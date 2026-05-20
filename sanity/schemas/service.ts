@@ -1,6 +1,6 @@
 import { defineField, defineType } from "sanity";
-import { imageGuides, requiredImageWithWarning } from "./imageGuidance";
-import { ServiceImageInput } from "../components/ServiceImageInput";
+import { imageGuides } from "./imageGuidance";
+
 
 export default defineType({
   name: "service",
@@ -18,14 +18,8 @@ export default defineType({
     defineField({
       name: "image",
       title: "Zdjecie",
-      type: "image",
+      type: "galleryBlock",
       description: imageGuides.service.description,
-      options: { hotspot: true },
-      fields: [{ name: "alt", title: "Alt text", type: "localizedString" }],
-      validation: requiredImageWithWarning(imageGuides.service),
-      components: {
-        input: ServiceImageInput,
-      },
     }),
     defineField({
       name: "order",

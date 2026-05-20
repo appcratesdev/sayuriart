@@ -57,9 +57,11 @@ export async function generateMetadata({ params }: Props) {
     });
   }
 
+  const extractFirstImage = (block: import("../../../../../sanity/lib/types").GalleryBlock) => block?.images?.[0]?.image;
+
   const description =
     project.seo?.description || project.excerpt || portableTextToPlainText(project.description);
-  const image = sanityImageUrl(project.seo?.image || project.coverImage, 1200, 630);
+  const image = sanityImageUrl(project.seo?.image || extractFirstImage(project.coverImage), 1200, 630);
 
   return buildMetadata({
     locale,
@@ -96,7 +98,8 @@ export default async function ProjectPage({ params }: Props) {
     );
   }
 
-  const coverImage = sanityImageUrl(project.coverImage) || "/images/placeholder.jpg";
+  const extractFirstImage = (block: import("../../../../../sanity/lib/types").GalleryBlock) => block?.images?.[0]?.image;
+  const coverImage = sanityImageUrl(extractFirstImage(project.coverImage)) || "/images/placeholder.jpg";
 
   const mappedProject = {
     title: project.title,

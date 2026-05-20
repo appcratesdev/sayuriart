@@ -2,6 +2,26 @@
   {
     "fields": [
       {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
+        "name": "name",
+        "type": "slug"
+      }
+    ],
+    "name": "media.tag",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
         "name": "pl",
         "type": "string",
         "title": "Polski"
@@ -1060,44 +1080,19 @@
         "title": "Cechy"
       },
       {
-        "options": {
-          "hotspot": true
-        },
-        "validation": [
-          {
-            "level": "error",
-            "rules": [
-              {
-                "flag": "presence",
-                "constraint": "required"
-              },
-              {
-                "flag": "assetRequired",
-                "constraint": {
-                  "assetType": "image"
-                }
-              }
-            ]
-          },
-          {
-            "level": "warning",
-            "rules": [
-              {
-                "flag": "custom"
-              }
-            ]
-          }
-        ],
         "description": "Uzycie: sekcja uslugi, stale okno 4:3 na mobile i desktop, object-contain. Zdjecie nie jest docinane przez komponent; moze byc kwadratowe albo poziome. Rekomendacja: minimum 1600 x 1200px, najlepiej 2048px+ na dluzszym boku. Zostaw troche marginesu wokol produktu.",
-        "fields": [
+        "fieldsets": [
           {
-            "name": "alt",
-            "type": "localizedString",
-            "title": "Alt text"
+            "name": "advanced",
+            "title": "Zaawansowane kadrowanie",
+            "options": {
+              "collapsible": true,
+              "collapsed": true
+            }
           }
         ],
         "name": "image",
-        "type": "image",
+        "type": "galleryBlock",
         "title": "Zdjecie"
       },
       {
@@ -1149,85 +1144,35 @@
         "title": "Opis"
       },
       {
-        "options": {
-          "hotspot": true
-        },
-        "validation": [
-          {
-            "level": "error",
-            "rules": [
-              {
-                "flag": "presence",
-                "constraint": "required"
-              },
-              {
-                "flag": "assetRequired",
-                "constraint": {
-                  "assetType": "image"
-                }
-              }
-            ]
-          },
-          {
-            "level": "warning",
-            "rules": [
-              {
-                "flag": "custom"
-              }
-            ]
-          }
-        ],
         "description": "Uzycie: suwak Before/After w kontenerze 4:3, object-cover. Obraz przed i po powinny miec ten sam kadr, te sama perspektywe i podobne proporcje. Rekomendacja: 4:3, minimum 1600 x 1200px.",
-        "fields": [
+        "fieldsets": [
           {
-            "name": "alt",
-            "type": "localizedString",
-            "title": "Alt text"
+            "name": "advanced",
+            "title": "Zaawansowane kadrowanie",
+            "options": {
+              "collapsible": true,
+              "collapsed": true
+            }
           }
         ],
         "name": "beforeImage",
-        "type": "image",
+        "type": "galleryBlock",
         "title": "Zdjecie przed"
       },
       {
-        "options": {
-          "hotspot": true
-        },
-        "validation": [
-          {
-            "level": "error",
-            "rules": [
-              {
-                "flag": "presence",
-                "constraint": "required"
-              },
-              {
-                "flag": "assetRequired",
-                "constraint": {
-                  "assetType": "image"
-                }
-              }
-            ]
-          },
-          {
-            "level": "warning",
-            "rules": [
-              {
-                "flag": "custom"
-              }
-            ]
-          }
-        ],
         "description": "Uzycie: suwak Before/After w kontenerze 4:3, object-cover. Obraz przed i po powinny miec ten sam kadr, te sama perspektywe i podobne proporcje. Rekomendacja: 4:3, minimum 1600 x 1200px.",
-        "fields": [
+        "fieldsets": [
           {
-            "name": "alt",
-            "type": "localizedString",
-            "title": "Alt text"
+            "name": "advanced",
+            "title": "Zaawansowane kadrowanie",
+            "options": {
+              "collapsible": true,
+              "collapsed": true
+            }
           }
         ],
         "name": "afterImage",
-        "type": "image",
+        "type": "galleryBlock",
         "title": "Zdjecie po"
       },
       {
@@ -1401,44 +1346,19 @@
         "title": "Krotki opis"
       },
       {
-        "options": {
-          "hotspot": true
-        },
-        "validation": [
-          {
-            "level": "error",
-            "rules": [
-              {
-                "flag": "presence",
-                "constraint": "required"
-              },
-              {
-                "flag": "assetRequired",
-                "constraint": {
-                  "assetType": "image"
-                }
-              }
-            ]
-          },
-          {
-            "level": "warning",
-            "rules": [
-              {
-                "flag": "custom"
-              }
-            ]
-          }
-        ],
         "description": "Uzycie: miniatury portfolio maja zmienne formaty (4:5, 1:1, 3:4, 16:10), a naglowek projektu uzywa szerokiego kadru 21:9. Rekomendacja: minimum 2400 x 1600px, najlepiej szeroki/flexowy kadr z bezpiecznym centrum. Ustaw hotspot na produkt lub glowny obiekt.",
-        "fields": [
+        "fieldsets": [
           {
-            "name": "alt",
-            "type": "localizedString",
-            "title": "Alt text"
+            "name": "advanced",
+            "title": "Zaawansowane kadrowanie",
+            "options": {
+              "collapsible": true,
+              "collapsed": true
+            }
           }
         ],
         "name": "coverImage",
-        "type": "image",
+        "type": "galleryBlock",
         "title": "Zdjecie glowne"
       },
       {

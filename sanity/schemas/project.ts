@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { imageGuides, requiredImageWithWarning } from "./imageGuidance";
+import { imageGuides } from "./imageGuidance";
 
 export default defineType({
   name: "project",
@@ -36,11 +36,8 @@ export default defineType({
     defineField({
       name: "coverImage",
       title: "Zdjecie glowne",
-      type: "image",
+      type: "galleryBlock",
       description: imageGuides.projectCover.description,
-      options: { hotspot: true },
-      fields: [{ name: "alt", title: "Alt text", type: "localizedString" }],
-      validation: requiredImageWithWarning(imageGuides.projectCover),
     }),
     defineField({ name: "client", title: "Klient", type: "string" }),
     defineField({ name: "year", title: "Rok", type: "number" }),
