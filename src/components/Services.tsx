@@ -33,6 +33,7 @@ export interface ServiceContent {
   desc?: string;
   features?: string[];
   img?: string;
+  aspectRatio?: string;
   titleEdit?: string;
   descEdit?: string;
   featuresEdit?: string;
@@ -111,14 +112,15 @@ export const Services = ({
 
               <div className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(360px,0.9fr)] lg:items-center">
                 <div
-                  className="relative aspect-[4/3] w-full overflow-hidden rounded-[var(--radius-lg)] bg-[var(--card)]"
+                  className="relative w-full overflow-hidden rounded-[var(--radius-lg)] bg-[var(--card)]"
+                  style={{ aspectRatio: activeService.aspectRatio || "4/3" }}
                   data-sanity={activeService.imageEdit}
                 >
                   <EditableImage
                     src={activeService.img || "/images/placeholder.jpg"}
                     alt={activeService.title}
                     fill
-                    className="object-contain"
+                    className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 720px"
                     quality={95}
                     documentId={activeService._id}
