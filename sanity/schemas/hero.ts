@@ -23,6 +23,11 @@ export default defineType({
       type: "localizedString",
     }),
     defineField({
+      name: "secondaryCtaText",
+      title: "Tekst drugiego przycisku CTA",
+      type: "localizedString",
+    }),
+    defineField({
       name: "ctaLink",
       title: "Link przycisku CTA",
       type: "string",

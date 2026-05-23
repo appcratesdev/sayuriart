@@ -3,10 +3,33 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { getDictionary, localeLabels, locales, localizedHref, switchLocalePath, type Locale } from "@/lib/i18n";
+import { getDictionary, localizedHref, switchLocalePath, type Locale } from "@/lib/i18n";
 import { usePathname } from "next/navigation";
 
-export const Header = ({ title, titleEdit, locale = "pl" }: { title?: string; titleEdit?: string; locale?: Locale }) => {
+export interface HeaderContent {
+  servicesLabel?: string;
+  portfolioLabel?: string;
+  pricingLabel?: string;
+  processLabel?: string;
+  aboutLabel?: string;
+  ctaLabel?: string;
+  menuLabel?: string;
+  closeLabel?: string;
+  polishLocaleLabel?: string;
+  englishLocaleLabel?: string;
+  servicesLabelEdit?: string;
+  portfolioLabelEdit?: string;
+  pricingLabelEdit?: string;
+  processLabelEdit?: string;
+  aboutLabelEdit?: string;
+  ctaLabelEdit?: string;
+  menuLabelEdit?: string;
+  closeLabelEdit?: string;
+  polishLocaleLabelEdit?: string;
+  englishLocaleLabelEdit?: string;
+}
+
+export const Header = ({ title, titleEdit, content, locale = "pl" }: { title?: string; titleEdit?: string; content?: HeaderContent; locale?: Locale }) => {
   const { scrollY } = useScroll();
   const pathname = usePathname();
   const [hidden, setHidden] = useState(false);
@@ -50,12 +73,17 @@ export const Header = ({ title, titleEdit, locale = "pl" }: { title?: string; ti
   }, []);
 
   const navLinks = [
-    { href: "/#services", label: dict.nav.services },
-    { href: "/#portfolio", label: dict.nav.portfolio },
-    { href: "/#pricing", label: dict.nav.pricing },
-    { href: "/#process", label: dict.nav.process },
-    { href: "/o-mnie", label: dict.nav.about },
+    { href: "/#services", label: content?.servicesLabel || dict.nav.services, edit: content?.servicesLabelEdit },
+    { href: "/#portfolio", label: content?.portfolioLabel || dict.nav.portfolio, edit: content?.portfolioLabelEdit },
+    { href: "/#pricing", label: content?.pricingLabel || dict.nav.pricing, edit: content?.pricingLabelEdit },
+    { href: "/#process", label: content?.processLabel || dict.nav.process, edit: content?.processLabelEdit },
+    { href: "/o-mnie", label: content?.aboutLabel || dict.nav.about, edit: content?.aboutLabelEdit },
   ];
+  const ctaLabel = content?.ctaLabel || dict.nav.cta;
+  const menuLabel = content?.menuLabel || dict.nav.menu;
+  const closeLabel = content?.closeLabel || dict.nav.close;
+  const polishLocaleLabel = content?.polishLocaleLabel || "PL";
+  const englishLocaleLabel = content?.englishLocaleLabel || "EN";
 
   const isDarkTheme = isDarkBg && !mobileMenuOpen;
 
@@ -92,6 +120,7 @@ export const Header = ({ title, titleEdit, locale = "pl" }: { title?: string; ti
               href={localizedHref(locale, link.href)}
               className={`text-sm font-medium transition-colors ${isDarkTheme ? "text-white/90 hover:text-white" : "text-[var(--foreground)] hover:text-[var(--primary)]"
                 }`}
+              data-sanity={link.edit}
             >
               {link.label}
             </Link>
@@ -105,13 +134,23 @@ export const Header = ({ title, titleEdit, locale = "pl" }: { title?: string; ti
               className={`px-2 py-1 transition-colors flex gap-1 ${isDarkTheme ? "text-white/60 hover:text-white" : "text-[var(--muted-foreground)] hover:text-[var(--primary)]"
                 }`}
             >
-              <span className={locale === 'pl' ? (isDarkTheme ? "text-white" : "text-[var(--foreground)]") : ""}>PL</span>
+              <span
+                className={locale === 'pl' ? (isDarkTheme ? "text-white" : "text-[var(--foreground)]") : ""}
+                data-sanity={content?.polishLocaleLabelEdit}
+              >
+                {polishLocaleLabel}
+              </span>
               <span>/</span>
-              <span className={locale === 'en' ? (isDarkTheme ? "text-white" : "text-[var(--foreground)]") : ""}>EN</span>
+              <span
+                className={locale === 'en' ? (isDarkTheme ? "text-white" : "text-[var(--foreground)]") : ""}
+                data-sanity={content?.englishLocaleLabelEdit}
+              >
+                {englishLocaleLabel}
+              </span>
             </Link>
           </div>
-          <Link href={localizedHref(locale, "/#contact")} className={`btn text-sm py-2.5 px-6 ${isDarkTheme ? "btn-white" : "btn-primary"}`}>
-            {dict.nav.cta}
+          <Link href={localizedHref(locale, "/#contact")} className={`btn text-sm py-2.5 px-6 ${isDarkTheme ? "btn-white" : "btn-primary"}`} data-sanity={content?.ctaLabelEdit}>
+            {ctaLabel}
           </Link>
         </div>
 
@@ -119,7 +158,8 @@ export const Header = ({ title, titleEdit, locale = "pl" }: { title?: string; ti
           className={`md:hidden relative z-50 p-2 -mr-2 transition-colors ${isDarkTheme ? "text-white" : "text-[var(--foreground)]"
             }`}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label={mobileMenuOpen ? dict.nav.close : dict.nav.menu}
+          aria-label={mobileMenuOpen ? closeLabel : menuLabel}
+          data-sanity={mobileMenuOpen ? content?.closeLabelEdit : content?.menuLabelEdit}
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             {mobileMenuOpen ? (
@@ -143,6 +183,7 @@ export const Header = ({ title, titleEdit, locale = "pl" }: { title?: string; ti
               href={localizedHref(locale, link.href)}
               onClick={() => setMobileMenuOpen(false)}
               className="text-2xl font-serif text-[var(--foreground)] hover:text-[var(--primary)] transition-colors"
+              data-sanity={link.edit}
             >
               {link.label}
             </Link>
@@ -151,8 +192,9 @@ export const Header = ({ title, titleEdit, locale = "pl" }: { title?: string; ti
             href={localizedHref(locale, "/#contact")}
             onClick={() => setMobileMenuOpen(false)}
             className="btn btn-primary w-full text-center mt-4 py-4 text-lg"
+            data-sanity={content?.ctaLabelEdit}
           >
-            {dict.nav.cta}
+            {ctaLabel}
           </Link>
           <div className="flex items-center gap-2 text-sm font-bold uppercase">
             <Link
@@ -160,9 +202,13 @@ export const Header = ({ title, titleEdit, locale = "pl" }: { title?: string; ti
               onClick={() => setMobileMenuOpen(false)}
               className="px-2 py-1 transition-colors flex gap-2 text-[var(--muted-foreground)] hover:text-[var(--primary)]"
             >
-              <span className={locale === 'pl' ? "text-[var(--foreground)]" : ""}>PL</span>
+              <span className={locale === 'pl' ? "text-[var(--foreground)]" : ""} data-sanity={content?.polishLocaleLabelEdit}>
+                {polishLocaleLabel}
+              </span>
               <span>/</span>
-              <span className={locale === 'en' ? "text-[var(--foreground)]" : ""}>EN</span>
+              <span className={locale === 'en' ? "text-[var(--foreground)]" : ""} data-sanity={content?.englishLocaleLabelEdit}>
+                {englishLocaleLabel}
+              </span>
             </Link>
           </div>
         </nav>

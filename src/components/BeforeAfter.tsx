@@ -11,6 +11,8 @@ interface BeforeAfterItem {
   description?: string;
   titleEdit?: string;
   descriptionEdit?: string;
+  beforeImageEdit?: string;
+  afterImageEdit?: string;
 }
 
 interface BeforeAfterProps {
@@ -19,6 +21,12 @@ interface BeforeAfterProps {
   sectionDescription?: string;
   titleEdit?: string;
   descriptionEdit?: string;
+  beforeLabel?: string;
+  afterLabel?: string;
+  instruction?: string;
+  beforeLabelEdit?: string;
+  afterLabelEdit?: string;
+  instructionEdit?: string;
 }
 
 const examples: BeforeAfterItem[] = [
@@ -48,6 +56,12 @@ export const BeforeAfter = ({
   sectionDescription,
   titleEdit,
   descriptionEdit,
+  beforeLabel,
+  afterLabel,
+  instruction,
+  beforeLabelEdit,
+  afterLabelEdit,
+  instructionEdit,
 }: BeforeAfterProps) => {
   const beforeAfterItems = items?.length ? items : examples;
   const [activeIndex, setActiveIndex] = useState(0);
@@ -130,7 +144,7 @@ export const BeforeAfter = ({
               onTouchEnd={() => setIsDragging(false)}
             >
               {/* After Image (Full) */}
-              <div className="absolute inset-0">
+              <div className="absolute inset-0" data-sanity={activeExample.afterImageEdit}>
                 <Image
                   src={activeExample.after}
                   alt={`${activeExample.title} - Po`}
@@ -146,6 +160,7 @@ export const BeforeAfter = ({
               <div
                 className="absolute inset-0 overflow-hidden"
                 style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+                data-sanity={activeExample.beforeImageEdit}
               >
                 <Image
                   src={activeExample.before}
@@ -191,11 +206,11 @@ export const BeforeAfter = ({
               </div>
 
               {/* Labels */}
-              <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
-                Przed
+              <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider" data-sanity={beforeLabelEdit}>
+                {beforeLabel || "Przed"}
               </div>
-              <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
-                Po
+              <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider" data-sanity={afterLabelEdit}>
+                {afterLabel || "Po"}
               </div>
             </div>
 
@@ -209,8 +224,8 @@ export const BeforeAfter = ({
           </div>
 
           {/* Instruction */}
-          <p className="text-center mt-6 text-sm text-[var(--muted-foreground)]">
-            Przeciągnij suwak, aby zobaczyć różnicę
+          <p className="text-center mt-6 text-sm text-[var(--muted-foreground)]" data-sanity={instructionEdit}>
+            {instruction || "Przeciagnij suwak, aby zobaczyc roznice"}
           </p>
         </div>
       </div>

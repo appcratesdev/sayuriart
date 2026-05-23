@@ -32,6 +32,12 @@ export default defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: "categoryLabel",
+      title: "Etykieta kategorii na stronie",
+      type: "localizedString",
+      description: "Tekst widoczny przy projekcie na stronie glownej. Gdy puste, uzyty zostanie fallback z kodu.",
+    }),
     defineField({ name: "excerpt", title: "Krotki opis", type: "localizedText" }),
     defineField({
       name: "coverImage",

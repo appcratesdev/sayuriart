@@ -1,7 +1,9 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl, languageAlternates, localizedPath } from "@/lib/seo";
-import { locales } from "@/lib/i18n";
-import { getProjects } from "../../sanity/lib/fetch";
+import { defaultLocale, locales, type Locale } from "@/lib/i18n";
+import { getProjects, getServices } from "../../sanity/lib/fetch";
+
+const servicePath = (locale: Locale, slug: string) => `/${locale === "en" ? "services" : "uslugi"}/${slug}`;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPaths = ["/", "/o-mnie"];
@@ -37,5 +39,45 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
-  return [...staticEntries, ...projectGroups.flat()];
+  const servicesByLocale = await Promise.all(
+    locales.map(async (locale) => ({
+      locale,
+      services: await getServices(locale),
+    }))
+  );
+
+  const serviceGroups = servicesByLocale.flatMap(({ locale, services }) =>
+    services
+      .filter((service) => service.slug?.current)
+      .map((service) => {
+        const path = servicePath(locale, service.slug!.current);
+        const alternateEntries = servicesByLocale.flatMap(({ locale: alternateLocale, services: alternateServices }) => {
+          const alternateService = alternateServices.find((candidate) => candidate._id === service._id);
+          if (!alternateService?.slug?.current) return [];
+          const alternatePath = servicePath(alternateLocale, alternateService.slug.current);
+          return [[alternateLocale, absoluteUrl(localizedPath(alternateLocale, alternatePath))] as const];
+        });
+        const defaultService = servicesByLocale
+          .find(({ locale: candidateLocale }) => candidateLocale === defaultLocale)
+          ?.services.find((candidate) => candidate._id === service._id);
+        const defaultPath = defaultService?.slug?.current
+          ? servicePath(defaultLocale, defaultService.slug.current)
+          : path;
+
+        return {
+          url: absoluteUrl(localizedPath(locale, path)),
+          lastModified: new Date(),
+          changeFrequency: "monthly" as const,
+          priority: 0.85,
+          alternates: {
+            languages: {
+              ...Object.fromEntries(alternateEntries),
+              "x-default": absoluteUrl(localizedPath(defaultLocale, defaultPath)),
+            },
+          },
+        };
+      })
+  );
+
+  return [...staticEntries, ...projectGroups.flat(), ...serviceGroups];
 }

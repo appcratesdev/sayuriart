@@ -28,6 +28,31 @@ const galleryBlockFields = `{
   }
 }`;
 
+const servicePageListFields = `
+  _id,
+  _type,
+  "title": ${l("title")},
+  "slug": {"current": coalesce(slug[$lang].current, slug.current)},
+  "description": ${l("description")},
+  "features": ${l("features")},
+  image${galleryBlockFields},
+  order
+`;
+
+const projectCardFields = `
+  _id,
+  _type,
+  "title": ${l("title")},
+  "slug": {"current": coalesce(slug[$lang].current, slug.current)},
+  category,
+  "categoryLabel": ${l("categoryLabel")},
+  "excerpt": ${l("excerpt")},
+  coverImage${galleryBlockFields},
+  featured,
+  order,
+  ${seo()}
+`;
+
 export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]{
   _id,
   _type,
@@ -40,12 +65,28 @@ export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]{
   ${seo()}
 }`;
 
+export const headerQuery = groq`*[_type == "header"][0]{
+  _id,
+  _type,
+  "servicesLabel": ${l("servicesLabel")},
+  "portfolioLabel": ${l("portfolioLabel")},
+  "pricingLabel": ${l("pricingLabel")},
+  "processLabel": ${l("processLabel")},
+  "aboutLabel": ${l("aboutLabel")},
+  "ctaLabel": ${l("ctaLabel")},
+  "menuLabel": ${l("menuLabel")},
+  "closeLabel": ${l("closeLabel")},
+  polishLocaleLabel,
+  englishLocaleLabel
+}`;
+
 export const heroQuery = groq`*[_type == "hero"][0]{
   _id,
   _type,
   "title": ${l("title")},
   "subtitle": ${l("subtitle")},
   "ctaText": ${l("ctaText")},
+  "secondaryCtaText": ${l("secondaryCtaText")},
   ctaLink,
   heroImage,
   ${seo()}
@@ -61,20 +102,64 @@ export const manifestoQuery = groq`*[_type == "manifesto"][0]{
 }`;
 
 export const servicesQuery = groq`*[_type == "service"] | order(order asc){
-  _id,
-  _type,
-  "title": ${l("title")},
-  "description": ${l("description")},
-  "features": ${l("features")},
-  image${galleryBlockFields},
-  order
+  ${servicePageListFields}
+}`;
+
+export const serviceBySlugQuery = groq`*[_type == "service" && coalesce(slug[$lang].current, slug.current) == $slug][0]{
+  ${servicePageListFields},
+  "pageOverline": ${l("pageOverline")},
+  "backLinkText": ${l("backLinkText")},
+  "pageTitle": ${l("pageTitle")},
+  "pageLead": ${l("pageLead")},
+  "heroCtaText": ${l("heroCtaText")},
+  heroCtaLink,
+  "problemsTitle": ${l("problemsTitle")},
+  "problemsIntro": ${l("problemsIntro")},
+  problems[]{
+    _key,
+    "title": ${l("title")},
+    "description": ${l("description")}
+  },
+  "benefitsTitle": ${l("benefitsTitle")},
+  "benefitsIntro": ${l("benefitsIntro")},
+  benefits[]{
+    _key,
+    "title": ${l("title")},
+    "description": ${l("description")}
+  },
+  "detailsTitle": ${l("detailsTitle")},
+  "detailsBody": ${l("detailsBody")},
+  "faqTitle": ${l("faqTitle")},
+  faqItems[]{
+    _key,
+    "question": ${l("question")},
+    "answer": ${l("answer")}
+  },
+  "relatedProjectsTitle": ${l("relatedProjectsTitle")},
+  "relatedProjectsIntro": ${l("relatedProjectsIntro")},
+  relatedProjects[]->{
+    ${projectCardFields}
+  },
+  "relatedProjectsCtaText": ${l("relatedProjectsCtaText")},
+  "otherServicesTitle": ${l("otherServicesTitle")},
+  "otherServicesIntro": ${l("otherServicesIntro")},
+  "otherServicesCtaText": ${l("otherServicesCtaText")},
+  "finalCtaTitle": ${l("finalCtaTitle")},
+  "finalCtaDescription": ${l("finalCtaDescription")},
+  "finalCtaPrimaryText": ${l("finalCtaPrimaryText")},
+  finalCtaPrimaryLink,
+  "finalCtaSecondaryText": ${l("finalCtaSecondaryText")},
+  finalCtaSecondaryLink,
+  ${seo()}
 }`;
 
 export const servicesSectionQuery = groq`*[_type == "servicesSection"][0]{
   _id,
   _type,
   "sectionTitle": ${l("sectionTitle")},
-  "sectionDescription": ${l("sectionDescription")}
+  "sectionDescription": ${l("sectionDescription")},
+  "ctaText": ${l("ctaText")},
+  "servicePageCtaText": ${l("servicePageCtaText")}
 }`;
 
 export const beforeAfterQuery = groq`*[_type == "beforeAfter"] | order(order asc){
@@ -91,7 +176,10 @@ export const beforeAfterSectionQuery = groq`*[_type == "beforeAfterSection"][0]{
   _id,
   _type,
   "sectionTitle": ${l("sectionTitle")},
-  "sectionDescription": ${l("sectionDescription")}
+  "sectionDescription": ${l("sectionDescription")},
+  "beforeLabel": ${l("beforeLabel")},
+  "afterLabel": ${l("afterLabel")},
+  "instruction": ${l("instruction")}
 }`;
 
 export const portfolioSectionQuery = groq`*[_type == "portfolio"][0]{
@@ -99,20 +187,13 @@ export const portfolioSectionQuery = groq`*[_type == "portfolio"][0]{
   _type,
   "sectionTitle": ${l("sectionTitle")},
   "sectionDescription": ${l("sectionDescription")},
+  "allFilterLabel": ${l("allFilterLabel")},
+  "openProjectLabel": ${l("openProjectLabel")},
   ${seo()}
 }`;
 
 export const projectsQuery = groq`*[_type == "project"] | order(order asc){
-  _id,
-  _type,
-  "title": ${l("title")},
-  "slug": {"current": coalesce(slug[$lang].current, slug.current)},
-  category,
-  "excerpt": ${l("excerpt")},
-  coverImage${galleryBlockFields},
-  featured,
-  order,
-  ${seo()}
+  ${projectCardFields}
 }`;
 
 export const projectBySlugQuery = groq`*[_type == "project" && coalesce(slug[$lang].current, slug.current) == $slug][0]{
@@ -121,6 +202,7 @@ export const projectBySlugQuery = groq`*[_type == "project" && coalesce(slug[$la
   "title": ${l("title")},
   "slug": {"current": coalesce(slug[$lang].current, slug.current)},
   category,
+  "categoryLabel": ${l("categoryLabel")},
   "excerpt": ${l("excerpt")},
   coverImage${galleryBlockFields},
   client,
@@ -157,7 +239,12 @@ export const pricingSectionQuery = groq`*[_type == "pricingSection"][0]{
   "sectionTitle": ${l("sectionTitle")},
   "sectionDescription": ${l("sectionDescription")},
   "customQuestion": ${l("customQuestion")},
-  "customCta": ${l("customCta")}
+  "customCta": ${l("customCta")},
+  "popularLabel": ${l("popularLabel")},
+  "orderLabel": ${l("orderLabel")},
+  "currencyLabel": ${l("currencyLabel")},
+  "savingsLabel": ${l("savingsLabel")},
+  "orderMessageTemplate": ${l("orderMessageTemplate")}
 }`;
 
 export const testimonialsQuery = groq`*[_type == "testimonial"] | order(order asc){
@@ -175,7 +262,10 @@ export const testimonialsSectionQuery = groq`*[_type == "testimonialsSection"][0
   _id,
   _type,
   "sectionTitle": ${l("sectionTitle")},
-  "sectionDescription": ${l("sectionDescription")}
+  "sectionDescription": ${l("sectionDescription")},
+  "previousLabel": ${l("previousLabel")},
+  "nextLabel": ${l("nextLabel")},
+  "goToSlideLabel": ${l("goToSlideLabel")}
 }`;
 
 export const processSectionQuery = groq`*[_type == "processSection"][0]{
@@ -201,6 +291,55 @@ export const faqQuery = groq`*[_type == "faq"] | order(order asc){
   "question": ${l("question")},
   "answer": ${l("answer")},
   order
+}`;
+
+export const faqSectionQuery = groq`*[_type == "faqSection"][0]{
+  _id,
+  _type,
+  "sectionTitle": ${l("sectionTitle")},
+  "sectionDescription": ${l("sectionDescription")},
+  "contactTitle": ${l("contactTitle")},
+  "contactDescription": ${l("contactDescription")},
+  "contactCta": ${l("contactCta")}
+}`;
+
+export const footerQuery = groq`*[_type == "footer"][0]{
+  _id,
+  _type,
+  "headingStart": ${l("headingStart")},
+  "headingAccent": ${l("headingAccent")},
+  "description": ${l("description")},
+  "emailLabel": ${l("emailLabel")},
+  "socialLabel": ${l("socialLabel")},
+  "nameLabel": ${l("nameLabel")},
+  "namePlaceholder": ${l("namePlaceholder")},
+  "emailInputLabel": ${l("emailInputLabel")},
+  "emailPlaceholder": ${l("emailPlaceholder")},
+  "typeLabel": ${l("typeLabel")},
+  projectTypes[]{
+    _key,
+    value,
+    "label": ${l("label")}
+  },
+  "messageLabel": ${l("messageLabel")},
+  "messagePlaceholder": ${l("messagePlaceholder")},
+  "attachmentLabel": ${l("attachmentLabel")},
+  "attachmentHelpText": ${l("attachmentHelpText")},
+  "submitLabel": ${l("submitLabel")},
+  "submittingLabel": ${l("submittingLabel")},
+  "successMessage": ${l("successMessage")},
+  "errorMessage": ${l("errorMessage")},
+  "nameRequiredError": ${l("nameRequiredError")},
+  "emailRequiredError": ${l("emailRequiredError")},
+  "emailInvalidError": ${l("emailInvalidError")},
+  "messageRequiredError": ${l("messageRequiredError")},
+  "messageTooLongError": ${l("messageTooLongError")},
+  "attachmentTypeError": ${l("attachmentTypeError")},
+  "attachmentSizeError": ${l("attachmentSizeError")},
+  "privacyLabel": ${l("privacyLabel")},
+  "termsLabel": ${l("termsLabel")},
+  "developerLabel": ${l("developerLabel")},
+  "rightsText": ${l("rightsText")}
 }`;
 
 export const aboutQuery = groq`*[_type == "about"][0]{

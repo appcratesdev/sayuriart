@@ -1,0 +1,56 @@
+import { defineField, defineType } from "sanity";
+
+export default defineType({
+  name: "footer",
+  title: "Footer / Kontakt",
+  type: "document",
+  fields: [
+    defineField({ name: "headingStart", title: "Naglowek - pierwsza linia", type: "localizedString" }),
+    defineField({ name: "headingAccent", title: "Naglowek - akcent", type: "localizedString" }),
+    defineField({ name: "description", title: "Opis", type: "localizedText" }),
+    defineField({ name: "emailLabel", title: "Etykieta email", type: "localizedString" }),
+    defineField({ name: "socialLabel", title: "Etykieta social media", type: "localizedString" }),
+    defineField({ name: "nameLabel", title: "Formularz: imie i nazwisko", type: "localizedString" }),
+    defineField({ name: "namePlaceholder", title: "Formularz: placeholder imienia", type: "localizedString" }),
+    defineField({ name: "emailInputLabel", title: "Formularz: adres email", type: "localizedString" }),
+    defineField({ name: "emailPlaceholder", title: "Formularz: placeholder email", type: "localizedString" }),
+    defineField({ name: "typeLabel", title: "Formularz: typ projektu", type: "localizedString" }),
+    defineField({
+      name: "projectTypes",
+      title: "Formularz: opcje typow projektu",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({ name: "value", title: "Wartosc techniczna", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({ name: "label", title: "Etykieta", type: "localizedString", validation: (Rule) => Rule.required() }),
+          ],
+          preview: { select: { title: "label.pl", subtitle: "value" } },
+        },
+      ],
+    }),
+    defineField({ name: "messageLabel", title: "Formularz: opis projektu", type: "localizedString" }),
+    defineField({ name: "messagePlaceholder", title: "Formularz: placeholder opisu", type: "localizedText" }),
+    defineField({ name: "attachmentLabel", title: "Formularz: zalacznik", type: "localizedString" }),
+    defineField({ name: "attachmentHelpText", title: "Formularz: pomoc przy zalaczniku", type: "localizedString" }),
+    defineField({ name: "submitLabel", title: "Formularz: przycisk wyslij", type: "localizedString" }),
+    defineField({ name: "submittingLabel", title: "Formularz: wysylanie", type: "localizedString" }),
+    defineField({ name: "successMessage", title: "Formularz: komunikat sukcesu", type: "localizedText" }),
+    defineField({ name: "errorMessage", title: "Formularz: komunikat bledu", type: "localizedText" }),
+    defineField({ name: "nameRequiredError", title: "Walidacja: imie wymagane", type: "localizedString" }),
+    defineField({ name: "emailRequiredError", title: "Walidacja: email wymagany", type: "localizedString" }),
+    defineField({ name: "emailInvalidError", title: "Walidacja: email niepoprawny", type: "localizedString" }),
+    defineField({ name: "messageRequiredError", title: "Walidacja: wiadomosc wymagana", type: "localizedString" }),
+    defineField({ name: "messageTooLongError", title: "Walidacja: wiadomosc za dluga", type: "localizedString" }),
+    defineField({ name: "attachmentTypeError", title: "Walidacja: format pliku", type: "localizedString" }),
+    defineField({ name: "attachmentSizeError", title: "Walidacja: rozmiar pliku", type: "localizedString" }),
+    defineField({ name: "privacyLabel", title: "Link: polityka prywatnosci", type: "localizedString" }),
+    defineField({ name: "termsLabel", title: "Link: regulamin", type: "localizedString" }),
+    defineField({ name: "developerLabel", title: "Link: wykonawca", type: "localizedString" }),
+    defineField({ name: "rightsText", title: "Copyright", type: "localizedString" }),
+  ],
+  preview: {
+    prepare: () => ({ title: "Footer / Kontakt" }),
+  },
+});

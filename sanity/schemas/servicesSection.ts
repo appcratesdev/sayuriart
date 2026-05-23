@@ -16,6 +16,16 @@ export default defineType({
       title: "Opis sekcji",
       type: "localizedText",
     }),
+    defineField({
+      name: "ctaText",
+      title: "Tekst przycisku CTA",
+      type: "localizedString",
+    }),
+    defineField({
+      name: "servicePageCtaText",
+      title: "Tekst linku do strony uslugi",
+      type: "localizedString",
+    }),
   ],
   preview: {
     select: { title: "sectionTitle.pl", subtitle: "sectionTitle.en" },

@@ -16,6 +16,9 @@ export default defineType({
       title: "Opis sekcji",
       type: "localizedText",
     }),
+    defineField({ name: "beforeLabel", title: "Etykieta zdjecia przed", type: "localizedString" }),
+    defineField({ name: "afterLabel", title: "Etykieta zdjecia po", type: "localizedString" }),
+    defineField({ name: "instruction", title: "Instrukcja pod suwakiem", type: "localizedString" }),
   ],
   preview: {
     select: { title: "sectionTitle.pl", subtitle: "sectionTitle.en" },

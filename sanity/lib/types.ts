@@ -30,9 +30,23 @@ export interface Hero extends SanityDocumentMeta {
   title: string;
   subtitle?: string;
   ctaText?: string;
+  secondaryCtaText?: string;
   ctaLink?: string;
   heroImage?: SanityImageSource;
   seo?: SeoFields;
+}
+
+export interface HeaderContent extends SanityDocumentMeta {
+  servicesLabel?: string;
+  portfolioLabel?: string;
+  pricingLabel?: string;
+  processLabel?: string;
+  aboutLabel?: string;
+  ctaLabel?: string;
+  menuLabel?: string;
+  closeLabel?: string;
+  polishLocaleLabel?: string;
+  englishLocaleLabel?: string;
 }
 
 export interface Manifesto extends SanityDocumentMeta {
@@ -46,10 +60,43 @@ export interface Service extends SanityDocumentMeta {
   _id: string;
   _type?: string;
   title: string;
+  slug?: {
+    current: string;
+  };
   description?: string;
   features?: string[];
   image: GalleryBlock;
+  pageOverline?: string;
+  backLinkText?: string;
+  pageTitle?: string;
+  pageLead?: string;
+  heroCtaText?: string;
+  heroCtaLink?: string;
+  problemsTitle?: string;
+  problemsIntro?: string;
+  problems?: Array<{ _key?: string; title: string; description?: string }>;
+  benefitsTitle?: string;
+  benefitsIntro?: string;
+  benefits?: Array<{ _key?: string; title: string; description?: string }>;
+  detailsTitle?: string;
+  detailsBody?: PortableTextBlock[];
+  faqTitle?: string;
+  faqItems?: Array<{ _key?: string; question: string; answer: string }>;
+  relatedProjectsTitle?: string;
+  relatedProjectsIntro?: string;
+  relatedProjects?: Project[];
+  relatedProjectsCtaText?: string;
+  otherServicesTitle?: string;
+  otherServicesIntro?: string;
+  otherServicesCtaText?: string;
+  finalCtaTitle?: string;
+  finalCtaDescription?: string;
+  finalCtaPrimaryText?: string;
+  finalCtaPrimaryLink?: string;
+  finalCtaSecondaryText?: string;
+  finalCtaSecondaryLink?: string;
   order: number;
+  seo?: SeoFields;
 }
 
 export interface BeforeAfter extends SanityDocumentMeta {
@@ -65,16 +112,23 @@ export interface BeforeAfter extends SanityDocumentMeta {
 export interface BeforeAfterSection extends SanityDocumentMeta {
   sectionTitle: string;
   sectionDescription?: string;
+  beforeLabel?: string;
+  afterLabel?: string;
+  instruction?: string;
 }
 
 export interface ServicesSection extends SanityDocumentMeta {
   sectionTitle: string;
   sectionDescription?: string;
+  ctaText?: string;
+  servicePageCtaText?: string;
 }
 
 export interface PortfolioSection extends SanityDocumentMeta {
   sectionTitle: string;
   sectionDescription?: string;
+  allFilterLabel?: string;
+  openProjectLabel?: string;
   seo?: SeoFields;
 }
 
@@ -109,6 +163,7 @@ export interface Project extends SanityDocumentMeta {
     current: string;
   };
   category: "lifestyle" | "product" | "amazon" | "infographics";
+  categoryLabel?: string;
   excerpt?: string;
   coverImage: GalleryBlock;
   client?: string;
@@ -148,6 +203,11 @@ export interface PricingSection extends SanityDocumentMeta {
   sectionDescription?: string;
   customQuestion?: string;
   customCta?: string;
+  popularLabel?: string;
+  orderLabel?: string;
+  currencyLabel?: string;
+  savingsLabel?: string;
+  orderMessageTemplate?: string;
 }
 
 export interface Testimonial extends SanityDocumentMeta {
@@ -164,6 +224,9 @@ export interface Testimonial extends SanityDocumentMeta {
 export interface TestimonialsSection extends SanityDocumentMeta {
   sectionTitle: string;
   sectionDescription?: string;
+  previousLabel?: string;
+  nextLabel?: string;
+  goToSlideLabel?: string;
 }
 
 export interface Process extends SanityDocumentMeta {
@@ -187,6 +250,47 @@ export interface FAQ extends SanityDocumentMeta {
   question: string;
   answer: string;
   order: number;
+}
+
+export interface FAQSection extends SanityDocumentMeta {
+  sectionTitle?: string;
+  sectionDescription?: string;
+  contactTitle?: string;
+  contactDescription?: string;
+  contactCta?: string;
+}
+
+export interface FooterContent extends SanityDocumentMeta {
+  headingStart?: string;
+  headingAccent?: string;
+  description?: string;
+  emailLabel?: string;
+  socialLabel?: string;
+  nameLabel?: string;
+  namePlaceholder?: string;
+  emailInputLabel?: string;
+  emailPlaceholder?: string;
+  typeLabel?: string;
+  projectTypes?: Array<{ _key?: string; value: string; label: string }>;
+  messageLabel?: string;
+  messagePlaceholder?: string;
+  attachmentLabel?: string;
+  attachmentHelpText?: string;
+  submitLabel?: string;
+  submittingLabel?: string;
+  successMessage?: string;
+  errorMessage?: string;
+  nameRequiredError?: string;
+  emailRequiredError?: string;
+  emailInvalidError?: string;
+  messageRequiredError?: string;
+  messageTooLongError?: string;
+  attachmentTypeError?: string;
+  attachmentSizeError?: string;
+  privacyLabel?: string;
+  termsLabel?: string;
+  developerLabel?: string;
+  rightsText?: string;
 }
 
 export interface About extends SanityDocumentMeta {

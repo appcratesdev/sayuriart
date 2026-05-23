@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { getDictionary, type Locale } from "@/lib/i18n";
+import { getDictionary, localizedHref, type Locale } from "@/lib/i18n";
 import { SectionHeader } from "./ui/SectionHeader";
 import { EditableImage } from "./EditableImage";
 
@@ -30,6 +30,7 @@ const fallbackServices: ServiceContent[] = [
 
 export interface ServiceContent {
   title: string;
+  slug?: string;
   desc?: string;
   features?: string[];
   img?: string;
@@ -51,8 +52,12 @@ interface ServicesProps {
   locale?: Locale;
   sectionTitle?: string;
   sectionDescription?: string;
+  ctaText?: string;
+  servicePageCtaText?: string;
   sectionTitleEdit?: string;
   sectionDescriptionEdit?: string;
+  ctaTextEdit?: string;
+  servicePageCtaTextEdit?: string;
 }
 
 export const Services = ({
@@ -60,8 +65,12 @@ export const Services = ({
   locale = "pl",
   sectionTitle,
   sectionDescription,
+  ctaText,
+  servicePageCtaText,
   sectionTitleEdit,
   sectionDescriptionEdit,
+  ctaTextEdit,
+  servicePageCtaTextEdit,
 }: ServicesProps) => {
   const serviceItems = items?.length ? items : fallbackServices;
   const [activeIndex, setActiveIndex] = useState(0);
@@ -156,9 +165,20 @@ export const Services = ({
               </div>
 
               <div className="mt-8 flex justify-center">
+                <div className="flex flex-col sm:flex-row gap-3">
+                {activeService.slug && (
+                  <Link
+                    href={localizedHref(locale, `/${locale === "en" ? "services" : "uslugi"}/${activeService.slug}`)}
+                    className="btn btn-secondary"
+                    data-sanity={servicePageCtaTextEdit}
+                  >
+                    {servicePageCtaText || (locale === "en" ? "Explore service" : "Zobacz usluge")} -&gt;
+                  </Link>
+                )}
                 <Link href="#pricing" className="btn btn-accent">
-                  {dict.home.servicesCta} -&gt;
+                  <span data-sanity={ctaTextEdit}>{ctaText || dict.home.servicesCta}</span> -&gt;
                 </Link>
+                </div>
               </div>
             </motion.div>
           </AnimatePresence>

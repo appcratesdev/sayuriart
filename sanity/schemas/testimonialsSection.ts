@@ -16,6 +16,9 @@ export default defineType({
       title: "Opis sekcji",
       type: "localizedText",
     }),
+    defineField({ name: "previousLabel", title: "Etykieta poprzedniej opinii", type: "localizedString" }),
+    defineField({ name: "nextLabel", title: "Etykieta nastepnej opinii", type: "localizedString" }),
+    defineField({ name: "goToSlideLabel", title: "Etykieta kropki slajdu", type: "localizedString", description: "Uzyj {number}, aby wstawic numer slajdu." }),
   ],
   preview: {
     select: { title: "sectionTitle.pl", subtitle: "sectionTitle.en" },

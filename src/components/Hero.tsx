@@ -10,19 +10,24 @@ export interface HeroContent {
   subtitle?: string;
   ctaText?: string;
   ctaLink?: string;
+  secondaryCtaText?: string;
   image?: string;
   titleEdit?: string;
   subtitleEdit?: string;
   ctaTextEdit?: string;
+  secondaryCtaTextEdit?: string;
   imageEdit?: string;
 }
 
-const fallbackHero: Required<Omit<HeroContent, "titleEdit" | "subtitleEdit" | "ctaTextEdit" | "imageEdit">> = {
+const fallbackHero: Required<
+  Omit<HeroContent, "titleEdit" | "subtitleEdit" | "ctaTextEdit" | "secondaryCtaTextEdit" | "imageEdit">
+> = {
   title: "Zamieniamy Twoje produkty w obiekty pozadania.",
   subtitle:
     "Grafiki lifestyle, packshoty i infografiki, ktore podnosza prestiz marki i maksymalizuja sprzedaz - bez organizowania drogich sesji.",
   ctaText: "Rozpocznij transformacje",
   ctaLink: "#contact",
+  secondaryCtaText: "Zobacz prace",
   image: "/images/placeholder.jpg",
 };
 
@@ -82,8 +87,8 @@ export const Hero = ({ content, locale = "pl" }: { content?: HeroContent; locale
             <Link href={localizedHref(locale, hero.ctaLink)} className="btn btn-primary btn-primary-lg" data-sanity={hero.ctaTextEdit}>
               {hero.ctaText}
             </Link>
-            <Link href="#portfolio" className="btn btn-ghost group">
-              {dict.home.heroSecondaryCta}
+            <Link href="#portfolio" className="btn btn-ghost group" data-sanity={hero.secondaryCtaTextEdit}>
+              {hero.secondaryCtaText || dict.home.heroSecondaryCta}
               <span className="transform group-hover:translate-x-2 transition-transform duration-300">-&gt;</span>
             </Link>
           </motion.div>

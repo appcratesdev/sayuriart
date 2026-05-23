@@ -26,6 +26,16 @@ export default defineType({
       title: "Tekst przycisku pod kartami",
       type: "localizedString",
     }),
+    defineField({ name: "popularLabel", title: "Etykieta popularnego pakietu", type: "localizedString" }),
+    defineField({ name: "orderLabel", title: "Przycisk zamowienia pakietu", type: "localizedString" }),
+    defineField({ name: "currencyLabel", title: "Waluta", type: "localizedString" }),
+    defineField({ name: "savingsLabel", title: "Etykieta oszczednosci", type: "localizedString" }),
+    defineField({
+      name: "orderMessageTemplate",
+      title: "Szablon wiadomosci po kliknieciu pakietu",
+      type: "localizedText",
+      description: "Uzyj {package}, aby wstawic nazwe pakietu.",
+    }),
   ],
   preview: {
     select: { title: "sectionTitle.pl", subtitle: "sectionTitle.en" },

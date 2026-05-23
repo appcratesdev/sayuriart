@@ -925,6 +925,63 @@
   {
     "fields": [
       {
+        "name": "servicesLabel",
+        "type": "localizedString",
+        "title": "Link: uslugi"
+      },
+      {
+        "name": "portfolioLabel",
+        "type": "localizedString",
+        "title": "Link: portfolio"
+      },
+      {
+        "name": "pricingLabel",
+        "type": "localizedString",
+        "title": "Link: cennik"
+      },
+      {
+        "name": "processLabel",
+        "type": "localizedString",
+        "title": "Link: proces"
+      },
+      {
+        "name": "aboutLabel",
+        "type": "localizedString",
+        "title": "Link: o mnie"
+      },
+      {
+        "name": "ctaLabel",
+        "type": "localizedString",
+        "title": "Przycisk CTA"
+      },
+      {
+        "name": "menuLabel",
+        "type": "localizedString",
+        "title": "Etykieta menu mobilnego"
+      },
+      {
+        "name": "closeLabel",
+        "type": "localizedString",
+        "title": "Etykieta zamkniecia menu"
+      },
+      {
+        "name": "polishLocaleLabel",
+        "type": "string",
+        "title": "Przelacznik jezyka: PL"
+      },
+      {
+        "name": "englishLocaleLabel",
+        "type": "string",
+        "title": "Przelacznik jezyka: EN"
+      }
+    ],
+    "name": "header",
+    "type": "document",
+    "title": "Header / Nawigacja"
+  },
+  {
+    "fields": [
+      {
         "validation": [
           {
             "level": "error",
@@ -949,6 +1006,11 @@
         "name": "ctaText",
         "type": "localizedString",
         "title": "Tekst przycisku CTA"
+      },
+      {
+        "name": "secondaryCtaText",
+        "type": "localizedString",
+        "title": "Tekst drugiego przycisku CTA"
       },
       {
         "description": "Np. #contact, /o-mnie albo pelny URL. Jezyk zostanie dodany automatycznie dla linkow lokalnych.",
@@ -1070,6 +1132,22 @@
         "title": "Tytul"
       },
       {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "localizedSlug",
+        "title": "Slug URL"
+      },
+      {
         "name": "description",
         "type": "localizedText",
         "title": "Opis"
@@ -1096,6 +1174,263 @@
         "title": "Zdjecie"
       },
       {
+        "name": "pageOverline",
+        "type": "localizedString",
+        "title": "Strona uslugi - overline"
+      },
+      {
+        "name": "backLinkText",
+        "type": "localizedString",
+        "title": "Strona uslugi - link powrotu"
+      },
+      {
+        "description": "Gdy puste, uzywany jest tytul uslugi.",
+        "name": "pageTitle",
+        "type": "localizedString",
+        "title": "Strona uslugi - H1"
+      },
+      {
+        "description": "Krotki tekst pod H1, mocny SEO opis uslugi.",
+        "name": "pageLead",
+        "type": "localizedText",
+        "title": "Strona uslugi - lead"
+      },
+      {
+        "name": "heroCtaText",
+        "type": "localizedString",
+        "title": "Hero - tekst CTA"
+      },
+      {
+        "initialValue": "#contact",
+        "name": "heroCtaLink",
+        "type": "string",
+        "title": "Hero - link CTA"
+      },
+      {
+        "name": "problemsTitle",
+        "type": "localizedString",
+        "title": "Sekcja problemow - tytul"
+      },
+      {
+        "name": "problemsIntro",
+        "type": "localizedText",
+        "title": "Sekcja problemow - opis"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "name": "title",
+                "type": "localizedString",
+                "title": "Tytul"
+              },
+              {
+                "name": "description",
+                "type": "localizedText",
+                "title": "Opis"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "problems",
+        "type": "array",
+        "title": "Problemy rozwiazywane przez usluge"
+      },
+      {
+        "name": "benefitsTitle",
+        "type": "localizedString",
+        "title": "Sekcja korzysci - tytul"
+      },
+      {
+        "name": "benefitsIntro",
+        "type": "localizedText",
+        "title": "Sekcja korzysci - opis"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "name": "title",
+                "type": "localizedString",
+                "title": "Tytul"
+              },
+              {
+                "name": "description",
+                "type": "localizedText",
+                "title": "Opis"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "benefits",
+        "type": "array",
+        "title": "Korzyści"
+      },
+      {
+        "name": "detailsTitle",
+        "type": "localizedString",
+        "title": "Sekcja opisu SEO - tytul"
+      },
+      {
+        "name": "detailsBody",
+        "type": "localizedBlocks",
+        "title": "Sekcja opisu SEO - tresc"
+      },
+      {
+        "name": "faqTitle",
+        "type": "localizedString",
+        "title": "FAQ uslugi - tytul"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "name": "question",
+                "type": "localizedString",
+                "title": "Pytanie"
+              },
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "name": "answer",
+                "type": "localizedText",
+                "title": "Odpowiedz"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "faqItems",
+        "type": "array",
+        "title": "FAQ uslugi"
+      },
+      {
+        "name": "relatedProjectsTitle",
+        "type": "localizedString",
+        "title": "Powiazane projekty - tytul"
+      },
+      {
+        "name": "relatedProjectsIntro",
+        "type": "localizedText",
+        "title": "Powiazane projekty - opis"
+      },
+      {
+        "description": "Gdy puste, strona pokaze istniejace projekty jako fallback.",
+        "of": [
+          {
+            "to": [
+              {
+                "type": "project"
+              }
+            ],
+            "type": "reference",
+            "title": "Reference to projekty"
+          }
+        ],
+        "name": "relatedProjects",
+        "type": "array",
+        "title": "Powiazane projekty"
+      },
+      {
+        "name": "relatedProjectsCtaText",
+        "type": "localizedString",
+        "title": "Powiazane projekty - tekst linku"
+      },
+      {
+        "name": "otherServicesTitle",
+        "type": "localizedString",
+        "title": "Pozostale uslugi - tytul"
+      },
+      {
+        "name": "otherServicesIntro",
+        "type": "localizedText",
+        "title": "Pozostale uslugi - opis"
+      },
+      {
+        "name": "otherServicesCtaText",
+        "type": "localizedString",
+        "title": "Pozostale uslugi - tekst linku"
+      },
+      {
+        "name": "finalCtaTitle",
+        "type": "localizedString",
+        "title": "Final CTA - tytul"
+      },
+      {
+        "name": "finalCtaDescription",
+        "type": "localizedText",
+        "title": "Final CTA - opis"
+      },
+      {
+        "name": "finalCtaPrimaryText",
+        "type": "localizedString",
+        "title": "Final CTA - glowny przycisk"
+      },
+      {
+        "initialValue": "#contact",
+        "name": "finalCtaPrimaryLink",
+        "type": "string",
+        "title": "Final CTA - glowny link"
+      },
+      {
+        "name": "finalCtaSecondaryText",
+        "type": "localizedString",
+        "title": "Final CTA - drugi przycisk"
+      },
+      {
+        "initialValue": "/#portfolio",
+        "name": "finalCtaSecondaryLink",
+        "type": "string",
+        "title": "Final CTA - drugi link"
+      },
+      {
         "validation": [
           {
             "level": "error",
@@ -1114,6 +1449,11 @@
         "name": "order",
         "type": "number",
         "title": "Kolejnosc"
+      },
+      {
+        "name": "seo",
+        "type": "seoFields",
+        "title": "SEO"
       }
     ],
     "name": "service",
@@ -1222,6 +1562,21 @@
         "name": "sectionDescription",
         "type": "localizedText",
         "title": "Opis sekcji"
+      },
+      {
+        "name": "beforeLabel",
+        "type": "localizedString",
+        "title": "Etykieta zdjecia przed"
+      },
+      {
+        "name": "afterLabel",
+        "type": "localizedString",
+        "title": "Etykieta zdjecia po"
+      },
+      {
+        "name": "instruction",
+        "type": "localizedString",
+        "title": "Instrukcja pod suwakiem"
       }
     ],
     "name": "beforeAfterSection",
@@ -1250,6 +1605,16 @@
         "name": "sectionDescription",
         "type": "localizedText",
         "title": "Opis sekcji"
+      },
+      {
+        "name": "allFilterLabel",
+        "type": "localizedString",
+        "title": "Filtr: wszystko"
+      },
+      {
+        "name": "openProjectLabel",
+        "type": "localizedString",
+        "title": "Overlay: zobacz projekt"
       },
       {
         "name": "seo",
@@ -1339,6 +1704,12 @@
         "name": "category",
         "type": "string",
         "title": "Kategoria"
+      },
+      {
+        "description": "Tekst widoczny przy projekcie na stronie glownej. Gdy puste, uzyty zostanie fallback z kodu.",
+        "name": "categoryLabel",
+        "type": "localizedString",
+        "title": "Etykieta kategorii na stronie"
       },
       {
         "name": "excerpt",
@@ -1654,6 +2025,32 @@
         "name": "customCta",
         "type": "localizedString",
         "title": "Tekst przycisku pod kartami"
+      },
+      {
+        "name": "popularLabel",
+        "type": "localizedString",
+        "title": "Etykieta popularnego pakietu"
+      },
+      {
+        "name": "orderLabel",
+        "type": "localizedString",
+        "title": "Przycisk zamowienia pakietu"
+      },
+      {
+        "name": "currencyLabel",
+        "type": "localizedString",
+        "title": "Waluta"
+      },
+      {
+        "name": "savingsLabel",
+        "type": "localizedString",
+        "title": "Etykieta oszczednosci"
+      },
+      {
+        "description": "Uzyj {package}, aby wstawic nazwe pakietu.",
+        "name": "orderMessageTemplate",
+        "type": "localizedText",
+        "title": "Szablon wiadomosci po kliknieciu pakietu"
       }
     ],
     "name": "pricingSection",
@@ -1796,6 +2193,22 @@
         "name": "sectionDescription",
         "type": "localizedText",
         "title": "Opis sekcji"
+      },
+      {
+        "name": "previousLabel",
+        "type": "localizedString",
+        "title": "Etykieta poprzedniej opinii"
+      },
+      {
+        "name": "nextLabel",
+        "type": "localizedString",
+        "title": "Etykieta nastepnej opinii"
+      },
+      {
+        "description": "Uzyj {number}, aby wstawic numer slajdu.",
+        "name": "goToSlideLabel",
+        "type": "localizedString",
+        "title": "Etykieta kropki slajdu"
       }
     ],
     "name": "testimonialsSection",
@@ -1972,6 +2385,16 @@
         "name": "sectionDescription",
         "type": "localizedText",
         "title": "Opis sekcji"
+      },
+      {
+        "name": "ctaText",
+        "type": "localizedString",
+        "title": "Tekst przycisku CTA"
+      },
+      {
+        "name": "servicePageCtaText",
+        "type": "localizedString",
+        "title": "Tekst linku do strony uslugi"
       }
     ],
     "name": "servicesSection",
@@ -2036,6 +2459,245 @@
     "name": "faq",
     "type": "document",
     "title": "FAQ"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "sectionTitle",
+        "type": "localizedString",
+        "title": "Tytul sekcji"
+      },
+      {
+        "name": "sectionDescription",
+        "type": "localizedText",
+        "title": "Opis sekcji"
+      },
+      {
+        "name": "contactTitle",
+        "type": "localizedString",
+        "title": "Karta kontaktowa - tytul"
+      },
+      {
+        "name": "contactDescription",
+        "type": "localizedText",
+        "title": "Karta kontaktowa - opis"
+      },
+      {
+        "name": "contactCta",
+        "type": "localizedString",
+        "title": "Karta kontaktowa - CTA"
+      }
+    ],
+    "name": "faqSection",
+    "type": "document",
+    "title": "FAQ - sekcja"
+  },
+  {
+    "fields": [
+      {
+        "name": "headingStart",
+        "type": "localizedString",
+        "title": "Naglowek - pierwsza linia"
+      },
+      {
+        "name": "headingAccent",
+        "type": "localizedString",
+        "title": "Naglowek - akcent"
+      },
+      {
+        "name": "description",
+        "type": "localizedText",
+        "title": "Opis"
+      },
+      {
+        "name": "emailLabel",
+        "type": "localizedString",
+        "title": "Etykieta email"
+      },
+      {
+        "name": "socialLabel",
+        "type": "localizedString",
+        "title": "Etykieta social media"
+      },
+      {
+        "name": "nameLabel",
+        "type": "localizedString",
+        "title": "Formularz: imie i nazwisko"
+      },
+      {
+        "name": "namePlaceholder",
+        "type": "localizedString",
+        "title": "Formularz: placeholder imienia"
+      },
+      {
+        "name": "emailInputLabel",
+        "type": "localizedString",
+        "title": "Formularz: adres email"
+      },
+      {
+        "name": "emailPlaceholder",
+        "type": "localizedString",
+        "title": "Formularz: placeholder email"
+      },
+      {
+        "name": "typeLabel",
+        "type": "localizedString",
+        "title": "Formularz: typ projektu"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "name": "value",
+                "type": "string",
+                "title": "Wartosc techniczna"
+              },
+              {
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "name": "label",
+                "type": "localizedString",
+                "title": "Etykieta"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "projectTypes",
+        "type": "array",
+        "title": "Formularz: opcje typow projektu"
+      },
+      {
+        "name": "messageLabel",
+        "type": "localizedString",
+        "title": "Formularz: opis projektu"
+      },
+      {
+        "name": "messagePlaceholder",
+        "type": "localizedText",
+        "title": "Formularz: placeholder opisu"
+      },
+      {
+        "name": "attachmentLabel",
+        "type": "localizedString",
+        "title": "Formularz: zalacznik"
+      },
+      {
+        "name": "attachmentHelpText",
+        "type": "localizedString",
+        "title": "Formularz: pomoc przy zalaczniku"
+      },
+      {
+        "name": "submitLabel",
+        "type": "localizedString",
+        "title": "Formularz: przycisk wyslij"
+      },
+      {
+        "name": "submittingLabel",
+        "type": "localizedString",
+        "title": "Formularz: wysylanie"
+      },
+      {
+        "name": "successMessage",
+        "type": "localizedText",
+        "title": "Formularz: komunikat sukcesu"
+      },
+      {
+        "name": "errorMessage",
+        "type": "localizedText",
+        "title": "Formularz: komunikat bledu"
+      },
+      {
+        "name": "nameRequiredError",
+        "type": "localizedString",
+        "title": "Walidacja: imie wymagane"
+      },
+      {
+        "name": "emailRequiredError",
+        "type": "localizedString",
+        "title": "Walidacja: email wymagany"
+      },
+      {
+        "name": "emailInvalidError",
+        "type": "localizedString",
+        "title": "Walidacja: email niepoprawny"
+      },
+      {
+        "name": "messageRequiredError",
+        "type": "localizedString",
+        "title": "Walidacja: wiadomosc wymagana"
+      },
+      {
+        "name": "messageTooLongError",
+        "type": "localizedString",
+        "title": "Walidacja: wiadomosc za dluga"
+      },
+      {
+        "name": "attachmentTypeError",
+        "type": "localizedString",
+        "title": "Walidacja: format pliku"
+      },
+      {
+        "name": "attachmentSizeError",
+        "type": "localizedString",
+        "title": "Walidacja: rozmiar pliku"
+      },
+      {
+        "name": "privacyLabel",
+        "type": "localizedString",
+        "title": "Link: polityka prywatnosci"
+      },
+      {
+        "name": "termsLabel",
+        "type": "localizedString",
+        "title": "Link: regulamin"
+      },
+      {
+        "name": "developerLabel",
+        "type": "localizedString",
+        "title": "Link: wykonawca"
+      },
+      {
+        "name": "rightsText",
+        "type": "localizedString",
+        "title": "Copyright"
+      }
+    ],
+    "name": "footer",
+    "type": "document",
+    "title": "Footer / Kontakt"
   },
   {
     "fields": [

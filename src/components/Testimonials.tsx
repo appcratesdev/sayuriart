@@ -51,6 +51,12 @@ interface TestimonialsProps {
   sectionDescription?: string;
   sectionTitleEdit?: string;
   sectionDescriptionEdit?: string;
+  previousLabel?: string;
+  nextLabel?: string;
+  goToSlideLabel?: string;
+  previousLabelEdit?: string;
+  nextLabelEdit?: string;
+  goToSlideLabelEdit?: string;
 }
 
 export const Testimonials = ({
@@ -60,6 +66,12 @@ export const Testimonials = ({
   sectionDescription,
   sectionTitleEdit,
   sectionDescriptionEdit,
+  previousLabel,
+  nextLabel,
+  goToSlideLabel,
+  previousLabelEdit,
+  nextLabelEdit,
+  goToSlideLabelEdit,
 }: TestimonialsProps) => {
   const testimonialItems = items?.length ? items : testimonials;
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -91,14 +103,16 @@ export const Testimonials = ({
               <button
                 onClick={() => setCurrentIndex((prev) => (prev === 0 ? testimonialItems.length - 1 : prev - 1))}
                 className="w-10 h-10 rounded-full border border-[var(--border)] flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-white hover:border-[var(--primary)] transition-colors"
-                aria-label="Previous testimonial"
+                aria-label={previousLabel || "Previous testimonial"}
+                data-sanity={previousLabelEdit}
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
               </button>
               <button
                 onClick={() => setCurrentIndex((prev) => (prev + 1) % testimonialItems.length)}
                 className="w-10 h-10 rounded-full border border-[var(--border)] flex items-center justify-center text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-white hover:border-[var(--primary)] transition-colors"
-                aria-label="Next testimonial"
+                aria-label={nextLabel || "Next testimonial"}
+                data-sanity={nextLabelEdit}
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
               </button>
@@ -111,7 +125,8 @@ export const Testimonials = ({
                     onClick={() => setCurrentIndex(i)}
                     className={`h-1.5 rounded-full transition-all duration-500 ${i === currentIndex ? "w-8 bg-[var(--primary)]" : "w-3 bg-[var(--border)]"
                       }`}
-                    aria-label={`Go to slide ${i + 1}`}
+                    aria-label={(goToSlideLabel || "Go to slide {number}").replace("{number}", String(i + 1))}
+                    data-sanity={goToSlideLabelEdit}
                   />
                 ))}
               </div>

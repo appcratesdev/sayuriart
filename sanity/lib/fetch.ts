@@ -2,8 +2,10 @@ import { dataset, projectId } from './client'
 import { sanityFetch } from './live'
 import {
   siteSettingsQuery,
+  headerQuery,
   heroQuery,
   manifestoQuery,
+  serviceBySlugQuery,
   servicesQuery,
   servicesSectionQuery,
   beforeAfterQuery,
@@ -18,11 +20,14 @@ import {
   processSectionQuery,
   processQuery,
   faqQuery,
+  faqSectionQuery,
+  footerQuery,
   aboutQuery,
   legalPageQuery,
 } from './queries'
 import type {
   SiteSettings,
+  HeaderContent,
   Hero,
   Manifesto,
   Service,
@@ -38,6 +43,8 @@ import type {
   ProcessSection,
   Process,
   FAQ,
+  FAQSection,
+  FooterContent,
   About,
   LegalPage,
 } from './types'
@@ -85,6 +92,10 @@ export async function getSiteSettings(locale: Locale = defaultLocale): Promise<S
   return safeFetch(siteSettingsQuery, localeParams(locale), null)
 }
 
+export async function getHeader(locale: Locale = defaultLocale): Promise<HeaderContent | null> {
+  return safeFetch(headerQuery, localeParams(locale), null)
+}
+
 export async function getHero(locale: Locale = defaultLocale): Promise<Hero | null> {
   return safeFetch(heroQuery, localeParams(locale), null)
 }
@@ -95,6 +106,10 @@ export async function getManifesto(locale: Locale = defaultLocale): Promise<Mani
 
 export async function getServices(locale: Locale = defaultLocale): Promise<Service[]> {
   return safeFetch(servicesQuery, localeParams(locale), [])
+}
+
+export async function getServiceBySlug(slug: string, locale: Locale = defaultLocale): Promise<Service | null> {
+  return safeFetch(serviceBySlugQuery, { slug, ...localeParams(locale) }, null)
 }
 
 export async function getServicesSection(locale: Locale = defaultLocale): Promise<ServicesSection | null> {
@@ -147,6 +162,14 @@ export async function getProcess(locale: Locale = defaultLocale): Promise<Proces
 
 export async function getFAQ(locale: Locale = defaultLocale): Promise<FAQ[]> {
   return safeFetch(faqQuery, localeParams(locale), [])
+}
+
+export async function getFAQSection(locale: Locale = defaultLocale): Promise<FAQSection | null> {
+  return safeFetch(faqSectionQuery, localeParams(locale), null)
+}
+
+export async function getFooter(locale: Locale = defaultLocale): Promise<FooterContent | null> {
+  return safeFetch(footerQuery, localeParams(locale), null)
 }
 
 export async function getAbout(locale: Locale = defaultLocale): Promise<About | null> {

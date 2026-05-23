@@ -16,6 +16,9 @@ interface Package {
   features: string[];
   nameEdit?: string;
   priceEdit?: string;
+  unitEdit?: string;
+  savingsEdit?: string;
+  originalValueEdit?: string;
   featuresEdit?: string;
 }
 
@@ -42,14 +45,28 @@ const fallbackCategories: PricingCategory[] = [
   },
 ];
 
-const PricingCard = ({ pkg, locale }: { pkg: Package; locale: Locale }) => {
-  const dict = getDictionary(locale);
-
+const PricingCard = ({
+  pkg,
+  labels,
+}: {
+  pkg: Package;
+  labels: {
+    popular: string;
+    order: string;
+    currency: string;
+    savings: string;
+    orderMessageTemplate: string;
+    popularEdit?: string;
+    orderEdit?: string;
+    currencyEdit?: string;
+    savingsEdit?: string;
+  };
+}) => {
   return (
     <div className={`pricing-card transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:ring-2 hover:ring-[var(--primary)] cursor-default ${pkg.featured ? "featured ring-1 ring-[var(--primary)]" : ""}`} style={{ padding: '1.75rem', fontSize: '0.9rem' }}>
       {pkg.featured && (
-        <span className="badge badge-primary absolute top-3 right-3 md:top-4 md:right-4 z-10 whitespace-nowrap text-xs">
-          {dict.home.pricingPopular}
+        <span className="badge badge-primary absolute top-3 right-3 md:top-4 md:right-4 z-10 whitespace-nowrap text-xs" data-sanity={labels.popularEdit}>
+          {labels.popular}
         </span>
       )}
 
@@ -59,17 +76,17 @@ const PricingCard = ({ pkg, locale }: { pkg: Package; locale: Locale }) => {
 
       <div className="flex items-baseline gap-1 mb-1">
         <span className="text-3xl md:text-4xl font-serif text-[var(--foreground)]" data-sanity={pkg.priceEdit}>{pkg.price}</span>
-        <span className="text-base text-[var(--muted-foreground)]">{dict.home.pricingCurrency}</span>
-        {pkg.unit && <span className="text-xs text-[var(--muted-foreground)] ml-1">{pkg.unit}</span>}
+        <span className="text-base text-[var(--muted-foreground)]" data-sanity={labels.currencyEdit}>{labels.currency}</span>
+        {pkg.unit && <span className="text-xs text-[var(--muted-foreground)] ml-1" data-sanity={pkg.unitEdit}>{pkg.unit}</span>}
       </div>
 
       {pkg.savings ? (
         <div className="flex items-center gap-2 mt-2 mb-4">
           <span className="badge badge-savings">
-            {dict.home.pricingSavings} {pkg.savings} {dict.home.pricingCurrency}
+            <span data-sanity={labels.savingsEdit}>{labels.savings}</span> <span data-sanity={pkg.savingsEdit}>{pkg.savings}</span> <span data-sanity={labels.currencyEdit}>{labels.currency}</span>
           </span>
-          <span className="text-xs text-[var(--muted-foreground)] line-through">
-            {pkg.originalValue} {dict.home.pricingCurrency}
+          <span className="text-xs text-[var(--muted-foreground)] line-through" data-sanity={pkg.originalValueEdit}>
+            {pkg.originalValue} {labels.currency}
           </span>
         </div>
       ) : (
@@ -95,14 +112,14 @@ const PricingCard = ({ pkg, locale }: { pkg: Package; locale: Locale }) => {
           setTimeout(() => {
             const messageEl = document.getElementById('message') as HTMLTextAreaElement;
             if (messageEl) {
-              messageEl.value = `Dzień dobry, interesuje mnie ${pkg.name}. Proszę o więcej informacji.`;
+              messageEl.value = labels.orderMessageTemplate.replace("{package}", pkg.name);
               messageEl.focus();
             }
           }, 100);
         }}
         className={`btn mt-6 w-full transition-transform hover:scale-[1.02] ${pkg.featured ? "btn-accent" : "btn-secondary"}`}
       >
-        {dict.home.pricingOrder}
+        <span data-sanity={labels.orderEdit}>{labels.order}</span>
       </Link>
     </div>
   );
@@ -115,10 +132,19 @@ interface PricingProps {
   sectionDescription?: string;
   customQuestion?: string;
   customCta?: string;
+  popularLabel?: string;
+  orderLabel?: string;
+  currencyLabel?: string;
+  savingsLabel?: string;
+  orderMessageTemplate?: string;
   sectionTitleEdit?: string;
   sectionDescriptionEdit?: string;
   customQuestionEdit?: string;
   customCtaEdit?: string;
+  popularLabelEdit?: string;
+  orderLabelEdit?: string;
+  currencyLabelEdit?: string;
+  savingsLabelEdit?: string;
 }
 
 export const Pricing = ({
@@ -128,15 +154,39 @@ export const Pricing = ({
   sectionDescription,
   customQuestion,
   customCta,
+  popularLabel,
+  orderLabel,
+  currencyLabel,
+  savingsLabel,
+  orderMessageTemplate,
   sectionTitleEdit,
   sectionDescriptionEdit,
   customQuestionEdit,
   customCtaEdit,
+  popularLabelEdit,
+  orderLabelEdit,
+  currencyLabelEdit,
+  savingsLabelEdit,
 }: PricingProps) => {
   const pricingCategories = items?.length ? items : fallbackCategories;
   const [activeCategory, setActiveCategory] = useState(0);
   const current = pricingCategories[activeCategory] ?? pricingCategories[0];
   const dict = getDictionary(locale);
+  const labels = {
+    popular: popularLabel || dict.home.pricingPopular,
+    order: orderLabel || dict.home.pricingOrder,
+    currency: currencyLabel || dict.home.pricingCurrency,
+    savings: savingsLabel || dict.home.pricingSavings,
+    orderMessageTemplate:
+      orderMessageTemplate ||
+      (locale === "en"
+        ? "Hello, I am interested in {package}. Please send me more information."
+        : "Dzien dobry, interesuje mnie {package}. Prosze o wiecej informacji."),
+    popularEdit: popularLabelEdit,
+    orderEdit: orderLabelEdit,
+    currencyEdit: currencyLabelEdit,
+    savingsEdit: savingsLabelEdit,
+  };
 
   return (
     <section className="section-padding bg-[var(--secondary)]" id="pricing">
@@ -176,7 +226,7 @@ export const Pricing = ({
             }`}
           >
             {current.packages.map((pkg) => (
-              <PricingCard key={pkg.name} pkg={pkg} locale={locale} />
+              <PricingCard key={pkg.name} pkg={pkg} labels={labels} />
             ))}
           </motion.div>
         </AnimatePresence>

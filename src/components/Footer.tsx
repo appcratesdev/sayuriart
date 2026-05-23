@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { getDictionary, type Locale } from "@/lib/i18n";
-import { ContactForm } from "./ContactForm";
+import { ContactForm, type ContactFormText } from "./ContactForm";
 
 export interface FooterSettings {
   email?: string;
@@ -15,7 +15,36 @@ export interface FooterSettings {
   emailEdit?: string;
 }
 
-export const Footer = ({ settings, locale = "pl" }: { settings?: FooterSettings; locale?: Locale }) => {
+export interface FooterContent extends ContactFormText {
+  headingStart?: string;
+  headingAccent?: string;
+  description?: string;
+  emailLabel?: string;
+  socialLabel?: string;
+  privacyLabel?: string;
+  termsLabel?: string;
+  developerLabel?: string;
+  rightsText?: string;
+  headingStartEdit?: string;
+  headingAccentEdit?: string;
+  descriptionEdit?: string;
+  emailLabelEdit?: string;
+  socialLabelEdit?: string;
+  privacyLabelEdit?: string;
+  termsLabelEdit?: string;
+  developerLabelEdit?: string;
+  rightsTextEdit?: string;
+}
+
+export const Footer = ({
+  settings,
+  content,
+  locale = "pl",
+}: {
+  settings?: FooterSettings;
+  content?: FooterContent;
+  locale?: Locale;
+}) => {
   const email = settings?.email || "hello@lifestyleimages.pl";
   const dict = getDictionary(locale);
 
@@ -31,21 +60,33 @@ export const Footer = ({ settings, locale = "pl" }: { settings?: FooterSettings;
             className="flex flex-col"
           >
             <h2 className="text-4xl sm:text-5xl md:text-7xl font-serif leading-[1.1] mb-6 md:mb-8">
-              {dict.footer.headingStart}
+              <span data-sanity={content?.headingStartEdit}>{content?.headingStart || dict.footer.headingStart}</span>
               <br />
-              <span className="text-[var(--gold)] italic">{dict.footer.headingAccent}</span>
+              <span className="text-[var(--gold)] italic" data-sanity={content?.headingAccentEdit}>
+                {content?.headingAccent || dict.footer.headingAccent}
+              </span>
             </h2>
-            <p className="text-white/50 text-base md:text-lg mb-10 max-w-md">{dict.footer.description}</p>
+            <p className="text-white/50 text-base md:text-lg mb-10 max-w-md" data-sanity={content?.descriptionEdit}>
+              {content?.description || dict.footer.description}
+            </p>
 
             <div className="mt-auto flex flex-col gap-6">
               <div>
-                <span className="form-label">{dict.footer.email}</span>
-                <a href={`mailto:${email}`} className="text-xl font-medium hover:text-[var(--gold)] transition-colors block" data-sanity={settings?.emailEdit}>
+                <span className="form-label" data-sanity={content?.emailLabelEdit}>
+                  {content?.emailLabel || dict.footer.email}
+                </span>
+                <a
+                  href={`mailto:${email}`}
+                  className="text-xl font-medium hover:text-[var(--gold)] transition-colors block"
+                  data-sanity={settings?.emailEdit}
+                >
                   {email}
                 </a>
               </div>
               <div>
-                <span className="form-label">{dict.footer.social}</span>
+                <span className="form-label" data-sanity={content?.socialLabelEdit}>
+                  {content?.socialLabel || dict.footer.social}
+                </span>
                 <div className="flex gap-6 mt-2">
                   <a href={settings?.instagram || "#"} className="text-white/60 hover:text-white transition-colors" aria-label="Instagram">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
@@ -68,21 +109,41 @@ export const Footer = ({ settings, locale = "pl" }: { settings?: FooterSettings;
             transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             className="card-glass p-6 sm:p-8 md:p-12"
           >
-            <ContactForm dict={dict.footer} />
+            <ContactForm dict={dict.footer} content={content} />
           </motion.div>
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 text-xs text-white/30 gap-4 text-center md:text-left">
-          <span className="font-bold tracking-widest uppercase text-white/50" data-sanity={settings?.titleEdit}>{settings?.title || "LIFESTYLE IMAGES"}</span>
+          <span className="font-bold tracking-widest uppercase text-white/50" data-sanity={settings?.titleEdit}>
+            {settings?.title || "LIFESTYLE IMAGES"}
+          </span>
           <div className="flex flex-wrap justify-center items-center gap-6">
-            <Link href={`/${locale}/${locale === "en" ? "privacy-policy" : "polityka-prywatnosci"}`} className="hover:text-white transition-colors">{dict.footer.privacy}</Link>
-            <Link href={`/${locale}/${locale === "en" ? "terms-of-use" : "regulamin"}`} className="hover:text-white transition-colors">{dict.footer.terms}</Link>
+            <Link
+              href={`/${locale}/${locale === "en" ? "privacy-policy" : "polityka-prywatnosci"}`}
+              className="hover:text-white transition-colors"
+              data-sanity={content?.privacyLabelEdit}
+            >
+              {content?.privacyLabel || dict.footer.privacy}
+            </Link>
+            <Link
+              href={`/${locale}/${locale === "en" ? "terms-of-use" : "regulamin"}`}
+              className="hover:text-white transition-colors"
+              data-sanity={content?.termsLabelEdit}
+            >
+              {content?.termsLabel || dict.footer.terms}
+            </Link>
             <span className="opacity-50 hidden md:inline">|</span>
-            <a href="https://appcrates.pl" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-              Developed by Appcrates.pl
+            <a
+              href="https://appcrates.pl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+              data-sanity={content?.developerLabelEdit}
+            >
+              {content?.developerLabel || "Developed by Appcrates.pl"}
             </a>
           </div>
-          <span>© 2026 {dict.footer.rights}</span>
+          <span data-sanity={content?.rightsTextEdit}>{content?.rightsText || <>&copy; 2026 {dict.footer.rights}</>}</span>
         </div>
       </div>
     </footer>

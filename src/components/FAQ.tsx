@@ -12,6 +12,19 @@ export interface FAQContent {
   answerEdit?: string;
 }
 
+export interface FAQSectionContent {
+  sectionTitle?: string;
+  sectionDescription?: string;
+  contactTitle?: string;
+  contactDescription?: string;
+  contactCta?: string;
+  sectionTitleEdit?: string;
+  sectionDescriptionEdit?: string;
+  contactTitleEdit?: string;
+  contactDescriptionEdit?: string;
+  contactCtaEdit?: string;
+}
+
 const fallbackFaqs: FAQContent[] = [
   {
     question: "How long does a project take?",
@@ -23,7 +36,7 @@ const fallbackFaqs: FAQContent[] = [
   },
 ];
 
-export const FAQ = ({ items, locale = "pl" }: { items?: FAQContent[]; locale?: Locale }) => {
+export const FAQ = ({ items, section, locale = "pl" }: { items?: FAQContent[]; section?: FAQSectionContent; locale?: Locale }) => {
   const faqItems = items?.length ? items : fallbackFaqs;
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const dict = getDictionary(locale);
@@ -33,12 +46,21 @@ export const FAQ = ({ items, locale = "pl" }: { items?: FAQContent[]; locale?: L
       <div className="container-main">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
           <div>
-            <SectionHeader title={dict.home.faqTitle} description={dict.home.faqDescription} />
+            <SectionHeader
+              title={section?.sectionTitle || dict.home.faqTitle}
+              description={section?.sectionDescription || dict.home.faqDescription}
+              titleEdit={section?.sectionTitleEdit}
+              descriptionEdit={section?.sectionDescriptionEdit}
+            />
             <div className="mt-8 p-6 md:p-8 bg-[var(--secondary)] rounded-[var(--radius-xl)]">
-              <h4 className="font-serif text-lg text-[var(--foreground)] mb-3">{dict.home.pricingCustomQuestion}</h4>
-              <p className="text-body text-sm mb-5">{dict.footer.description}</p>
-              <a href="#contact" className="btn btn-primary text-sm">
-                {dict.home.faqCta} -&gt;
+              <h4 className="font-serif text-lg text-[var(--foreground)] mb-3" data-sanity={section?.contactTitleEdit}>
+                {section?.contactTitle || dict.home.pricingCustomQuestion}
+              </h4>
+              <p className="text-body text-sm mb-5" data-sanity={section?.contactDescriptionEdit}>
+                {section?.contactDescription || dict.footer.description}
+              </p>
+              <a href="#contact" className="btn btn-primary text-sm" data-sanity={section?.contactCtaEdit}>
+                {section?.contactCta || dict.home.faqCta} -&gt;
               </a>
             </div>
           </div>
