@@ -29,27 +29,6 @@ interface BeforeAfterProps {
   instructionEdit?: string;
 }
 
-const examples: BeforeAfterItem[] = [
-  {
-    before: "/images/przed.jpg",
-    after: "/images/placeholder.jpg",
-    title: "Upscaling i poprawa jakości",
-    description: "Zwiększenie rozdzielczości i wyostrzenie szczegółów produktu",
-  },
-  {
-    before: "/images/placeholder.jpg",
-    after: "/images/placeholder.jpg",
-    title: "Usunięcie tła",
-    description: "Profesjonalne wyizolowanie produktu na czystym tle",
-  },
-  {
-    before: "/images/placeholder.jpg",
-    after: "/images/placeholder.jpg",
-    title: "Korekta kolorów",
-    description: "Naturalne i atrakcyjne odwzorowanie barw produktu",
-  },
-];
-
 export const BeforeAfter = ({
   items,
   sectionTitle,
@@ -63,7 +42,7 @@ export const BeforeAfter = ({
   afterLabelEdit,
   instructionEdit,
 }: BeforeAfterProps) => {
-  const beforeAfterItems = items?.length ? items : examples;
+  const beforeAfterItems = items || [];
   const [activeIndex, setActiveIndex] = useState(0);
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
@@ -98,18 +77,21 @@ export const BeforeAfter = ({
 
   const activeExample = beforeAfterItems[activeIndex] ?? beforeAfterItems[0];
 
+  if (!beforeAfterItems.length || !activeExample) {
+    return null;
+  }
+
   return (
     <section className="section-padding bg-[var(--secondary)]" id="before-after">
       <div className="container-main">
-        <SectionHeader
-          title={sectionTitle || "Zobacz różnicę"}
-          description={
-            sectionDescription ||
-            "Profesjonalna obróbka, która wydobywa pełen potencjał Twoich zdjęć produktowych."
-          }
-          titleEdit={titleEdit}
-          descriptionEdit={descriptionEdit}
-        />
+        {sectionTitle && (
+          <SectionHeader
+            title={sectionTitle}
+            description={sectionDescription}
+            titleEdit={titleEdit}
+            descriptionEdit={descriptionEdit}
+          />
+        )}
 
         {/* Tabs */}
         <div className="mt-12 mb-10 overflow-x-auto pb-2 -mx-2 px-2">
@@ -148,7 +130,7 @@ export const BeforeAfter = ({
               <div className="absolute inset-0" data-sanity={activeExample.afterImageEdit}>
                 <Image
                   src={activeExample.after}
-                  alt={`${activeExample.title} - Po`}
+                  alt={afterLabel ? `${activeExample.title} - ${afterLabel}` : activeExample.title}
                   fill
                   className="object-cover"
                   draggable={false}
@@ -165,7 +147,7 @@ export const BeforeAfter = ({
               >
                 <Image
                   src={activeExample.before}
-                  alt={`${activeExample.title} - Przed`}
+                  alt={beforeLabel ? `${activeExample.title} - ${beforeLabel}` : activeExample.title}
                   fill
                   className="object-cover"
                   draggable={false}
@@ -207,12 +189,16 @@ export const BeforeAfter = ({
               </div>
 
               {/* Labels */}
-              <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider" data-sanity={beforeLabelEdit}>
-                {beforeLabel || "Przed"}
-              </div>
-              <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider" data-sanity={afterLabelEdit}>
-                {afterLabel || "Po"}
-              </div>
+              {beforeLabel && (
+                <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider" data-sanity={beforeLabelEdit}>
+                  {beforeLabel}
+                </div>
+              )}
+              {afterLabel && (
+                <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider" data-sanity={afterLabelEdit}>
+                  {afterLabel}
+                </div>
+              )}
             </div>
 
             {/* Description */}
@@ -225,9 +211,11 @@ export const BeforeAfter = ({
           </div>
 
           {/* Instruction */}
-          <p className="text-center mt-6 text-sm text-[var(--muted-foreground)]" data-sanity={instructionEdit}>
-            {instruction || "Przeciagnij suwak, aby zobaczyc roznice"}
-          </p>
+          {instruction && (
+            <p className="text-center mt-6 text-sm text-[var(--muted-foreground)]" data-sanity={instructionEdit}>
+              {instruction}
+            </p>
+          )}
         </div>
       </div>
     </section>
