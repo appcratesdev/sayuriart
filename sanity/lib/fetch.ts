@@ -59,7 +59,8 @@ const isSanityConfigured = Boolean(projectId && dataset)
 async function safeFetch<T>(
   query: string,
   params: Record<string, unknown>,
-  fallback: T
+  fallback: T,
+  label = 'Sanity fetch'
 ): Promise<T> {
   if (!isSanityConfigured) {
     return fallback
@@ -83,7 +84,7 @@ async function safeFetch<T>(
 
     return data as T
   } catch (error) {
-    console.error('Sanity fetch failed:', error)
+    console.error(`${label} failed:`, error)
     return fallback
   }
 }
@@ -107,7 +108,7 @@ export async function getManifesto(locale: Locale = defaultLocale): Promise<Mani
 }
 
 export async function getServices(locale: Locale = defaultLocale): Promise<Service[]> {
-  return safeFetch(servicesQuery, localeParams(locale), [])
+  return safeFetch(servicesQuery, localeParams(locale), [], 'getServices')
 }
 
 export async function getServicePages(locale: Locale = defaultLocale): Promise<ServicePage[]> {

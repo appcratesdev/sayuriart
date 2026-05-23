@@ -102,7 +102,7 @@ export const manifestoQuery = groq`*[_type == "manifesto"][0]{
 
 export const servicesQuery = groq`*[_type == "service"] | order(order asc){
   ${serviceCardFields},
-  "pageSlug": *[_type == "servicePage" && references(^._id)][0].{
+  "pageSlug": *[_type == "servicePage" && references(^._id)][0]{
     "current": coalesce(slug[$lang].current, slug.current)
   }
 }`;
