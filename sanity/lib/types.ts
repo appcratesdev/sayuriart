@@ -60,12 +60,22 @@ export interface Service extends SanityDocumentMeta {
   _id: string;
   _type?: string;
   title: string;
-  slug?: {
+  pageSlug?: {
     current: string;
   };
   description?: string;
   features?: string[];
   image: GalleryBlock;
+  order: number;
+}
+
+export interface ServicePage extends SanityDocumentMeta {
+  _id: string;
+  _type?: string;
+  slug?: {
+    current: string;
+  };
+  service?: Service;
   pageOverline?: string;
   backLinkText?: string;
   pageTitle?: string;
@@ -95,7 +105,7 @@ export interface Service extends SanityDocumentMeta {
   finalCtaPrimaryLink?: string;
   finalCtaSecondaryText?: string;
   finalCtaSecondaryLink?: string;
-  order: number;
+  heroImage?: SanityImageSource;
   seo?: SeoFields;
 }
 

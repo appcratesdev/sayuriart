@@ -5,7 +5,8 @@ import {
   headerQuery,
   heroQuery,
   manifestoQuery,
-  serviceBySlugQuery,
+  servicePageBySlugQuery,
+  servicePagesQuery,
   servicesQuery,
   servicesSectionQuery,
   beforeAfterQuery,
@@ -31,6 +32,7 @@ import type {
   Hero,
   Manifesto,
   Service,
+  ServicePage,
   ServicesSection,
   BeforeAfter,
   BeforeAfterSection,
@@ -108,8 +110,12 @@ export async function getServices(locale: Locale = defaultLocale): Promise<Servi
   return safeFetch(servicesQuery, localeParams(locale), [])
 }
 
-export async function getServiceBySlug(slug: string, locale: Locale = defaultLocale): Promise<Service | null> {
-  return safeFetch(serviceBySlugQuery, { slug, ...localeParams(locale) }, null)
+export async function getServicePages(locale: Locale = defaultLocale): Promise<ServicePage[]> {
+  return safeFetch(servicePagesQuery, localeParams(locale), [])
+}
+
+export async function getServicePageBySlug(slug: string, locale: Locale = defaultLocale): Promise<ServicePage | null> {
+  return safeFetch(servicePageBySlugQuery, { slug, ...localeParams(locale) }, null)
 }
 
 export async function getServicesSection(locale: Locale = defaultLocale): Promise<ServicesSection | null> {

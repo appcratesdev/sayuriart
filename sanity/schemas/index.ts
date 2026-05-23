@@ -2,6 +2,7 @@ import hero from './hero'
 import header from './header'
 import manifesto from './manifesto'
 import service from './service'
+import servicePage from './servicePage'
 import { galleryBlockType } from './galleryBlock'
 import beforeAfter from './beforeAfter'
 import beforeAfterSection from './beforeAfterSection'
@@ -42,6 +43,7 @@ export const schemaTypes = [
   hero,
   manifesto,
   service,
+  servicePage,
   beforeAfter,
   beforeAfterSection,
   portfolio,

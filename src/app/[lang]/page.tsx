@@ -224,7 +224,7 @@ export default async function Home({ params }: Props) {
 
             return {
               title: service.title,
-              slug: service.slug?.current,
+              slug: service.pageSlug?.current,
               desc: service.description,
               features: service.features,
               img: sanityImageUrl(firstImage),

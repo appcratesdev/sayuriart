@@ -28,11 +28,10 @@ const galleryBlockFields = `{
   }
 }`;
 
-const servicePageListFields = `
+const serviceCardFields = `
   _id,
   _type,
   "title": ${l("title")},
-  "slug": {"current": coalesce(slug[$lang].current, slug.current)},
   "description": ${l("description")},
   "features": ${l("features")},
   image${galleryBlockFields},
@@ -102,15 +101,35 @@ export const manifestoQuery = groq`*[_type == "manifesto"][0]{
 }`;
 
 export const servicesQuery = groq`*[_type == "service"] | order(order asc){
-  ${servicePageListFields}
+  ${serviceCardFields},
+  "pageSlug": *[_type == "servicePage" && references(^._id)][0].{
+    "current": coalesce(slug[$lang].current, slug.current)
+  }
 }`;
 
-export const serviceBySlugQuery = groq`*[_type == "service" && coalesce(slug[$lang].current, slug.current) == $slug][0]{
-  ${servicePageListFields},
+export const servicePagesQuery = groq`*[_type == "servicePage"] | order(coalesce(service->order, 999) asc){
+  _id,
+  _type,
+  "slug": {"current": coalesce(slug[$lang].current, slug.current)},
+  "pageTitle": ${l("pageTitle")},
+  "pageLead": ${l("pageLead")},
+  service->{
+    ${serviceCardFields}
+  }
+}`;
+
+export const servicePageBySlugQuery = groq`*[_type == "servicePage" && coalesce(slug[$lang].current, slug.current) == $slug][0]{
+  _id,
+  _type,
+  "slug": {"current": coalesce(slug[$lang].current, slug.current)},
+  service->{
+    ${serviceCardFields}
+  },
   "pageOverline": ${l("pageOverline")},
   "backLinkText": ${l("backLinkText")},
   "pageTitle": ${l("pageTitle")},
   "pageLead": ${l("pageLead")},
+  heroImage,
   "heroCtaText": ${l("heroCtaText")},
   heroCtaLink,
   "problemsTitle": ${l("problemsTitle")},

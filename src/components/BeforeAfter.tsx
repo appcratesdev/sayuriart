@@ -122,6 +122,7 @@ export const BeforeAfter = ({
                   setSliderPosition(50);
                 }}
                 className={`tab-btn ${activeIndex === i ? "active" : ""}`}
+                data-sanity={example.titleEdit}
               >
                 {example.title}
               </button>

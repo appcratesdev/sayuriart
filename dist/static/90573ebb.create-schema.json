@@ -1132,22 +1132,6 @@
         "title": "Tytul"
       },
       {
-        "validation": [
-          {
-            "level": "error",
-            "rules": [
-              {
-                "flag": "presence",
-                "constraint": "required"
-              }
-            ]
-          }
-        ],
-        "name": "slug",
-        "type": "localizedSlug",
-        "title": "Slug URL"
-      },
-      {
         "name": "description",
         "type": "localizedText",
         "title": "Opis"
@@ -1174,26 +1158,176 @@
         "title": "Zdjecie"
       },
       {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ]
+          }
+        ],
+        "name": "order",
+        "type": "number",
+        "title": "Kolejnosc"
+      }
+    ],
+    "name": "service",
+    "type": "document",
+    "title": "Uslugi"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "to": [
+          {
+            "type": "service"
+          }
+        ],
+        "name": "service",
+        "type": "reference",
+        "title": "Powiazana usluga z sekcji homepage"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "options": {
+              "source": "pageTitle.pl",
+              "maxLength": 96
+            },
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ]
+              }
+            ],
+            "name": "pl",
+            "type": "slug",
+            "title": "Polski"
+          },
+          {
+            "options": {
+              "source": "pageTitle.en",
+              "maxLength": 96
+            },
+            "validation": [
+              {
+                "level": "error",
+                "rules": [
+                  {
+                    "flag": "custom"
+                  }
+                ]
+              }
+            ],
+            "name": "en",
+            "type": "slug",
+            "title": "English"
+          }
+        ],
+        "name": "slug",
+        "type": "object",
+        "title": "Slug URL strony uslugi"
+      },
+      {
         "name": "pageOverline",
         "type": "localizedString",
-        "title": "Strona uslugi - overline"
+        "title": "Hero - overline"
       },
       {
         "name": "backLinkText",
         "type": "localizedString",
-        "title": "Strona uslugi - link powrotu"
+        "title": "Hero - link powrotu"
       },
       {
-        "description": "Gdy puste, uzywany jest tytul uslugi.",
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
         "name": "pageTitle",
         "type": "localizedString",
-        "title": "Strona uslugi - H1"
+        "title": "Hero - H1"
       },
       {
-        "description": "Krotki tekst pod H1, mocny SEO opis uslugi.",
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
         "name": "pageLead",
         "type": "localizedText",
-        "title": "Strona uslugi - lead"
+        "title": "Hero - lead SEO"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "level": "warning",
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ]
+          }
+        ],
+        "description": "Uzycie: sekcja uslugi, stale okno 4:3 na mobile i desktop, object-contain. Zdjecie nie jest docinane przez komponent; moze byc kwadratowe albo poziome. Rekomendacja: minimum 1600 x 1200px, najlepiej 2048px+ na dluzszym boku. Zostaw troche marginesu wokol produktu.",
+        "fields": [
+          {
+            "name": "alt",
+            "type": "localizedString",
+            "title": "Alt text"
+          }
+        ],
+        "name": "heroImage",
+        "type": "image",
+        "title": "Hero - obraz"
       },
       {
         "name": "heroCtaText",
@@ -1209,12 +1343,12 @@
       {
         "name": "problemsTitle",
         "type": "localizedString",
-        "title": "Sekcja problemow - tytul"
+        "title": "Problemy - tytul"
       },
       {
         "name": "problemsIntro",
         "type": "localizedText",
-        "title": "Sekcja problemow - opis"
+        "title": "Problemy - opis"
       },
       {
         "of": [
@@ -1252,12 +1386,12 @@
       {
         "name": "benefitsTitle",
         "type": "localizedString",
-        "title": "Sekcja korzysci - tytul"
+        "title": "Korzysci - tytul"
       },
       {
         "name": "benefitsIntro",
         "type": "localizedText",
-        "title": "Sekcja korzysci - opis"
+        "title": "Korzysci - opis"
       },
       {
         "of": [
@@ -1290,22 +1424,22 @@
         ],
         "name": "benefits",
         "type": "array",
-        "title": "Korzyści"
+        "title": "Korzysci"
       },
       {
         "name": "detailsTitle",
         "type": "localizedString",
-        "title": "Sekcja opisu SEO - tytul"
+        "title": "Opis SEO - tytul"
       },
       {
         "name": "detailsBody",
         "type": "localizedBlocks",
-        "title": "Sekcja opisu SEO - tresc"
+        "title": "Opis SEO - tresc"
       },
       {
         "name": "faqTitle",
         "type": "localizedString",
-        "title": "FAQ uslugi - tytul"
+        "title": "FAQ - tytul"
       },
       {
         "of": [
@@ -1431,34 +1565,14 @@
         "title": "Final CTA - drugi link"
       },
       {
-        "validation": [
-          {
-            "level": "error",
-            "rules": [
-              {
-                "flag": "presence",
-                "constraint": "required"
-              },
-              {
-                "flag": "min",
-                "constraint": 0
-              }
-            ]
-          }
-        ],
-        "name": "order",
-        "type": "number",
-        "title": "Kolejnosc"
-      },
-      {
         "name": "seo",
         "type": "seoFields",
         "title": "SEO"
       }
     ],
-    "name": "service",
+    "name": "servicePage",
     "type": "document",
-    "title": "Uslugi"
+    "title": "Strony uslug"
   },
   {
     "fields": [

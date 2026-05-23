@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl, languageAlternates, localizedPath } from "@/lib/seo";
 import { defaultLocale, locales, type Locale } from "@/lib/i18n";
-import { getProjects, getServices } from "../../sanity/lib/fetch";
+import { getProjects, getServicePages } from "../../sanity/lib/fetch";
 
 const servicePath = (locale: Locale, slug: string) => `/${locale === "en" ? "services" : "uslugi"}/${slug}`;
 
@@ -42,24 +42,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const servicesByLocale = await Promise.all(
     locales.map(async (locale) => ({
       locale,
-      services: await getServices(locale),
+      services: await getServicePages(locale),
     }))
   );
 
   const serviceGroups = servicesByLocale.flatMap(({ locale, services }) =>
     services
-      .filter((service) => service.slug?.current)
-      .map((service) => {
-        const path = servicePath(locale, service.slug!.current);
+      .filter((servicePage) => servicePage.slug?.current)
+      .map((servicePage) => {
+        const path = servicePath(locale, servicePage.slug!.current);
         const alternateEntries = servicesByLocale.flatMap(({ locale: alternateLocale, services: alternateServices }) => {
-          const alternateService = alternateServices.find((candidate) => candidate._id === service._id);
+          const alternateService = alternateServices.find((candidate) => candidate._id === servicePage._id);
           if (!alternateService?.slug?.current) return [];
           const alternatePath = servicePath(alternateLocale, alternateService.slug.current);
           return [[alternateLocale, absoluteUrl(localizedPath(alternateLocale, alternatePath))] as const];
         });
         const defaultService = servicesByLocale
           .find(({ locale: candidateLocale }) => candidateLocale === defaultLocale)
-          ?.services.find((candidate) => candidate._id === service._id);
+          ?.services.find((candidate) => candidate._id === servicePage._id);
         const defaultPath = defaultService?.slug?.current
           ? servicePath(defaultLocale, defaultService.slug.current)
           : path;
