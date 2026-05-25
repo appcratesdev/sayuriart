@@ -12,7 +12,6 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({ name: "sectionDescription", title: "Opis sekcji", type: "localizedText" }),
-    defineField({ name: "allFilterLabel", title: "Filtr: wszystko", type: "localizedString" }),
     defineField({ name: "openProjectLabel", title: "Overlay: zobacz projekt", type: "localizedString" }),
     defineField({ name: "seo", title: "SEO", type: "seoFields" }),
   ],

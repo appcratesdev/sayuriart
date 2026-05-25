@@ -8,7 +8,7 @@ import { Pricing } from "@/components/Pricing";
 import { Testimonials } from "@/components/Testimonials";
 import { Process } from "@/components/Process";
 import { FAQ } from "@/components/FAQ";
-import { Footer } from "@/components/Footer";
+import { SiteFooter } from "@/components/SiteFooter";
 import { assertLocale, getDictionary, locales } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import { portableTextToPlainText, sanityImageUrl } from "@/lib/sanity-mappers";
@@ -50,23 +50,7 @@ const categoryLabels = {
   },
 };
 
-const projectSpans = [
-  "col-span-1 md:col-span-2 md:row-span-2",
-  "col-span-1",
-  "col-span-1",
-  "col-span-1",
-  "col-span-1 md:col-span-2",
-  "col-span-1",
-];
 
-const projectAspects = [
-  "aspect-[4/5]",
-  "aspect-square",
-  "aspect-square",
-  "aspect-[3/4]",
-  "aspect-[16/10]",
-  "aspect-[3/4]",
-];
 
 const localizedField = (field: string, locale: string) => `${field}.${locale}`;
 
@@ -278,19 +262,15 @@ export default async function Home({ params }: Props) {
           content={{
             title: portfolioSection?.sectionTitle,
             description: portfolioSection?.sectionDescription,
-            allFilterLabel: portfolioSection?.allFilterLabel,
             openProjectLabel: portfolioSection?.openProjectLabel,
             titleEdit: createSanityEdit(portfolioSection, localizedField("sectionTitle", locale)),
             descriptionEdit: createSanityEdit(portfolioSection, localizedField("sectionDescription", locale)),
-            allFilterLabelEdit: createSanityEdit(portfolioSection, localizedField("allFilterLabel", locale)),
             openProjectLabelEdit: createSanityEdit(portfolioSection, localizedField("openProjectLabel", locale)),
-            works: projects.map((project, index) => ({
+            works: projects.map((project) => ({
               title: project.title,
               slug: project.slug.current,
               category: project.categoryLabel || categoryLabels[locale][project.category] || project.category,
-              img: sanityImageUrl(extractFirstImage(project.coverImage)),
-              aspect: projectAspects[index % projectAspects.length],
-              span: projectSpans[index % projectSpans.length],
+              coverImageBlock: project.coverImage, // Pass full block
               titleEdit: createSanityEdit(project, localizedField("title", locale)),
               categoryEdit: project.categoryLabel
                 ? createSanityEdit(project, localizedField("categoryLabel", locale))
@@ -391,80 +371,7 @@ export default async function Home({ params }: Props) {
           }))}
         />
       </main>
-      <Footer
-        locale={locale}
-        content={{
-          headingStart: footer?.headingStart,
-          headingAccent: footer?.headingAccent,
-          description: footer?.description,
-          emailLabel: footer?.emailLabel,
-          socialLabel: footer?.socialLabel,
-          nameLabel: footer?.nameLabel,
-          namePlaceholder: footer?.namePlaceholder,
-          emailInputLabel: footer?.emailInputLabel,
-          emailPlaceholder: footer?.emailPlaceholder,
-          typeLabel: footer?.typeLabel,
-          projectTypes: footer?.projectTypes,
-          messageLabel: footer?.messageLabel,
-          messagePlaceholder: footer?.messagePlaceholder,
-          attachmentLabel: footer?.attachmentLabel,
-          attachmentHelpText: footer?.attachmentHelpText,
-          submitLabel: footer?.submitLabel,
-          submittingLabel: footer?.submittingLabel,
-          successMessage: footer?.successMessage,
-          errorMessage: footer?.errorMessage,
-          nameRequiredError: footer?.nameRequiredError,
-          emailRequiredError: footer?.emailRequiredError,
-          emailInvalidError: footer?.emailInvalidError,
-          messageRequiredError: footer?.messageRequiredError,
-          messageTooLongError: footer?.messageTooLongError,
-          attachmentTypeError: footer?.attachmentTypeError,
-          attachmentSizeError: footer?.attachmentSizeError,
-          privacyLabel: footer?.privacyLabel,
-          termsLabel: footer?.termsLabel,
-          developerLabel: footer?.developerLabel,
-          rightsText: footer?.rightsText,
-          headingStartEdit: createSanityEdit(footer, localizedField("headingStart", locale)),
-          headingAccentEdit: createSanityEdit(footer, localizedField("headingAccent", locale)),
-          descriptionEdit: createSanityEdit(footer, localizedField("description", locale)),
-          emailLabelEdit: createSanityEdit(footer, localizedField("emailLabel", locale)),
-          socialLabelEdit: createSanityEdit(footer, localizedField("socialLabel", locale)),
-          nameLabelEdit: createSanityEdit(footer, localizedField("nameLabel", locale)),
-          namePlaceholderEdit: createSanityEdit(footer, localizedField("namePlaceholder", locale)),
-          emailInputLabelEdit: createSanityEdit(footer, localizedField("emailInputLabel", locale)),
-          emailPlaceholderEdit: createSanityEdit(footer, localizedField("emailPlaceholder", locale)),
-          typeLabelEdit: createSanityEdit(footer, localizedField("typeLabel", locale)),
-          projectTypesEdit: createSanityEdit(footer, "projectTypes"),
-          messageLabelEdit: createSanityEdit(footer, localizedField("messageLabel", locale)),
-          messagePlaceholderEdit: createSanityEdit(footer, localizedField("messagePlaceholder", locale)),
-          attachmentLabelEdit: createSanityEdit(footer, localizedField("attachmentLabel", locale)),
-          attachmentHelpTextEdit: createSanityEdit(footer, localizedField("attachmentHelpText", locale)),
-          submitLabelEdit: createSanityEdit(footer, localizedField("submitLabel", locale)),
-          submittingLabelEdit: createSanityEdit(footer, localizedField("submittingLabel", locale)),
-          successMessageEdit: createSanityEdit(footer, localizedField("successMessage", locale)),
-          errorMessageEdit: createSanityEdit(footer, localizedField("errorMessage", locale)),
-          nameRequiredErrorEdit: createSanityEdit(footer, localizedField("nameRequiredError", locale)),
-          emailRequiredErrorEdit: createSanityEdit(footer, localizedField("emailRequiredError", locale)),
-          emailInvalidErrorEdit: createSanityEdit(footer, localizedField("emailInvalidError", locale)),
-          messageRequiredErrorEdit: createSanityEdit(footer, localizedField("messageRequiredError", locale)),
-          messageTooLongErrorEdit: createSanityEdit(footer, localizedField("messageTooLongError", locale)),
-          attachmentTypeErrorEdit: createSanityEdit(footer, localizedField("attachmentTypeError", locale)),
-          attachmentSizeErrorEdit: createSanityEdit(footer, localizedField("attachmentSizeError", locale)),
-          privacyLabelEdit: createSanityEdit(footer, localizedField("privacyLabel", locale)),
-          termsLabelEdit: createSanityEdit(footer, localizedField("termsLabel", locale)),
-          developerLabelEdit: createSanityEdit(footer, localizedField("developerLabel", locale)),
-          rightsTextEdit: createSanityEdit(footer, localizedField("rightsText", locale)),
-        }}
-        settings={{
-          title: siteSettings?.title,
-          titleEdit: createSanityEdit(siteSettings, localizedField("title", locale)),
-          email: siteSettings?.email,
-          emailEdit: createSanityEdit(siteSettings, "email"),
-          instagram: siteSettings?.socialLinks?.instagram,
-          facebook: siteSettings?.socialLinks?.facebook,
-          linkedin: siteSettings?.socialLinks?.linkedin,
-        }}
-      />
+      <SiteFooter locale={locale} />
     </div>
   );
 }

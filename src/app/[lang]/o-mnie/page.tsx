@@ -1,5 +1,5 @@
 import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { SiteFooter } from "@/components/SiteFooter";
 import InkFluidWrapper from "@/components/FluidCanvas/InkFluidWrapper";
 import Link from "next/link";
 import Image from "next/image";
@@ -138,7 +138,7 @@ export default async function AboutPage({ params }: Props) {
         </section>
 
         <div className="pointer-events-auto mix-blend-normal">
-          <Footer settings={siteSettings || undefined} locale={locale} />
+          <SiteFooter locale={locale} />
         </div>
       </div>
     </main>

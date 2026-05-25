@@ -52,7 +52,6 @@ import type {
 } from './types'
 
 import { defaultLocale, type Locale } from '@/lib/i18n'
-import { isSanityPreviewRequest } from './preview'
 
 const isSanityConfigured = Boolean(projectId && dataset)
 
@@ -66,24 +65,17 @@ async function safeFetch<T>(
     return fallback
   }
 
-  let isPreview = false
-  try {
-    isPreview = await isSanityPreviewRequest()
-  } catch {
-    // Ignore errors when preview checks run outside of request context
-  }
-
   try {
     const { data } = await sanityFetch({
       query,
       params,
-      perspective: isPreview ? undefined : 'published',
-      stega: isPreview ? undefined : false,
-      tags: ['sanity'],
     })
 
     return data as T
-  } catch (error) {
+  } catch (error: any) {
+    if (error?.digest === 'DYNAMIC_SERVER_USAGE') {
+      throw error // Let Next.js handle dynamic opt-out
+    }
     console.error(`${label} failed:`, error)
     return fallback
   }

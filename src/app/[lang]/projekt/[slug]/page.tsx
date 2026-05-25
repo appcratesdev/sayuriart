@@ -1,5 +1,5 @@
 import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { SiteFooter } from "@/components/SiteFooter";
 import { ProjectPageContent } from "@/components/ProjectPageContent";
 import Link from "next/link";
 import { assertLocale, getDictionary, locales, localizedHref } from "@/lib/i18n";
@@ -29,13 +29,13 @@ const categoryLabels = {
 
 const localizedField = (field: string, locale: string) => `${field}.${locale}`;
 
+import { client } from "../../../../../sanity/lib/client";
+
 export async function generateStaticParams() {
   const params = await Promise.all(
     locales.map(async (lang) => {
-      const projects = await getProjects(lang);
-      return projects
-        .filter((project) => project.slug?.current)
-        .map((project) => ({ lang, slug: project.slug.current }));
+      const projects = await client.fetch(`*[_type == "project" && defined(slug.current)] { "slug": slug.current }`);
+      return projects.map((project: any) => ({ lang, slug: project.slug }));
     })
   );
 
@@ -130,7 +130,7 @@ export default async function ProjectPage({ params }: Props) {
       <main className="flex-1">
         <ProjectPageContent project={mappedProject} locale={locale} />
       </main>
-      <Footer settings={siteSettings || undefined} locale={locale} />
+      <SiteFooter locale={locale} />
     </div>
   );
 }

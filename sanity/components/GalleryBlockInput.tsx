@@ -73,7 +73,11 @@ const ratioPresets = [
   { label: "4:3", value: "4 / 3" },
   { label: "3:4", value: "3 / 4" },
   { label: "16:9", value: "16 / 9" },
+  { label: "9:16", value: "9 / 16" },
   { label: "4:5", value: "4 / 5" },
+  { label: "5:4", value: "5 / 4" },
+  { label: "3:2", value: "3 / 2" },
+  { label: "2:3", value: "2 / 3" },
 ];
 
 function getItemImage(item?: GalleryImageValue) {
@@ -91,16 +95,45 @@ function getImageUrl(item?: GalleryImageValue) {
   );
 }
 
+function getAutoRatioFromRef(value?: GalleryImageValue): string | null {
+  const image = getItemImage(value);
+  const ref = image?.asset?._ref || image?.asset?._id;
+  if (ref) {
+    const match = ref.match(/-(\d+)x(\d+)-/);
+    if (match) {
+      return `${match[1]} / ${match[2]}`;
+    }
+  }
+  return null;
+}
+
 function getRatio(value?: GalleryImageValue, block?: GalleryBlockValue) {
-  const ratio =
-    value?.aspectRatio === "custom"
-      ? value.customAspectRatio
-      : value?.aspectRatio && value.aspectRatio !== "auto"
-        ? value.aspectRatio
-        : block?.aspectRatio === "custom"
-          ? block.customAspectRatio
-          : block?.aspectRatio;
-  return ratio && ratio !== "auto" ? ratio : "4 / 3";
+  const imgRatio = value?.aspectRatio;
+
+  // Image-level explicit non-auto ratio
+  if (imgRatio && imgRatio !== "auto") {
+    if (imgRatio === "custom") {
+      return value!.customAspectRatio?.trim() || "4 / 3";
+    }
+    return imgRatio;
+  }
+
+  // Image explicitly "auto" → skip block, use real dims
+  if (imgRatio === "auto") {
+    return getAutoRatioFromRef(value) || "4 / 3";
+  }
+
+  // Image unset → fall through to block level
+  const blkRatio = block?.aspectRatio;
+  if (blkRatio && blkRatio !== "auto") {
+    if (blkRatio === "custom") {
+      return block!.customAspectRatio?.trim() || "4 / 3";
+    }
+    return blkRatio;
+  }
+
+  // Block also auto or unset → try real dims
+  return getAutoRatioFromRef(value) || "4 / 3";
 }
 
 function ensureGalleryImage(item?: GalleryImageValue): GalleryImageValue {
@@ -333,12 +366,42 @@ export default function GalleryBlockInput(props: ObjectInputProps) {
             <div style={controlsStyle}>
               <div style={controlGroupStyle}>
                 <Text size={1} weight="semibold">
-                  Aspect ratio slotu
+                  Aspect ratio bloku
                 </Text>
                 <div style={segmentedStyle}>
                   {ratioPresets.map((preset) => (
                     <button
-                      key={preset.value}
+                      key={`block-${preset.value}`}
+                      type="button"
+                      onClick={() => patchValue({ ...value, aspectRatio: preset.value })}
+                      style={{
+                        ...segmentButtonStyle,
+                        background:
+                          value.aspectRatio === preset.value ||
+                          (!value.aspectRatio && preset.value === "auto")
+                            ? "#111"
+                            : "#fff",
+                        color:
+                          value.aspectRatio === preset.value ||
+                          (!value.aspectRatio && preset.value === "auto")
+                            ? "#fff"
+                            : "#111",
+                      }}
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div style={controlGroupStyle}>
+                <Text size={1} weight="semibold">
+                  Aspect ratio slotu (nadpisuje blok)
+                </Text>
+                <div style={segmentedStyle}>
+                  {ratioPresets.map((preset) => (
+                    <button
+                      key={`slot-${preset.value}`}
                       type="button"
                       onClick={() => updateSelectedSlot({ aspectRatio: preset.value })}
                       style={{

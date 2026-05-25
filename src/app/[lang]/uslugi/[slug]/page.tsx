@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { SiteFooter } from "@/components/SiteFooter";
 import { ServicePageContent, type ServicePageData } from "@/components/ServicePageContent";
 import { assertLocale, getDictionary, locales, localizedHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
@@ -242,7 +242,7 @@ export default async function ServicePage({ params }: Props) {
       <main className="flex-1">
         <ServicePageContent service={mapServicePage(servicePage, locale, projects, services)} locale={locale} />
       </main>
-      <Footer settings={siteSettings || undefined} locale={locale} />
+      <SiteFooter locale={locale} />
     </div>
   );
 }
