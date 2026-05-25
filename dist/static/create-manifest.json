@@ -1,5 +1,5 @@
 {
-  "createdAt": "2026-05-23T20:19:34.655Z",
+  "createdAt": "2026-05-25T19:26:14.328Z",
   "studioVersion": "5.26.0",
   "version": 3,
   "workspaces": [
@@ -13,7 +13,7 @@
       },
       "name": "default",
       "projectId": "9u4sqgld",
-      "schema": "90573ebb.create-schema.json",
+      "schema": "e4ca0d19.create-schema.json",
       "title": "Sayuri Portfolio",
       "tools": "61280547.create-tools.json"
     }

@@ -1721,11 +1721,6 @@
         "title": "Opis sekcji"
       },
       {
-        "name": "allFilterLabel",
-        "type": "localizedString",
-        "title": "Filtr: wszystko"
-      },
-      {
         "name": "openProjectLabel",
         "type": "localizedString",
         "title": "Overlay: zobacz projekt"
