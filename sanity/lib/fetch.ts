@@ -1,4 +1,4 @@
-import { dataset, projectId, client } from './client'
+import { dataset, projectId } from './client'
 import { sanityFetch } from './live'
 import {
   siteSettingsQuery,
@@ -74,14 +74,7 @@ async function safeFetch<T>(
     return data as T
   } catch (error: any) {
     if (error?.digest === 'DYNAMIC_SERVER_USAGE') {
-      console.warn(`${label} hit DYNAMIC_SERVER_USAGE, falling back to static client.fetch`)
-      try {
-        const data = await client.fetch(query, params)
-        return data as T
-      } catch (fallbackError) {
-        console.error(`${label} static fallback failed:`, fallbackError)
-        return fallback
-      }
+      throw error // Let Next.js handle dynamic opt-out
     }
     console.error(`${label} failed:`, error)
     return fallback

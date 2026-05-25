@@ -39,18 +39,7 @@ const categoryLabels = {
 
 const extractFirstImage = (block: GalleryBlock | undefined) => block?.images?.[0]?.image;
 
-export async function generateStaticParams() {
-  const params = await Promise.all(
-    locales.map(async (lang) => {
-      const servicePages = await getServicePages(lang);
-      return servicePages
-        .filter((service) => service.slug?.current)
-        .map((service) => ({ lang, slug: service.slug!.current }));
-    })
-  );
 
-  return params.flat();
-}
 
 export async function generateMetadata({ params }: Props) {
   const { lang, slug } = await params;

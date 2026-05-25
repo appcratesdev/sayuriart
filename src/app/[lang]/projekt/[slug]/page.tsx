@@ -29,18 +29,7 @@ const categoryLabels = {
 
 const localizedField = (field: string, locale: string) => `${field}.${locale}`;
 
-import { client } from "../../../../../sanity/lib/client";
 
-export async function generateStaticParams() {
-  const params = await Promise.all(
-    locales.map(async (lang) => {
-      const projects = await client.fetch(`*[_type == "project" && defined(slug.current)] { "slug": slug.current }`);
-      return projects.map((project: any) => ({ lang, slug: project.slug }));
-    })
-  );
-
-  return params.flat();
-}
 
 export async function generateMetadata({ params }: Props) {
   const { lang, slug } = await params;
